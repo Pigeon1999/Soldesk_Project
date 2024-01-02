@@ -8,6 +8,6 @@
 2023-12-28 ~ 2024-01-26 (30일)
 
 # 기술 스택 
--JDK 8
--Spring 3
--Oracle 11c
+-JDK 8  
+-Spring 3  
+-Oracle 11c 
