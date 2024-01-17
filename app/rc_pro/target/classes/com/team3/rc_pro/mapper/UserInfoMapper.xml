@@ -11,45 +11,58 @@
 	</resultMap>
 
 	<resultMap id="userinfoMap" type="com.team3.rc_pro.domain.UserInfoVO">
-		<result property="user_num" column="USER_NUM" />
-		<result property="user_name" column="USER_NAME" />
-		<result property="user_birth" column="USER_BIRTH" />
-		<result property="user_pn" column="USER_PN" />
-		<result property="user_address" column="USER_ADDRESS" />
-		<result property="user_email" column="USER_EMAIL" />
-		<result property="user_id" column="USER_ID" />
-		<result property="user_passwd" column="USER_PASSWD"/>
-		<result property="user_regdate" column="USER_REGDATE" />
+		<result property="user_num" column="user_num" />
+		<result property="user_name" column="user_name" />
+		<result property="user_birth" column="user_birth" />
+		<result property="user_pn" column="user_pn"/>
+		<result property="user_address" column="user_address"/>
+		<result property="user_email" column="user_email"/>
+		<result property="user_id" column="user_id"/>
+		<result property="user_passwd" column="user_passwd"/>
+		<result property="user_regdate" column="user_regDate"/>
 		
 		<collection property="authorityList" resultMap="authorityinfoMap"/>
 	</resultMap>
 
-<!-- 게시물 조회 - 목록 -->
-	<!-- 게시물 조회 - 목록 -->
-	<select id="selectUserInfo" resultMap="userinfoMap">
-		SELECT u.*, a.user_authority
-		FROM user_info u, authority_info a
-		WHERE u.user_num = a.user_num
-		AND u.user_id = #{user_id}
+
+	<!-- 회원등록  -->
+	<insert id="insertUserInfo" parameterType="com.team3.rc_pro.domain.UserInfoVO">
+		<selectKey order="BEFORE" keyProperty="user_num" resultType="int">
+			SELECT rc_pro.seq_userno.nextval FROM dual
+		</selectKey>
+		INSERT INTO rc_pro.user_info
+		VALUES (#{user_num},#{user_name},#{user_birth},#{user_pn},
+        		#{user_address},#{user_email},#{user_id},#{user_passwd},
+        		DEFAULT)
+	</insert>
+	
+	<!-- 회원 권한 추가 -->
+	<insert id="insertAuthorityInfo">
+		INSERT INTO rc_pro.authority_info
+		VALUES (#{user_id},'ROLE_MEMBER')
+	</insert>
+	
+	<!-- 아이디 중복체크 -->
+	<select id="iddupcheck" resultType="Long">
+		SELECT COUNT(*)
+		FROM rc_pro.user_info
+		WHERE user_id=#{user_id}
 	</select>
 	
-	<insert id="insertUserInfo">
-		INSERT INTO user_info
-		VALUES(#{user_num}, #{user_name}, #{user_birth}, #{user_pn}, 
-		       #{user_address}, #{user_email},
-		       #{user_id}, #{user_passwd}, DEFAULT)
-	</insert>
-	
-	<insert id="insertAuthorityInfo">
-		INSERT INTO authority_info
-		VALUES(#{user_num}, #{user_authority})
-	</insert>
+	<!-- 회원 조회(아이디로) -->
+	<select id="viewuserinfo" resultMap="userinfoMap">
+		<![CDATA[
+		SELECT us.user_num,us.user_name,us.user_birth,us.user_pn
+	    	  ,us.user_address,us.user_email,us.user_id,us.user_passwd
+	    	  ,us.user_regdate,auth.user_authority
+		FROM rc_pro.user_info us INNER JOIN rc_pro.authority_info auth ON us.user_id = auth.user_id
+		WHERE us.user_id = #{user_id}
+		]]>
+	</select>
 
 	<select id="selectUserInfoAddress" resultMap="userinfoMap">
 		SELECT user_address
-		FROM user_info
-		WHERE user_id = #{user_id}
+		FROM rc_pro.user_info
+		WHERE user_id=#{user_id}
 	</select>
-	
-
 </mapper>

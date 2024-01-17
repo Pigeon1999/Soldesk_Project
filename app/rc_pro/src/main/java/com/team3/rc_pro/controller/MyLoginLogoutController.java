@@ -20,25 +20,21 @@ public class MyLoginLogoutController {
 	 public String loginPageGET(String error, String logout, Model model) { 
 	 if (error != null) {
 	 log.info("로그인 오류 시 error.hashCode(): " + error.hashCode());
-	 model.addAttribute("error", "로그인 오류. 계정이나 암호를 확인하세요");
+	 model.addAttribute("error", "아이디혹은 비밀번호를 확인하세요.");
 	 
-	 return "common/myLogin"; 
+	 return "common/login"; 
 	 
 	 } else if (logout != null) {
 	 log.info("로그인 오류 시 error.hashCode(): " + logout.hashCode());
-	 model.addAttribute("logout", " 정상적으로 로그아웃 됨");
-	 return "common/myLogin";
+	 model.addAttribute("logout", "로그아웃 되었습니다.");
+	 return "common/login";
 	 }
 	 //정상적인 로그인 페이지 호출
 	 model.addAttribute("normal", "정상적인 로그인 페이지 호출 처리..");
 	 log.info("정상적인 로그인 페이지 호출");
-	 return "common/myLogin";
-	 }
-
-	 @PostMapping("/signin")
-	 public String Signin() {
-		 return performLogout();
-	 }
+	 
+	 return "common/login";
+}	 
 	 
 	 @PostMapping("/Gwancheol")
 	 public String logoutGwancheol() {

@@ -1,18 +1,23 @@
 package com.team3.rc_pro.mapper;
 
-import java.util.List;
-
-import com.team3.rc_pro.domain.AuthorityInfoVO;
 import com.team3.rc_pro.domain.UserInfoVO;
 
 public interface UserInfoMapper {
 	
-	public UserInfoVO selectUserInfo(String user_name);
+	//회원 조회
+	public UserInfoVO viewuserinfo(String user_id);
 	
+	//회원 등록	
 	public void insertUserInfo(UserInfoVO userinfo);
 	
-	public void insertAuthorityInfo(AuthorityInfoVO authorityinfo);
-
-	public UserInfoVO selectUserInfoAddress(String user_name);
+	//회원 권한 추가
+	public void insertAuthorityInfo(String user_id);
+	
+	//아이디 중복체크기능
+	public Long iddupcheck(String user_id);
+	
+	//주소 조회
+	public UserInfoVO selectUserInfoAddress(String user_id);
+	
 }
 

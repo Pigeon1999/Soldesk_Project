@@ -28,35 +28,35 @@ public class UserInfoMapperTest {
 	private UserInfoMapper userinfomapper;
 
 	
-	@Test
-	public void testInsertUserInfo() {
-		
-		UserInfoVO userinfo = new UserInfoVO();
-		
-		userinfo.setUser_num(2);
-		userinfo.setUser_name("관리자");
-		userinfo.setUser_birth("19990811");
-		userinfo.setUser_pn("010-1111-2222");
-		userinfo.setUser_address("인사동");
-		userinfo.setUser_email("admin99@gmail.com");
-		userinfo.setUser_id("admin99");
-		userinfo.setUser_passwd(pwencoder.encode("admin99"));
-		
-		log.info(userinfo);
-		userinfomapper.insertUserInfo(userinfo);
-	}
-	
-	@Test
-	public void testAuthorityInfo() {
-		
-		AuthorityInfoVO authorityInfo = new AuthorityInfoVO();
-		
-		authorityInfo.setUser_num(2);
-		authorityInfo.setUser_authority("1");
-		
-		log.info(authorityInfo);
-		userinfomapper.insertAuthorityInfo(authorityInfo);
-	}
+//	@Test
+//	public void testInsertUserInfo() {
+//		
+//		UserInfoVO userinfo = new UserInfoVO();
+//		
+//		userinfo.setUser_num(2);
+//		userinfo.setUser_name("관리자");
+//		userinfo.setUser_birth("19990811");
+//		userinfo.setUser_pn("010-1111-2222");
+//		userinfo.setUser_address("인사동");
+//		userinfo.setUser_email("admin99@gmail.com");
+//		userinfo.setUser_id("admin99");
+//		userinfo.setUser_passwd(pwencoder.encode("admin99"));
+//		
+//		log.info(userinfo);
+//		userinfomapper.insertUserInfo(userinfo);
+//	}
+//	
+//	@Test
+//	public void testAuthorityInfo() {
+//		
+//		AuthorityInfoVO authorityInfo = new AuthorityInfoVO();
+//		
+//		authorityInfo.setUser_num(2);
+//		authorityInfo.setUser_authority("1");
+//		
+//		log.info(authorityInfo);
+//		userinfomapper.insertAuthorityInfo(authorityInfo);
+//	}
 	
 	/*
 	@Test

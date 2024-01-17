@@ -87,7 +87,6 @@
 			        	<a onclick="document.getElementById('logoutForm').submit(); return false;" class="btn-getstarted scrollto">Logout</a>
 			        </fieldset>
 			    </form>
-			    <a class="btn-getstarted scrollto" href="/MyPage">MyPage</a>
 			</sec:authorize>
 			
 			<sec:authorize access="isAnonymous()">
@@ -237,14 +236,6 @@
 	  	#news_post {
 	  		padding:2px;
 	  	}
-	  	
-		#logoutForm {
-		    display: inline-block;
-		}
-		
-		.btn-getstarted {
-		    display: inline-block;
-		}
 	  	
 	  </style>
   <!-- ======= Footer ======= -->
