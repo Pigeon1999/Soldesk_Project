@@ -9,10 +9,10 @@ public interface UserInfoMapper {
 	
 	public UserInfoVO selectUserInfo(String user_name);
 	
-	public int insertUserInfo(UserInfoVO userinfo);
+	public void insertUserInfo(UserInfoVO userinfo);
 	
-	public int insertAuthorityInfo(AuthorityInfoVO authorityinfo);
+	public void insertAuthorityInfo(AuthorityInfoVO authorityinfo);
 
-	public UserInfoVO selectUserInfoAddress(String user_name);
+	public String selectUserInfoAddress(String user_name);
 }
 
