@@ -74,7 +74,7 @@ public class HomeController {
 		}
 	    else {
 	    	log.info("사용자가 로그인되어 있지 않습니다.");
-	    	return "redirect:Gwancheol";
+	    	return "redirect:main";
 	    }
 			  
 		Date date = new Date();

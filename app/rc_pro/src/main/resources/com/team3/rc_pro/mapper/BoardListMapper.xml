@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team3.rc_pro.mapper.BoardListMapper">
+
+	<!-- 게시물 조회 --><!-- 
+	<select id="selectBoardList" resultType="com.team3.rc_pro.domain.BoardVO" >
+		SELECT post_id, category_id, region_id, user_num, post_title, post_content, post_date, post_view, post_like, post_reply, post_hide, post_file
+		FROM rc_pro.post_info
+		WHERE category_id = #{category_id} AND region_id = #{region_id}
+		ORDER BY post_id DESC
+	</select> -->
+	
+	<!-- 게시물 조회 --><!-- 
+	<select id="selectBoardList" resultType="com.team3.rc_pro.domain.BoardVO" >
+		SELECT post_id, category_id, region_id, user_num, post_title, post_content, post_date, post_view, post_like, post_reply, post_hide, post_file
+		FROM rc_pro.post_info
+		ORDER BY post_id DESC
+	</select> -->
+	
+	<!-- 게시물 페이징 1 -->
+	<!-- 게시물 목록조회 : 페이징 --><!-- 
+	<select id="selectBoardList" resultType="com.team3.rc_pro.domain.BoardVO"
+			parameterType="com.team3.rc_pro.common.paging.domain.BoardPagingDTO" >
+		<![CDATA[
+			SELECT post_id, category_id, region_id, user_num, post_title, post_content, post_date, post_view, post_like, post_reply, post_hide, post_file
+			FROM ( SELECT /*+ INDEX_DESC (p PK_CATEGORY_INFO) */ ROWNUM rn, p.* 
+			       FROM rc_pro.post_info p
+			       WHERE ROWNUM <= (#{pageNum} * #{rowAmountPerPage}) AND category_id = #{category_id} AND region_id = #{region_id}
+			      )
+			WHERE rn >= ((#{pageNum} * #{rowAmountPerPage}) - (#{rowAmountPerPage} - 1)) 
+		]]>	
+	</select> -->
+	
+	<!-- 게시물 총 개수 조회(페이징): 삭제 요청된 행 포함 --><!-- 
+	<select id="selectRowTotal" resultType="long"
+			parameterType="com.team3.rc_pro.common.paging.domain.BoardPagingDTO">
+		SELECT COUNT(*) rowTotal FROM rc_pro.post_info 
+		WHERE category_id = #{category_id} AND region_id = #{region_id}
+	</select> -->
+	
+	
+	<!-- 검색 페이징1 -->
+	<!-- 게시물 목록조회 : 페이징 --><!-- 
+	<select id="selectBoardList" resultType="com.team3.rc_pro.domain.BoardVO"
+			parameterType="com.team3.rc_pro.common.paging.domain.BoardPagingDTO" >
+		<![CDATA[
+			SELECT post_id, category_id, region_id, user_num, post_title, post_content, post_date, post_view, post_like, post_reply, post_hide, post_file
+			FROM ( SELECT /*+ INDEX_DESC (p PK_CATEGORY_INFO) */ ROWNUM rn, p.* 
+			       FROM rc_pro.post_info p
+		]]>
+				<where>
+				<![CDATA[
+					ROWNUM <= (#{pageNum} * #{rowAmountPerPage}) AND category_id = #{category_id} AND region_id = #{region_id}	  
+				]]>	
+				<if test="(scope != null or scope != '') and (keyword != null or keyword != '')">
+					<choose>
+						<when test="scope == 'T'.toString()" >
+				       		AND (post_title LIKE '%'||#{keyword}||'%')
+				       	</when>
+				       	<when test="scope == 'C'.toString()" >
+				       		AND (post_content LIKE '%'||#{keyword}||'%')
+				       	</when>
+				       	<when test="scope == 'W'.toString()" >
+				       		AND (user_num LIKE '%'||#{keyword}||'%')
+				       	</when>
+				       	<when test="scope == 'TC'.toString()" >
+				       		AND (post_title LIKE '%'||#{keyword}||'%' OR post_content LIKE '%'||#{keyword}||'%')
+				       	</when>
+				       	<when test="scope == 'TCW'.toString()" >
+				       		AND (post_title LIKE '%'||#{keyword}||'%' OR post_content LIKE '%'||#{keyword}||'%' OR user_num LIKE '%'||#{keyword}||'%')
+				       	</when>
+					</choose>
+				</if>
+				</where>
+		<![CDATA[
+			    )
+			WHERE rn >= ((#{pageNum} * #{rowAmountPerPage}) - (#{rowAmountPerPage} - 1)) 
+		]]>	
+	</select> -->
+	
+	<!-- 게시물 총 개수 조회(페이징): 삭제 요청된 행 포함 --><!-- 
+	<select id="selectRowTotal" resultType="long"
+			parameterType="com.team3.rc_pro.common.paging.domain.BoardPagingDTO">
+		SELECT COUNT(*) rowTotal FROM rc_pro.post_info 
+		
+		<where>
+		<![CDATA[
+		category_id = #{category_id} AND region_id = #{region_id}
+		]]>
+			<if test="(scope != null or scope != '') and (keyword != null or keyword != '')">
+			<choose>
+				<when test="scope == 'T'.toString()" >
+		       		AND (post_title LIKE '%'||#{keyword}||'%')
+		       	</when>
+		       	<when test="scope == 'C'.toString()" >
+		       		AND (post_content LIKE '%'||#{keyword}||'%')
+		       	</when>
+		       	<when test="scope == 'W'.toString()" >
+		       		AND (user_num LIKE '%'||#{keyword}||'%')
+		       	</when>
+		       	<when test="scope == 'TC'.toString()" >
+		       		AND (post_title LIKE '%'||#{keyword}||'%' OR post_content LIKE '%'||#{keyword}||'%')
+		       	</when>
+		       	<when test="scope == 'TCW'.toString()" >
+		       		AND (post_title LIKE '%'||#{keyword}||'%' OR post_content LIKE '%'||#{keyword}||'%' OR user_num LIKE '%'||#{keyword}||'%')
+		       	</when>
+			</choose>
+			</if>
+		</where>
+	</select> -->
+
+	<!-- 검색 페이징2 -->
+	<!-- 게시물 목록조회 : 페이징 --><!-- 
+	<select id="selectBoardList" resultType="com.team3.rc_pro.domain.BoardVO"
+			parameterType="com.team3.rc_pro.common.paging.domain.BoardPagingDTO" >
+		<![CDATA[
+			SELECT post_id, category_id, region_id, user_num, post_title, post_content, post_date, post_view, post_like, post_reply, post_hide, post_file
+			FROM ( SELECT /*+ INDEX_DESC (p PK_CATEGORY_INFO) */ ROWNUM rn, p.* 
+			       FROM rc_pro.post_info p
+			       WHERE ROWNUM <= (#{pageNum} * #{rowAmountPerPage}) AND category_id = #{category_id} AND region_id = #{region_id}
+		]]>
+
+		<trim prefix="AND (" suffix=") " prefixOverrides="OR">
+		   <foreach item='scope' collection="scopeArray">
+		      <trim prefix="OR">
+		         <choose>
+		            <when test="scope == 'T'.toString()">post_title LIKE '%'||#{keyword}||'%'</when>
+		            <when test="scope == 'C'.toString()">post_content LIKE '%'||#{keyword}||'%'</when>
+		            <when test="scope == 'W'.toString()">user_num LIKE '%'||#{keyword}||'%'</when>
+		         </choose>
+		      </trim> 
+		   </foreach>
+		</trim>    
+
+		<![CDATA[
+			    )
+			WHERE rn >= ((#{pageNum} * #{rowAmountPerPage}) - (#{rowAmountPerPage} - 1)) 
+		]]>	
+	</select> -->
+	
+	<!-- 게시물 총 개수 조회(페이징): 삭제 요청된 행 포함 --><!-- 
+	<select id="selectRowTotal" resultType="long"
+			parameterType="com.team3.rc_pro.common.paging.domain.BoardPagingDTO">
+		SELECT COUNT(*) rowTotal FROM rc_pro.post_info 
+		<where>
+		<![CDATA[
+			category_id = #{category_id} AND region_id = #{region_id}
+		]]>
+			<trim prefix="AND (" suffix=")" prefixOverrides="OR">
+	            <foreach item='scope' collection="scopeArray">
+	               <trim prefix="OR">
+	                  <choose>
+	                     <when test="scope == 'T'.toString()">post_title LIKE '%'||#{keyword}||'%'</when>
+	                     <when test="scope == 'C'.toString()">post_content LIKE '%'||#{keyword}||'%'</when>
+	                     <when test="scope == 'W'.toString()">user_num LIKE '%'||#{keyword}||'%'</when>
+	                  </choose>
+	               </trim> 
+	            </foreach>
+	         </trim>    
+		</where>
+	</select> -->
+	
+	<!-- 검색 페이징2 -->
+	<!-- 게시물 목록조회 : 페이징 고려, 기간검색 포함 -->
+	<select id="selectBoardList" resultType="com.team3.rc_pro.domain.BoardVO"
+			parameterType="com.team3.rc_pro.common.paging.domain.BoardPagingDTO" >
+		<![CDATA[
+			SELECT post_id, category_id, region_id, user_num, post_title, post_content, post_date, post_view, post_like, post_reply, post_hide, post_file
+			FROM ( SELECT /*+ INDEX_DESC (p PK_CATEGORY_INFO) */ ROWNUM rn, p.* 
+			       FROM post_info p
+			       WHERE ROWNUM <= (#{pageNum} * #{rowAmountPerPage}) AND category_id = #{category_id} AND region_id = #{region_id} 
+		]]>
+
+		<if test="(beginDate != null and beginDate != '') and (endDate != null and endDate != '')">
+			AND post_date BETWEEN TO_DATE(#{beginDate}, 'YYYY-MM-DD')
+			AND TO_DATE(#{endDate}, 'YYYY-MM-DD') + 0.99999 
+    	</if>
+		<trim prefix="AND (" suffix=") " prefixOverrides="OR">
+		   <foreach item='scope' collection="scopeArray">
+		      <trim prefix="OR">
+		         <choose>
+		            <when test="scope == 'T'.toString()">post_title LIKE '%'||#{keyword}||'%'</when>
+		            <when test="scope == 'C'.toString()">post_content LIKE '%'||#{keyword}||'%'</when>
+		            <when test="scope == 'W'.toString()">user_num LIKE '%'||#{keyword}||'%'</when>
+		         </choose>
+		      </trim> 
+		   </foreach>
+		</trim>    
+
+		<![CDATA[
+			    )
+			WHERE rn >= ((#{pageNum} * #{rowAmountPerPage}) - (#{rowAmountPerPage} - 1)) 
+		]]>	
+	</select>
+	
+	<!-- 게시물 총 개수 조회(페이징): 삭제 요청된 행 포함 -->
+	<select id="selectRowTotal" resultType="long"
+			parameterType="com.team3.rc_pro.common.paging.domain.BoardPagingDTO">
+		SELECT COUNT(*) rowTotal FROM post_info 
+		<where>
+		<![CDATA[
+			category_id = #{category_id} AND region_id = #{region_id}
+		]]>
+			<trim prefix="AND (" suffix=")" prefixOverrides="OR">
+	            <foreach item='scope' collection="scopeArray">
+	               <trim prefix="OR">
+	                  <choose>
+	                     <when test="scope == 'T'.toString()">post_title LIKE '%'||#{keyword}||'%'</when>
+	                     <when test="scope == 'C'.toString()">post_content LIKE '%'||#{keyword}||'%'</when>
+	                     <when test="scope == 'W'.toString()">user_num LIKE '%'||#{keyword}||'%'</when>
+	                  </choose>
+	               </trim> 
+	            </foreach>
+	         </trim>
+	        <if test="(beginDate != null and beginDate != '') and (endDate != null and endDate != '')">
+				AND post_date BETWEEN TO_DATE(#{beginDate}, 'YYYY-MM-DD')
+				AND TO_DATE(#{endDate}, 'YYYY-MM-DD') + 0.99999 
+			</if>    
+		</where>
+	</select>
+	
+	<!-- 회원번호에 따른 작성자 이름 조회 --><!-- 
+	<select id="selectUserId" resultType="String">
+		SELECT user_id
+		FROM user_info 
+		WHERE user_num = #{user_num}
+	</select> -->
+
+	<!-- 접속 테스트용 --><!-- 
+ 	<select id="selectSysdate" resultType="java.util.Date">
+ 		select sysdate from dual
+ 	</select> -->
+</mapper>
