@@ -45,7 +45,7 @@
 		VALUES(#{user_num}, #{user_authority})
 	</insert>
 
-	<select id="selectUserInfoAddress">
+	<select id="selectUserInfoAddress" resultMap="userinfoMap">
 		SELECT user_address
 		FROM user_info
 		WHERE user_id = #{user_id}

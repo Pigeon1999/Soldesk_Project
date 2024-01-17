@@ -45,31 +45,31 @@ public class HomeController {
 	            !(authentication instanceof AnonymousAuthenticationToken)) {
 		    String username = authentication.getName();
 		   
-		    String userAddress = userinfoMapper.selectUserInfoAddress(username);
-		    log.info(userAddress);
+		    UserInfoVO userAddress = userinfoMapper.selectUserInfoAddress(username);
+		    log.info(userAddress.getUser_address());
 		    
-		    if (userAddress.equals("관철동")) {
+		    if (userAddress.getUser_address().equals("관철동")) {
 		    	return "redirect:Gwancheol";
 		    }
-		    else if (userAddress.equals("청진동")) {
+		    else if (userAddress.getUser_address().equals("청진동")) {
 		    	return "redirect:Cheongjin";
 		    }
-		    else if (userAddress.equals("공평동")) {
+		    else if (userAddress.getUser_address().equals("공평동")) {
 		    	return "redirect:Gongpyeong";
 		    }
-		    else if (userAddress.equals("관수동")) {
+		    else if (userAddress.getUser_address().equals("관수동")) {
 		    	return "redirect:Gwansu";
 		    }
-		    else if (userAddress.equals("인사동")) {
+		    else if (userAddress.getUser_address().equals("인사동")) {
 		    	return "redirect:Insa";
 		    }
-		    else if (userAddress.equals("종로2가")) {
+		    else if (userAddress.getUser_address().equals("종로2가")) {
 		    	return "redirect:Jongno2ga";
 		    }
-		    else if (userAddress.equals("삼각동")) {
+		    else if (userAddress.getUser_address().equals("삼각동")) {
 		    	return "redirect:Samgak";
 		    }
-		    else if (userAddress.equals("서린동")) {
+		    else if (userAddress.getUser_address().equals("서린동")) {
 		    	return "redirect:Seorin";
 		    }
 		}

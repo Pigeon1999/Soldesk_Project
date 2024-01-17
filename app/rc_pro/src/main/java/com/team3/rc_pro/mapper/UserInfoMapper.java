@@ -13,6 +13,6 @@ public interface UserInfoMapper {
 	
 	public void insertAuthorityInfo(AuthorityInfoVO authorityinfo);
 
-	public String selectUserInfoAddress(String user_name);
+	public UserInfoVO selectUserInfoAddress(String user_name);
 }
 
