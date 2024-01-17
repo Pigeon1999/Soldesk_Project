@@ -169,7 +169,7 @@
 		<![CDATA[
 			SELECT post_id, category_id, region_id, user_num, post_title, post_content, post_date, post_view, post_like, post_reply, post_hide, post_file
 			FROM ( SELECT /*+ INDEX_DESC (p PK_CATEGORY_INFO) */ ROWNUM rn, p.* 
-			       FROM post_info p
+			       FROM rc_pro.post_info p
 			       WHERE ROWNUM <= (#{pageNum} * #{rowAmountPerPage}) AND category_id = #{category_id} AND region_id = #{region_id} 
 		]]>
 
@@ -198,7 +198,7 @@
 	<!-- 게시물 총 개수 조회(페이징): 삭제 요청된 행 포함 -->
 	<select id="selectRowTotal" resultType="long"
 			parameterType="com.team3.rc_pro.common.paging.domain.BoardPagingDTO">
-		SELECT COUNT(*) rowTotal FROM post_info 
+		SELECT COUNT(*) rowTotal FROM rc_pro.post_info 
 		<where>
 		<![CDATA[
 			category_id = #{category_id} AND region_id = #{region_id}

@@ -1,6 +1,7 @@
+<%@ page session="false" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
@@ -109,28 +110,38 @@
           <li class="dropdown megamenu"><a href="#me"><span>지역선택</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
             <ul>
               <li>
-                <a id="region1" href="${contextPath}/board/region_home?region_id=1">관철동</a>
-                <a id="region2" href="${contextPath}/board/region_home?region_id=2">삼각동</a>
-                <a id="region3" href="${contextPath}/board/region_home?region_id=3">서린동</a>
-                <a id="region4" href="${contextPath}/board/region_home?region_id=4">종로2가</a>
+                <a id="region1" href="${contextPath}/main?region_id=1">관철동</a>
+                <a id="region2" href="${contextPath}/main?region_id=2">삼각동</a>
+                <a id="region3" href="${contextPath}/main?region_id=3">서린동</a>
+                <a id="region4" href="${contextPath}/main?region_id=4">종로2가</a>
               </li>
               <li>
-                <a id="region5" href="${contextPath}/board/region_home?region_id=5">공평동</a>
-                <a id="region6" href="${contextPath}/board/region_home?region_id=6">청진동</a>
-                <a id="region7" href="${contextPath}/board/region_home?region_id=7">관수동</a>
-                <a id="region8" href="${contextPath}/board/region_home?region_id=8">인사동</a>
+                <a id="region5" href="${contextPath}/main?region_id=5">공평동</a>
+                <a id="region6" href="${contextPath}/main?region_id=6">청진동</a>
+                <a id="region7" href="${contextPath}/main?region_id=7">관수동</a>
+                <a id="region8" href="${contextPath}/main?region_id=8">인사동</a>
               </li>
             </ul>
           </li>
-          <li><a class="nav-link scrollto" href="${contextPath}/board/list?category_id=1&region_id=${region_id}">자유게시판</a></li>
-          <li><a class="nav-link scrollto" href="${contextPath}/board/list?category_id=2&region_id=${region_id}">홍보게시판</a></li>
-          <li><a class="nav-link scrollto" href="${contextPath}/board/newslist?category_id=3&region_id=${region_id}">뉴스</a></li>
+	          <li><a class="nav-link scrollto" href="/rc_pro/board/list?category_id=1&region_id=${region_id}">자유 게시판</a></li>
+	          <li><a class="nav-link scrollto" href="/rc_pro/board/list?category_id=2&region_id=${region_id}">홍보 게시판</a></li>
+	          <li><a class="nav-link scrollto" href="/rc_pro/board/newslist?category_id=3&region_id=${region_id}">뉴스</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle d-none"></i>
       </nav><!-- .navbar -->
 		<div>
-			<a class="btn-getstarted scrollto" href="/rc_pro/login">Login</a>
-			<a class="btn-getstarted scrollto" href="/rc_pro/SignIn">Sign In</a>
+			<sec:authorize access="isAuthenticated()">
+			    <form id="logoutForm" role="form" action="${contextPath}/Gwancheol" method="post">
+			    	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+			    	<fieldset>
+			        	<a onclick="document.getElementById('logoutForm').submit(); return false;" class="btn-getstarted scrollto">Logout</a>
+			        </fieldset>
+			    </form>
+			</sec:authorize>
+			<sec:authorize access="isAnonymous()">
+		      	<a class="btn-getstarted scrollto" href="/rc_pro/login">Login</a>
+		      	<a class="btn-getstarted scrollto" href="/rc_pro/signin">Sign In</a>
+		    </sec:authorize>
 		</div>
     </div>
   </header><!-- End Header -->
