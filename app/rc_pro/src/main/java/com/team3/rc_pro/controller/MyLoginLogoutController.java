@@ -19,15 +19,15 @@ public class MyLoginLogoutController {
 	 @GetMapping("/login") // 사용자 정의 로그인 JSP 페이지 호출 URL, 다른 URL을 사용해도 됨
 	 public String loginPageGET(String error, String logout, Model model) { 
 	 if (error != null) {
-	 log.info("로그인 오류 시 error.hashCode(): " + error.hashCode());
-	 model.addAttribute("error", "아이디혹은 비밀번호를 확인하세요.");
-	 
-	 return "common/login"; 
-	 
-	 } else if (logout != null) {
-	 log.info("로그인 오류 시 error.hashCode(): " + logout.hashCode());
-	 model.addAttribute("logout", "로그아웃 되었습니다.");
-	 return "common/login";
+		 log.info("로그인 오류 시 error.hashCode(): " + error.hashCode());
+		 model.addAttribute("error", "아이디혹은 비밀번호를 확인하세요.");
+		 
+		 return "common/login"; 
+	 } 
+	 else if (logout != null) {
+		 log.info("로그인 오류 시 error.hashCode(): " + logout.hashCode());
+		 model.addAttribute("logout", "로그아웃 되었습니다.");
+		 return "common/login";
 	 }
 	 //정상적인 로그인 페이지 호출
 	 model.addAttribute("normal", "정상적인 로그인 페이지 호출 처리..");
@@ -35,53 +35,5 @@ public class MyLoginLogoutController {
 	 
 	 return "common/login";
 }	 
-	 
-	 @PostMapping("/Gwancheol")
-	 public String logoutGwancheol() {
-		 return performLogout();
-	 }
-	
-	 @PostMapping("/Insa")
-	 public String logoutInsa() {	
-		 return performLogout();
-	 }
-	
-	 @PostMapping("/Cheongjin")
-	 public String logoutCheongjin() {
-		 return performLogout();
-	 }
-	
-	 @PostMapping("/Gongpyeong")
-	 public String logoutGongpyeong() {
-		 return performLogout();
-	 }
-	
-	 @PostMapping("/Gwansu")
-	 public String logoutGwansu() {
-		 return performLogout();
-	 }
-	
-	 @PostMapping("/Jongno2ga")
-	 public String logoutJongno2ga() {
-		 return performLogout();
-	 }
-	
-	 @PostMapping("/Samgak")
-	 public String logoutSamgak() {
-		 return performLogout();
-	 }
-	
-	 @PostMapping("/Seorin")
-	 public String logoutSeorin() {
-		return performLogout();
-	 }
-	 
-	 private String performLogout() {
-		 
-		 // 현재 사용자 로그아웃
-		 SecurityContextHolder.getContext().setAuthentication(null);
-		 
-		 return "redirect:/";
-	 }
 	
 }

@@ -66,44 +66,44 @@
   <!-- ======= Header ======= -->
   <header id="header" class="header fixed-top" data-scrollto-offset="0">
     <div class="container-fluid d-flex align-items-center justify-content-between">
-
-      <a href="index.html" class="logo d-flex align-items-center scrollto me-auto me-lg-0">
-        <!-- Uncomment the line below if you also wish to use an image logo -->
-        <!-- <img src="img/logo.png" alt=""> -->
-        <h1>HeroBiz<span>.</span></h1>
+      
+      <a href="${contextPath}/main?region_id=${region_id}" class="logo d-flex align-items-center scrollto me-auto me-lg-0">
+        <h1>RC<span>.</span></h1>
       </a>
       
-      <div>
-      	<c:choose>
-          <c:when test="${pagingCreator.boardPaging.region_id == '1'}" >
-            <h2>관철동</h2>
-          </c:when>
-          <c:when test="${pagingCreator.boardPaging.region_id == '2'}" >
-            <h2>삼각동</h2>
-          </c:when>
-          <c:when test="${pagingCreator.boardPaging.region_id == '3'}" >
-            <h2>서린동</h2>
-          </c:when>
-          <c:when test="${pagingCreator.boardPaging.region_id == '4'}" >
-            <h2>종로2가</h2>
-          </c:when>
-          <c:when test="${pagingCreator.boardPaging.region_id == '5'}" >
-            <h2>공평동</h2>
-          </c:when>
-          <c:when test="${pagingCreator.boardPaging.region_id == '6'}" >
-            <h2>청진동</h2>
-          </c:when>
-          <c:when test="${pagingCreator.boardPaging.region_id == '7'}" >
-            <h2>관수동</h2>
-          </c:when>
-          <c:when test="${pagingCreator.boardPaging.region_id == '8'}" >
-            <h2>인사동</h2>
-          </c:when>
-          <c:otherwise>
-            <h2>관철동</h2>
-          </c:otherwise>
-			  </c:choose>
-      </div>
+     <a class="logo d-flex align-items-center scrollto me-auto me-lg-0">
+        <h1>
+			<c:choose>
+				<c:when test="${pagingCreator.boardPaging.region_id == '1'}" >
+				  <h1>관철동</h1>
+				</c:when>
+				<c:when test="${pagingCreator.boardPaging.region_id == '2'}" >
+				  <h1>청진동</h1>
+				</c:when>
+				<c:when test="${pagingCreator.boardPaging.region_id == '3'}" >
+				  <h1>공평동</h1>
+				</c:when>
+				<c:when test="${pagingCreator.boardPaging.region_id == '4'}" >
+				  <h1>관수동</h1>
+				</c:when>
+				<c:when test="${pagingCreator.boardPaging.region_id == '5'}" >
+				  <h1>인사동</h1>
+				</c:when>
+				<c:when test="${pagingCreator.boardPaging.region_id == '6'}" >
+				  <h1>종로2가</h1>
+				</c:when>
+				<c:when test="${pagingCreator.boardPaging.region_id == '7'}" >
+				  <h1>삼각동</h1>
+				</c:when>
+				<c:when test="${pagingCreator.boardPaging.region_id == '8'}" >
+				  <h1>서린동</h1>
+				</c:when>
+				<c:otherwise>
+				  <h1>관철동</h1>
+				</c:otherwise>
+			</c:choose>
+        </h1>
+      </a>
       
       <nav id="navbar" class="navbar">
         <ul>
@@ -111,15 +111,15 @@
             <ul>
               <li>
                 <a id="region1" href="${contextPath}/main?region_id=1">관철동</a>
-                <a id="region2" href="${contextPath}/main?region_id=2">삼각동</a>
-                <a id="region3" href="${contextPath}/main?region_id=3">서린동</a>
-                <a id="region4" href="${contextPath}/main?region_id=4">종로2가</a>
+                <a id="region2" href="${contextPath}/main?region_id=2">청진동</a>
+                <a id="region3" href="${contextPath}/main?region_id=3">공평동</a>
+                <a id="region4" href="${contextPath}/main?region_id=4">관수동</a>
               </li>
               <li>
-                <a id="region5" href="${contextPath}/main?region_id=5">공평동</a>
-                <a id="region6" href="${contextPath}/main?region_id=6">청진동</a>
-                <a id="region7" href="${contextPath}/main?region_id=7">관수동</a>
-                <a id="region8" href="${contextPath}/main?region_id=8">인사동</a>
+                <a id="region5" href="${contextPath}/main?region_id=5">인사동</a>
+                <a id="region6" href="${contextPath}/main?region_id=6">종로2가</a>
+                <a id="region7" href="${contextPath}/main?region_id=7">삼각동</a>
+                <a id="region8" href="${contextPath}/main?region_id=8">서린동</a>
               </li>
             </ul>
           </li>

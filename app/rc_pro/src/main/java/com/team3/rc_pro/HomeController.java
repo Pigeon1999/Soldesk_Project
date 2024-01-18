@@ -12,6 +12,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -48,28 +49,28 @@ public class HomeController {
 		    log.info(userAddress.getUser_address());
 		    
 		    if (userAddress.getUser_address().equals("관철동")) {
-		    	return "redirect:Gwancheol";
+		    	return "redirect:main?region_id=1";
 		    }
 		    else if (userAddress.getUser_address().equals("청진동")) {
-		    	return "redirect:Cheongjin";
+		    	return "redirect:main?region_id=2";
 		    }
 		    else if (userAddress.getUser_address().equals("공평동")) {
-		    	return "redirect:Gongpyeong";
+		    	return "redirect:main?region_id=3";
 		    }
 		    else if (userAddress.getUser_address().equals("관수동")) {
-		    	return "redirect:Gwansu";
+		    	return "redirect:main?region_id=4";
 		    }
 		    else if (userAddress.getUser_address().equals("인사동")) {
-		    	return "redirect:Insa";
+		    	return "redirect:main?region_id=5";
 		    }
 		    else if (userAddress.getUser_address().equals("종로2가")) {
-		    	return "redirect:Jongno2ga";
+		    	return "redirect:main?region_id=6";
 		    }
 		    else if (userAddress.getUser_address().equals("삼각동")) {
-		    	return "redirect:Samgak";
+		    	return "redirect:main?region_id=7";
 		    }
 		    else if (userAddress.getUser_address().equals("서린동")) {
-		    	return "redirect:Seorin";
+		    	return "redirect:main?region_id=8";
 		    }
 		}
 	    else {

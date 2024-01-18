@@ -71,13 +71,13 @@
 			<select class="form-select" id="reginfo" aria-label="navigation meun">
 				<option selected value="">지역 선택</option>
 				<option value="관철동">관철동</option>
-				<option value="1동">1동</option>
-				<option value="2동">2동</option>
-				<option value="2동">3동</option>
-				<option value="3동">4동</option>
-				<option value="4동">5동</option>
-				<option value="5동">6동</option>
-				<option value="6동">7동</option>
+				<option value="청진동">청진동</option>
+				<option value="공평동">공평동</option>
+				<option value="관수동">관수동</option>
+				<option value="인사동">인사동</option>
+				<option value="종로2가">종로2가</option>
+				<option value="삼각동">삼각동</option>
+				<option value="서린동">서린동</option>
 			</select>
 		</div>
 <!-- 				<div class="form-group mt-3">

@@ -25,13 +25,6 @@ public class BoardController {
 		System.out.println("BoardController의 모든 필드 초기화 생성자 입니다.");
 	}
 
-//	@GetMapping("/list")
-//	public String showBoardList() {
-//		List<BoardVO> boardList =  boardService.getBoardList() ;
-//		System.out.println("BoardList: " + boardList);
-//		return "board/list" ;
-//	}
-
 	@GetMapping("/list")
 	public String showBoardList(BoardPagingDTO boardPaging, Model model) {
 		BoardPagingCreatorDTO pagingCreator = boardService.getBoardList(boardPaging) ;

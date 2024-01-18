@@ -56,31 +56,31 @@
 	        <h1>
 				<c:choose>
 					<c:when test="${pagingCreator.boardPaging.region_id == '1'}" >
-					  <h2>관철동</h2>
+					  <h1>관철동</h1>
 					</c:when>
 					<c:when test="${pagingCreator.boardPaging.region_id == '2'}" >
-					  <h2>삼각동</h2>
+					  <h1>청진동</h1>
 					</c:when>
 					<c:when test="${pagingCreator.boardPaging.region_id == '3'}" >
-					  <h2>서린동</h2>
+					  <h1>공평동</h1>
 					</c:when>
 					<c:when test="${pagingCreator.boardPaging.region_id == '4'}" >
-					  <h2>종로2가</h2>
+					  <h1>관수동</h1>
 					</c:when>
 					<c:when test="${pagingCreator.boardPaging.region_id == '5'}" >
-					  <h2>공평동</h2>
+					  <h1>인사동</h1>
 					</c:when>
 					<c:when test="${pagingCreator.boardPaging.region_id == '6'}" >
-					  <h2>청진동</h2>
+					  <h1>종로2가</h1>
 					</c:when>
 					<c:when test="${pagingCreator.boardPaging.region_id == '7'}" >
-					  <h2>관수동</h2>
+					  <h1>삼각동</h1>
 					</c:when>
 					<c:when test="${pagingCreator.boardPaging.region_id == '8'}" >
-					  <h2>인사동</h2>
+					  <h1>서린동</h1>
 					</c:when>
 					<c:otherwise>
-					  <h2>관철동</h2>
+					  <h1>관철동</h1>
 					</c:otherwise>
 				</c:choose>
 	        </h1>
@@ -92,15 +92,15 @@
             <ul>
               <li>
                 <a id="region1" href="${contextPath}/main?region_id=1">관철동</a>
-                <a id="region2" href="${contextPath}/main?region_id=2">삼각동</a>
-                <a id="region3" href="${contextPath}/main?region_id=3">서린동</a>
-                <a id="region4" href="${contextPath}/main?region_id=4">종로2가</a>
+                <a id="region2" href="${contextPath}/main?region_id=2">청진동</a>
+                <a id="region3" href="${contextPath}/main?region_id=3">공평동</a>
+                <a id="region4" href="${contextPath}/main?region_id=4">관수동</a>
               </li>
               <li>
-                <a id="region5" href="${contextPath}/main?region_id=5">공평동</a>
-                <a id="region6" href="${contextPath}/main?region_id=6">청진동</a>
-                <a id="region7" href="${contextPath}/main?region_id=7">관수동</a>
-                <a id="region8" href="${contextPath}/main?region_id=8">인사동</a>
+                <a id="region5" href="${contextPath}/main?region_id=5">인사동</a>
+                <a id="region6" href="${contextPath}/main?region_id=6">종로2가</a>
+                <a id="region7" href="${contextPath}/main?region_id=7">삼각동</a>
+                <a id="region8" href="${contextPath}/main?region_id=8">서린동</a>
               </li>
             </ul>
 	          </li>
@@ -113,12 +113,15 @@
 	
 		  <div>
 		  	<sec:authorize access="isAuthenticated()">
-			    <form id="logoutForm" role="form" action="${contextPath}/Gwancheol" method="post">
-			    	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-			    	<fieldset>
-			        	<a onclick="document.getElementById('logoutForm').submit(); return false;" class="btn-getstarted scrollto">Logout</a>
-			        </fieldset>
-			    </form>
+			    <div style="display: flex; align-items: center;">
+				    <form id="logoutForm" role="form" action="${contextPath}/main" method="post" style="padding-right: 10px;">
+				        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+				        <fieldset>
+				            <a onclick="document.getElementById('logoutForm').submit(); return false;" class="btn-getstarted scrollto">Logout</a>
+				        </fieldset>
+				    </form>
+				    <a class="btn-getstarted scrollto" href="">MyPage</a>
+				</div>
 			</sec:authorize>
 			
 			<sec:authorize access="isAnonymous()">
