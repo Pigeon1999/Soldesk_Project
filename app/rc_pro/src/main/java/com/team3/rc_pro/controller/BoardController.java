@@ -54,5 +54,20 @@ public class BoardController {
 
 		return "board/region_home" ;
 	}
+	
+	@GetMapping("/detail")
+	public String showDetail() {
+		return "/board/detail";
+	}
+	
+	@GetMapping("/register")
+	public String showRegister() {
+		return "/board/register";
+	}
+	
+	@GetMapping("/modify")
+	public String showModify() {
+		return "/board/modify";
+	}
 
 }
