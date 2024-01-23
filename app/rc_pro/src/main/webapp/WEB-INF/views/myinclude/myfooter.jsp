@@ -15,10 +15,10 @@
 
           <div class="col-lg-3 col-md-6">
             <div class="footer-info">
-              <h3>HeroBiz</h3>
+              <h3>RC</h3>
               <p>
-                A108 Adam Street <br>
-                NY 535022, USA<br><br>
+                솔데스크 <br>
+                종각역 부근<br><br>
                 <strong>Phone:</strong> +1 5589 55488 55<br>
                 <strong>Email:</strong> info@example.com<br>
               </p>
@@ -26,34 +26,26 @@
           </div>
 
           <div class="col-lg-2 col-md-6 footer-links">
-            <h4>Useful Links</h4>
+            <h4>사이트 관련 링크</h4>
             <ul>
-              <li><i class="bi bi-chevron-right"></i> <a href="#me">Home</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="#me">About us</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="#me">Services</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="#me">Terms of service</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="#me">Privacy policy</a></li>
+              <li><i class="bi bi-chevron-right"></i> <a href="${contextPath}/main?region_id=${region_id}">메인화면</a></li>
+              <li><i class="bi bi-chevron-right"></i> <a href="/rc_pro/board/list?category_id=1&region_id=${region_id}">자유게시판</a></li>
+              <li><i class="bi bi-chevron-right"></i> <a href="/rc_pro/board/list?category_id=2&region_id=${region_id}">홍보게시판</a></li>
+              <li><i class="bi bi-chevron-right"></i> <a href="/rc_pro/board/newslist?category_id=3&region_id=${region_id}">뉴스</a></li>
             </ul>
           </div>
 
           <div class="col-lg-3 col-md-6 footer-links">
-            <h4>Our Services</h4>
+            <h4>개발/서비스 관련 링크</h4>
             <ul>
-              <li><i class="bi bi-chevron-right"></i> <a href="#me">Web Design</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="#me">Web Development</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="#me">Product Management</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="#me">Marketing</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="#me">Graphic Design</a></li>
+              <li><i class="bi bi-chevron-right"></i> <a href="https://bootstrapmade.com/herobiz-bootstrap-business-template/">Web Design Template</a></li>
+              <li><i class="bi bi-chevron-right"></i> <a href="https://github.com/Pigeon1999/Soldesk_Project">GitHub Link</a></li>
             </ul>
           </div>
 
           <div class="col-lg-4 col-md-6 footer-newsletter">
-            <h4>Our Newsletter</h4>
-            <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>
-            <form action="" method="post">
-              <input type="email" name="email"><input type="submit" value="Subscribe">
-            </form>
-
+            <h4>솔데스크 7회차 3팀</h4>
+            <p>개발자: 박현준, 김동현, 임성오, 임성혁</p>
           </div>
 
         </div>

@@ -54,6 +54,5 @@ public class BoardController {
 
 		return "board/region_home" ;
 	}
-	
 
 }

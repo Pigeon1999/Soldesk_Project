@@ -40,7 +40,7 @@ public class RegionController {
 	
 	@Setter(onMethod_ = @Autowired)
     UserInfoMapper userinfoMapper;
-
+	
 	@GetMapping("/main")
 	public String main(Model model, BoardPagingDTO boardPaging) {
 		BoardPagingCreatorDTO pagingCreator = boardService.getBoardList(boardPaging);

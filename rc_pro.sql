@@ -38,6 +38,7 @@ user_passwd VARCHAR2(100) NOT NULL, --?öå?õêÎπÑÎ?Î≤àÌò∏
 user_regdate DATE DEFAULT sysdate --?öå?õêÍ∞??ûÖ?ùº?ûê
 )TABLESPACE users;
 
+
 ALTER TABLE rc_pro.user_info
 ADD CONSTRAINT pk_myuser_num PRIMARY KEY (user_num);
 
@@ -252,38 +253,14 @@ DROP TABLE rc_pro.authority_info;
 --INSERT INTO book_ex.tbl_myAttachFiles
 --VALUES ('A1','2023/12/05', '?ù¥ÎØ∏Ï??åå?ùº.jpg' , 'I', 229392);
 
-INSERT INTO rc_pro.user_info
-VALUES (1,'Í¥?Î¶¨Ïûê','010203','010-7173-3649','Í¥?Ï≤†Îèô','admin11111@gmail.com','admin11111','Admin11111!',DEFAULT);
-
-INSERT INTO rc_pro.user_info
-VALUES (2,'Íπ??èô?ï∏','970625','010-7173-3640','Í¥?Ï≤†Îèô','kimdonghyun482@gmail.com','donghyun3640','123asd1',DEFAULT);
-
-INSERT INTO rc_pro.user_info
-VALUES (3,'Íπ??èô?òÑ','970627','010-7173-3649','Í∞??èâÍµ?','kimdonghyun481@gmail.com','donghyun3648','123asd',DEFAULT);
-
-INSERT INTO rc_pro.authority_info
-VALUES ('admin11111','ROLE_ADMIN');
 
 COMMIT;
 
-SELECT COUNT(*)
-FROM rc_pro.user_info
-WHERE user_id='kimdonghyun1';
+SELECT * FROM USER_INFO;
+SELECT * FROM category_info;
+SELECT * FROM region_info;
+SELECT * FROM post_info;
 
-SELECT us.user_num,us.user_name,us.user_birth,us.user_pn
-    ,us.user_address,us.user_email,us.user_id,us.user_passwd
-    ,us.user_regDate,auth.user_authority
-FROM rc_pro.user_info us INNER JOIN rc_pro.authority_info auth ON us.user_id = auth.user_id
-WHERE us.user_id = 'admin11111';
+INSERT INTO category_info
+VALUES(1, '¿⁄¿Ø∞‘Ω√∆«', 1);
 
-INSERT INTO rc_pro.authority_info
-VALUES ('kimdonghyun4','ADMIN');
-COMMIT;
-
-SELECT COUNT(*) 
-FROM rc_pro.user_info 
-WHERE user_id='kimdonghyun21';
-
-SELECT user_id 
-FROM rc_pro.user_info 
-WHERE user_email='kimdonghyun481@gmail.com' AND user_name ='Íπ??èô?òÑ';

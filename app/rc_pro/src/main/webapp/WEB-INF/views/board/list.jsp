@@ -37,7 +37,7 @@
 		</c:choose>
 						
           <ol>
-            <li><a href="index.html">Home</a></li>
+            <li><a href="${contextPath}/main?region_id=${region_id}">Home</a></li>
             <c:choose>
 			<c:when test="${pagingCreator.boardPaging.category_id == '1'}" >
 				<li>자유게시판</li>
@@ -95,7 +95,7 @@
 	<c:when test="${not empty pagingCreator.boardList }">                               
 		<c:forEach var="board" items="${pagingCreator.boardList}">
 			<c:choose>
-				<c:when test="${board.post_hide == 1 }">
+				<c:when test="${board.post_hide == 1}">
 					<tr style="background-color: Moccasin; text-align: center">
 						<td>${board.post_id }</td>
 	             		<td colspan="6"><em>작성자에 의해서 삭제된 게시글입니다.</em></td>

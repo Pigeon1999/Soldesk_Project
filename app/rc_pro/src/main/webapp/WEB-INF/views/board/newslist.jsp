@@ -37,7 +37,7 @@
 		</c:choose>
 						
           <ol>
-            <li><a href="index.html">Home</a></li>
+            <li><a href="${contextPath}/main?region_id=${region_id}">Home</a></li>
             <c:choose>
 			<c:when test="${pagingCreator.boardPaging.category_id == '1'}" >
 				<li>자유게시판</li>
