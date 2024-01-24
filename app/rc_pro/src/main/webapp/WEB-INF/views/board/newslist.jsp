@@ -347,7 +347,7 @@ var result = '<c:out value="${result}" />' ;
 
 //등록페이지 이동
 $("#btnToRegister").on("click", function() {
-	window.location.href = "${contextPath}/board/register" ;
+	window.location.href = "${contextPath}/board/register?category_id=3&region_id=${region_id}" ;
 	
 });
 

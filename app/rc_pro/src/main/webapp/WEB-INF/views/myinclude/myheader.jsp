@@ -1,13 +1,12 @@
 <%@ page session="false" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
-<c:set var="contextPath" value="${pageContext.request.contextPath }" />
-
-<c:set var="region_id" value="${pagingCreator.boardPaging.region_id }" />
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
+<c:set var="region_id" value="${pagingCreator.boardPaging.region_id}" />
+<c:set var="category_id" value="${pagingCreator.boardPaging.category_id}" />
 
 <!DOCTYPE html>
 <html lang="ko">

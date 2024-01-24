@@ -1,6 +1,5 @@
 package com.team3.rc_pro.domain;
 
-import java.sql.Timestamp;
 import java.util.List;
 import java.util.Date;
 import lombok.Data;

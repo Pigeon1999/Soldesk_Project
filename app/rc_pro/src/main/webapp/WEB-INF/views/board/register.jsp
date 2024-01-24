@@ -1,14 +1,22 @@
-<%@ page session="false" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+
 <%@ include file="../myinclude/myheader.jsp" %>
 <!-- myheader.jsp 에서 
 <body> -->
 	<section>
 		<header style="border-bottom: 1px solid #ccc;">
-			<h1><a href="#">-- 게시판</a></h1> <!-- 나중에 현재 위치한 게시판으로 이동 -->
+	        <c:choose>
+				<c:when test="${pagingCreator.boardPaging.category_id == '2'}" >
+					<h1><a href="/rc_pro/board/list?category_id=2&region_id=${region_id}">홍보게시판</a></h1>
+				</c:when>
+				<c:when test="${pagingCreator.boardPaging.category_id == '3'}" >
+					<h1><a href="/rc_pro/board/newslist?category_id=3&region_id=${region_id}">뉴스</a></h1>
+				</c:when>
+				<c:otherwise>
+					<h1><a href="/rc_pro/board/list?category_id=1&region_id=${region_id}">자유게시판</a></h1>
+				</c:otherwise>
+			</c:choose>
 		</header>
 		<article style="margin-top: 10px;">
 			<form role="form" action="${contextPath}/myboard/register" method="post" name="frmBoard">
@@ -44,5 +52,8 @@
 	        box-sizing: border-box; /* padding이 width에 포함되도록 box-sizing 설정 */
 	    }
 	</style>
-
+<!--
+</body>
+ myfooter.jsp에서 
+ -->
 <%@ include file="../myinclude/myfooter.jsp" %>   

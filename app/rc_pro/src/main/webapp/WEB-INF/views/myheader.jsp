@@ -5,8 +5,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <c:set var="contextPath" value="${pageContext.request.contextPath }" />
-
 <c:set var="region_id" value="${pagingCreator.boardPaging.region_id }" />
+<c:set var="category_id" value="${pagingCreator.boardPaging.category_id }" />
 
 <!DOCTYPE html>
 <html lang="ko">

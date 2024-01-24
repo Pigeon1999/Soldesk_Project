@@ -1,10 +1,7 @@
-package com.team3.rc_pro.service;
-
-import java.util.List;
+ package com.team3.rc_pro.service;
 
 import com.team3.rc_pro.common.paging.domain.BoardPagingCreatorDTO;
 import com.team3.rc_pro.common.paging.domain.BoardPagingDTO;
-import com.team3.rc_pro.domain.BoardVO;
 
 public interface BoardService {
 

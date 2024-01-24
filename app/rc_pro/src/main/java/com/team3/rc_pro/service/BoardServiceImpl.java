@@ -1,12 +1,9 @@
 package com.team3.rc_pro.service;
 
-import java.util.List;
-
 import org.springframework.stereotype.Service;
 
 import com.team3.rc_pro.common.paging.domain.BoardPagingCreatorDTO;
 import com.team3.rc_pro.common.paging.domain.BoardPagingDTO;
-import com.team3.rc_pro.domain.BoardVO;
 import com.team3.rc_pro.mapper.BoardListMapper;
 
 @Service

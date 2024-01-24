@@ -6,7 +6,6 @@
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <c:set var="region_id" value="${pagingCreator.boardPaging.region_id }" />
-<c:set var="region" value="${region}"/>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -270,8 +269,7 @@
 	  	}
 	  	#news_post {
 	  		padding:2px;
-	  	}
-	  	
+	  	}  	
 	  </style>
 
 <%@ include file="../myinclude/myfooter.jsp" %>   	  
