@@ -10,4 +10,6 @@ public interface PostInfoMapper {
 	public List<PostInfoVO> selectPromotionPost();
 	
 	public List<PostInfoVO> selectNewsPost();
+	
+	public void insertPost(PostInfoVO postinfo);
 }

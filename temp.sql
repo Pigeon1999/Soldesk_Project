@@ -10,41 +10,11 @@ GRANT CREATE SESSION, CREATE TABLE, CREATE SEQUENCE, CREATE PROCEDURE,
 TO rc_pro;
 
 -- 시퀀스 생성 : PK 번호를 순서대로 주게 하기 위해
-CREATE SEQUENCE  rc_pro.seq_userno;
+CREATE SEQUENCE rc_pro.seq_userno;
+CREATE SEQUENCE rc_pro.seq_postid;
 
--- post_info 시퀀스
-CREATE SEQUENCE  rc_pro.postid11;
-CREATE SEQUENCE  rc_pro.postid12;
-CREATE SEQUENCE  rc_pro.postid13;
-
-CREATE SEQUENCE  rc_pro.postid21;
-CREATE SEQUENCE  rc_pro.postid22;
-CREATE SEQUENCE  rc_pro.postid23;
-
-CREATE SEQUENCE  rc_pro.postid31;
-CREATE SEQUENCE  rc_pro.postid32;
-CREATE SEQUENCE  rc_pro.postid33;
-
-CREATE SEQUENCE  rc_pro.postid41;
-CREATE SEQUENCE  rc_pro.postid42;
-CREATE SEQUENCE  rc_pro.postid43;
-
-CREATE SEQUENCE  rc_pro.postid51;
-CREATE SEQUENCE  rc_pro.postid52;
-CREATE SEQUENCE  rc_pro.postid53;
-
-CREATE SEQUENCE  rc_pro.postid61;
-CREATE SEQUENCE  rc_pro.postid62;
-CREATE SEQUENCE  rc_pro.postid63;
-
-CREATE SEQUENCE  rc_pro.postid71;
-CREATE SEQUENCE  rc_pro.postid72;
-CREATE SEQUENCE  rc_pro.postid73;
-
-CREATE SEQUENCE  rc_pro.postid81;
-CREATE SEQUENCE  rc_pro.postid82;
-CREATE SEQUENCE  rc_pro.postid83;
-
+DROP SEQUENCE rc_pro.seq_userno;
+DROP SEQUENCE rc_pro.seq_postid;
 -- 테이블 생성 
 
 -- 1. user_info
@@ -97,14 +67,7 @@ ADD CONSTRAINT pk_region_id PRIMARY KEY(region_id);
 
 -- 5. post_info
 CREATE TABLE rc_pro.post_info(
-post_id NUMBER(10,0) NOT NULL CHECK(post_id IN (postid11.NEXTVAL, postid12.NEXTVAL, postid13.NEXTVAL,
-                                                postid21.NEXTVAL, postid22.NEXTVAL, postid23.NEXTVAL,
-                                                postid31.NEXTVAL, postid32.NEXTVAL, postid33.NEXTVAL,
-                                                postid41.NEXTVAL, postid42.NEXTVAL, postid43.NEXTVAL,
-                                                postid51.NEXTVAL, postid52.NEXTVAL, postid53.NEXTVAL,
-                                                postid61.NEXTVAL, postid62.NEXTVAL, postid63.NEXTVAL, 
-                                                postid71.NEXTVAL, postid72.NEXTVAL, postid73.NEXTVAL,
-                                                postid81.NEXTVAL, postid82.NEXTVAL, postid83.NEXTVAL)), -- 수정
+post_id NUMBER(10,0) NOT NULL, -- 수정
 category_id NUMBER(10,0) NOT NULL UNIQUE,
 region_id NUMBER(10,0) NOT NULL,
 user_num NUMBER(10,0) NOT NULL,

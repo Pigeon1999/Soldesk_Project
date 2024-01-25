@@ -52,37 +52,35 @@
 	      </a>
 	
 	      <a class="logo d-flex align-items-center scrollto me-auto me-lg-0">
-	        <h1>
-				<c:choose>
-					<c:when test="${pagingCreator.boardPaging.region_id == '1'}" >
-					  <h1>관철동</h1>
-					</c:when>
-					<c:when test="${pagingCreator.boardPaging.region_id == '2'}" >
-					  <h1>청진동</h1>
-					</c:when>
-					<c:when test="${pagingCreator.boardPaging.region_id == '3'}" >
-					  <h1>공평동</h1>
-					</c:when>
-					<c:when test="${pagingCreator.boardPaging.region_id == '4'}" >
-					  <h1>관수동</h1>
-					</c:when>
-					<c:when test="${pagingCreator.boardPaging.region_id == '5'}" >
-					  <h1>인사동</h1>
-					</c:when>
-					<c:when test="${pagingCreator.boardPaging.region_id == '6'}" >
-					  <h1>종로2가</h1>
-					</c:when>
-					<c:when test="${pagingCreator.boardPaging.region_id == '7'}" >
-					  <h1>삼각동</h1>
-					</c:when>
-					<c:when test="${pagingCreator.boardPaging.region_id == '8'}" >
-					  <h1>서린동</h1>
-					</c:when>
-					<c:otherwise>
-					  <h1>관철동</h1>
-					</c:otherwise>
-				</c:choose>
-	        </h1>
+			<c:choose>
+				<c:when test="${pagingCreator.boardPaging.region_id == '1'}" >
+				  <h1>관철동</h1>
+				</c:when>
+				<c:when test="${pagingCreator.boardPaging.region_id == '2'}" >
+				  <h1>청진동</h1>
+				</c:when>
+				<c:when test="${pagingCreator.boardPaging.region_id == '3'}" >
+				  <h1>공평동</h1>
+				</c:when>
+				<c:when test="${pagingCreator.boardPaging.region_id == '4'}" >
+				  <h1>관수동</h1>
+				</c:when>
+				<c:when test="${pagingCreator.boardPaging.region_id == '5'}" >
+				  <h1>인사동</h1>
+				</c:when>
+				<c:when test="${pagingCreator.boardPaging.region_id == '6'}" >
+				  <h1>종로2가</h1>
+				</c:when>
+				<c:when test="${pagingCreator.boardPaging.region_id == '7'}" >
+				  <h1>삼각동</h1>
+				</c:when>
+				<c:when test="${pagingCreator.boardPaging.region_id == '8'}" >
+				  <h1>서린동</h1>
+				</c:when>
+				<c:otherwise>
+				  <h1>관철동</h1>
+				</c:otherwise>
+			</c:choose>
 	      </a>
 		
 	      <nav id="navbar" class="navbar">
@@ -129,7 +127,8 @@
 		    </sec:authorize>
 		  </div>
 	    </div>
-	  </header>
+	  </div>
+  </header>
 	  
 	  <section id="hero-animated" class="hero-animated d-flex align-items-center">
 	    <div class="container d-flex flex-column justify-content-center align-items-center text-center position-relative" data-aos="zoom-out">

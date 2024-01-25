@@ -9,11 +9,7 @@ import lombok.extern.log4j.Log4j;
 @Controller
 @Log4j
 public class MyLoginLogoutController {
-
-	 //로그인 페이지 호출: 로그인 JSP 페이지 이름 문자열 반환: WEB-INF/views/common/myLogin.jsp
-	 //로그인 페이지 호출은 GET 방식으로만 제한됨
-	 //스프링 시큐리티가 반환하는 로그인 처리 결과에 대하여 메시지 처리를 하려면,
-	 //Strirng 유형의 error, logout 매개변수가 선언되어야 함
+	
 	 @GetMapping("/login") // 사용자 정의 로그인 JSP 페이지 호출 URL, 다른 URL을 사용해도 됨
 	 public String loginPageGET(String error, String logout, Model model) { 
 	 if (error != null) {

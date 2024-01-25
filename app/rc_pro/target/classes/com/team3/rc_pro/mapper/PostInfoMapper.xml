@@ -32,4 +32,12 @@
 		ORDER BY post_view DESC
 	</select>
 	
+	<insert id="insertPost">
+		<selectKey order="BEFORE" keyProperty="post_id" resultType="int">
+			SELECT rc_pro.seq_postid.NEXTVAL FROM dual
+		</selectKey>
+		INSERT INTO rc_pro.post_info
+		VALUES (#{post_id}, #{category_id}, #{region_id}, 1, #{post_title}, #{post_content}, SYSDATE, DEFAULT, DEFAULT, DEFAULT, DEFAULT, 0)
+	</insert>
+	
 </mapper>

@@ -3,18 +3,23 @@ package com.team3.rc_pro.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.team3.rc_pro.common.paging.domain.BoardPagingCreatorDTO;
 import com.team3.rc_pro.common.paging.domain.BoardPagingDTO;
+import com.team3.rc_pro.domain.PostInfoVO;
+import com.team3.rc_pro.mapper.PostInfoMapper;
 import com.team3.rc_pro.service.BoardService;
+import com.team3.rc_pro.service.PostInfoService;
 
 @Controller
 @RequestMapping("/board")
 public class BoardController {
 
 	private BoardService boardService ;
-
+	private PostInfoService postInfoService;
 
 	public BoardController(BoardService boardService) {
 		this.boardService = boardService ;
@@ -62,6 +67,30 @@ public class BoardController {
 		System.out.println("컨트롤러에 전달된 boardPagingCreator: \n" + pagingCreator);
 
 		model.addAttribute("pagingCreator", pagingCreator) ;
+		
+		return "/board/register";
+	}
+	
+	@PostMapping("/register")
+	public String register(PostInfoVO postInfo,
+								  @RequestParam int region_id,
+								  @RequestParam int category_id, 
+								  @RequestParam String post_title,
+								  @RequestParam String post_content){
+				
+		postInfo.setRegion_id(region_id);
+		postInfo.setCategory_id(category_id);
+		postInfo.setPost_title(post_title);
+		postInfo.setPost_content(post_content);
+		
+		System.out.println(postInfo.getRegion_id());
+		System.out.println(postInfo.getCategory_id());
+		System.out.println(postInfo.getPost_title());
+		System.out.println(postInfo.getPost_content());
+		
+
+		postInfoService.insertPost(postInfo);
+
 		
 		return "/board/register";
 	}

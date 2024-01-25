@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 
 <%@ include file="../myinclude/myheader.jsp" %>
+
 <!-- myheader.jsp 에서 
 <body> -->
 	<section>
@@ -19,22 +20,20 @@
 			</c:choose>
 		</header>
 		<article style="margin-top: 10px;">
-			<form role="form" action="${contextPath}/myboard/register" method="post" name="frmBoard">
-				<div class="form-group">
-					<label>제목</label> <input class="form-control" name="btitle">
-				</div>
-				
-				<div class="form-group" style="margin-top:10px;">
-					<label>내용</label> <textarea class="form-control" rows="3" name="bcontent" style="height:500px;resize:none;"></textarea>
-				</div>
-				
-				<div style="margin-top: 10px;">
-					<button id="img">이미지 첨부</button>
-					<span id="imgName">이미지 이름</span>
-				</div>
-				
-				<a id="register" class="btn btn-primary" style="margin-top: 10px;" type="post">등록</a>
-			</form>
+			<div class="form-group">
+				<label>제목</label> <input class="form-control" name="btitle" id="btitle">
+			</div>
+			
+			<div class="form-group" style="margin-top:10px;">
+				<label>내용</label> <textarea class="form-control" rows="3" name="bcontent" id="bcontent" style="height:500px;resize:none;"></textarea>
+			</div>
+			
+			<div style="margin-top: 10px;">
+				<button id="img">이미지 첨부</button>
+				<span id="imgName">이미지 이름</span>
+			</div>
+			
+			<button name="register" id="register" class="btn btn-primary" style="margin-top: 10px;">등록</button>
 		</article>
 	</section>
 	<style>
@@ -52,6 +51,46 @@
 	        box-sizing: border-box; /* padding이 width에 포함되도록 box-sizing 설정 */
 	    }
 	</style>
+<script>
+	var myCsrfHeaderName = "${_csrf.headerName}";
+	var myCsrfToken = "${_csrf.token}";
+	
+	$(document).ajaxSend(function(e, xhr){
+	   xhr.setRequestHeader(myCsrfHeaderName, myCsrfToken);
+	});
+
+	$("#register").on('click', function() {
+		
+		var region_id = ${region_id};
+		var category_id = ${category_id};
+		var post_title = document.getElementById("btitle").value;
+		var post_content = document.getElementById("bcontent").value;
+		//var post_file = document.getElementById("imgName").value;
+		
+		console.log('서버 응답:', region_id);
+		console.log('서버 응답:', category_id);
+		console.log('서버 응답:', post_title);
+		console.log('서버 응답:', post_content);
+		//console.log('서버 응답:', post_file);
+		
+		$.ajax({
+			type : "post",
+			url : "/rc_pro/board/register?category_id=${category_id}&region_id=${region_id}",
+			data : {
+				region_id : region_id,
+				category_id : category_id,
+				post_title : post_title,
+				post_content : post_content
+			},
+			dataType : "json",
+			async: false,
+			success : function(result) { 
+				// 결과 성공 콜백함수        
+				console.log(result);    }
+		});
+		
+	});
+</script>
 <!--
 </body>
  myfooter.jsp에서 

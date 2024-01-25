@@ -10,4 +10,6 @@ public interface PostInfoService {
 	public List<PostInfoVO> getPromotionPostInfo();
 	
 	public List<PostInfoVO> getNewsPostInfo();
+	
+	public void insertPost(PostInfoVO postinfo);
 }

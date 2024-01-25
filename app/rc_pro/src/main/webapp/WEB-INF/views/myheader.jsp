@@ -9,7 +9,7 @@
 <c:set var="category_id" value="${pagingCreator.boardPaging.category_id }" />
 
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="kr">
 
 <head>
   <meta charset="utf-8">

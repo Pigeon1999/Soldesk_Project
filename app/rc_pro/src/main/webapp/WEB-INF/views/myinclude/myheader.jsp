@@ -71,37 +71,35 @@
       </a>
       
      <a class="logo d-flex align-items-center scrollto me-auto me-lg-0">
-        <h1>
-			<c:choose>
-				<c:when test="${pagingCreator.boardPaging.region_id == '1'}" >
-				  <h1>관철동</h1>
-				</c:when>
-				<c:when test="${pagingCreator.boardPaging.region_id == '2'}" >
-				  <h1>청진동</h1>
-				</c:when>
-				<c:when test="${pagingCreator.boardPaging.region_id == '3'}" >
-				  <h1>공평동</h1>
-				</c:when>
-				<c:when test="${pagingCreator.boardPaging.region_id == '4'}" >
-				  <h1>관수동</h1>
-				</c:when>
-				<c:when test="${pagingCreator.boardPaging.region_id == '5'}" >
-				  <h1>인사동</h1>
-				</c:when>
-				<c:when test="${pagingCreator.boardPaging.region_id == '6'}" >
-				  <h1>종로2가</h1>
-				</c:when>
-				<c:when test="${pagingCreator.boardPaging.region_id == '7'}" >
-				  <h1>삼각동</h1>
-				</c:when>
-				<c:when test="${pagingCreator.boardPaging.region_id == '8'}" >
-				  <h1>서린동</h1>
-				</c:when>
-				<c:otherwise>
-				  <h1>관철동</h1>
-				</c:otherwise>
-			</c:choose>
-        </h1>
+		<c:choose>
+			<c:when test="${pagingCreator.boardPaging.region_id == '1'}" >
+			  <h1>관철동</h1>
+			</c:when>
+			<c:when test="${pagingCreator.boardPaging.region_id == '2'}" >
+			  <h1>청진동</h1>
+			</c:when>
+			<c:when test="${pagingCreator.boardPaging.region_id == '3'}" >
+			  <h1>공평동</h1>
+			</c:when>
+			<c:when test="${pagingCreator.boardPaging.region_id == '4'}" >
+			  <h1>관수동</h1>
+			</c:when>
+			<c:when test="${pagingCreator.boardPaging.region_id == '5'}" >
+			  <h1>인사동</h1>
+			</c:when>
+			<c:when test="${pagingCreator.boardPaging.region_id == '6'}" >
+			  <h1>종로2가</h1>
+			</c:when>
+			<c:when test="${pagingCreator.boardPaging.region_id == '7'}" >
+			  <h1>삼각동</h1>
+			</c:when>
+			<c:when test="${pagingCreator.boardPaging.region_id == '8'}" >
+			  <h1>서린동</h1>
+			</c:when>
+			<c:otherwise>
+			  <h1>관철동</h1>
+			</c:otherwise>
+		</c:choose>
       </a>
       
       <nav id="navbar" class="navbar">
@@ -130,10 +128,10 @@
       </nav><!-- .navbar -->
 		<div>
 			<sec:authorize access="isAuthenticated()">
-			    <form id="logoutForm" role="form" action="${contextPath}/Gwancheol" method="post">
-			    	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-			    	<fieldset>
-			        	<a onclick="document.getElementById('logoutForm').submit(); return false;" class="btn-getstarted scrollto">Logout</a>
+			    <form id="logoutForm" role="form" action="${contextPath}/main" method="post" style="padding-right: 10px;">
+			        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+			        <fieldset>
+			            <a onclick="document.getElementById('logoutForm').submit(); return false;" class="btn-getstarted scrollto">Logout</a>
 			        </fieldset>
 			    </form>
 			</sec:authorize>

@@ -34,4 +34,11 @@ public class PostInfoServiceImpl implements PostInfoService {
 		return postinfoMapper.selectNewsPost();
 	}
 	
+	@Override 
+	public void insertPost(PostInfoVO postInfo) {
+		log.info("PostInfoService.insertPost() 실행");
+		postinfoMapper.insertPost(postInfo);
+		return;
+	}
+	
 }
