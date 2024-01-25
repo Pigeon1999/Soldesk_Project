@@ -37,7 +37,7 @@
 			SELECT rc_pro.seq_postid.NEXTVAL FROM dual
 		</selectKey>
 		INSERT INTO rc_pro.post_info
-		VALUES (#{post_id}, #{category_id}, #{region_id}, 1, #{post_title}, #{post_content}, SYSDATE, DEFAULT, DEFAULT, DEFAULT, DEFAULT, 0)
+		VALUES (#{post_id}, #{category_id}, #{region_id}, #{user_num}, #{post_title}, #{post_content}, SYSDATE, DEFAULT, DEFAULT, DEFAULT, DEFAULT, 0)
 	</insert>
 	
 </mapper>

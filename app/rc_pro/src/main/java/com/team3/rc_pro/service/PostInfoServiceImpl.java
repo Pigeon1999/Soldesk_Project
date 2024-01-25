@@ -38,7 +38,6 @@ public class PostInfoServiceImpl implements PostInfoService {
 	public void insertPost(PostInfoVO postInfo) {
 		log.info("PostInfoService.insertPost() 실행");
 		postinfoMapper.insertPost(postInfo);
-		return;
 	}
 	
 }

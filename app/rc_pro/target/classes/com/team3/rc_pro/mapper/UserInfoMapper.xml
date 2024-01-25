@@ -39,7 +39,7 @@
 	<!-- 회원 권한 추가 -->
 	<insert id="insertAuthorityInfo">
 		INSERT INTO rc_pro.authority_info
-		VALUES (#{user_id},'ROLE_MEMBER')
+		VALUES (#{user_id}, DEFAULT)
 	</insert>
 	
 	<!-- 아이디 중복체크 -->
@@ -62,6 +62,12 @@
 
 	<select id="selectUserInfoAddress" resultMap="userinfoMap">
 		SELECT user_address
+		FROM rc_pro.user_info
+		WHERE user_id=#{user_id}
+	</select>
+	
+	<select id="selectUserNum" resultType="int">
+		SELECT user_num
 		FROM rc_pro.user_info
 		WHERE user_id=#{user_id}
 	</select>

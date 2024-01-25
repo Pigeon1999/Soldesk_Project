@@ -19,5 +19,8 @@ public interface UserInfoMapper {
 	//주소 조회
 	public UserInfoVO selectUserInfoAddress(String user_id);
 	
+	//회원번호 찾기 
+	public int selectUserNum(String user_id);
+	
 }
 

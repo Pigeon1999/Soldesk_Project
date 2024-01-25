@@ -86,7 +86,13 @@
 			async: false,
 			success : function(result) { 
 				// 결과 성공 콜백함수        
-				console.log(result);    }
+				alert("등록되었습니다.") 
+				if (category_id == 3) {
+					window.location.href="/rc_pro/board/newslist?category_id=3&region_id=${region_id}";
+				}
+				else {
+					window.location.href="/rc_pro/board/list?category_id=${category_id}&region_id=${region_id}"
+				}}
 		});
 		
 	});

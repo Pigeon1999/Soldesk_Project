@@ -1,5 +1,10 @@
 package com.team3.rc_pro.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,15 +16,24 @@ import com.team3.rc_pro.common.paging.domain.BoardPagingCreatorDTO;
 import com.team3.rc_pro.common.paging.domain.BoardPagingDTO;
 import com.team3.rc_pro.domain.PostInfoVO;
 import com.team3.rc_pro.mapper.PostInfoMapper;
+import com.team3.rc_pro.mapper.UserInfoMapper;
 import com.team3.rc_pro.service.BoardService;
 import com.team3.rc_pro.service.PostInfoService;
+
+import lombok.Setter;
 
 @Controller
 @RequestMapping("/board")
 public class BoardController {
 
+	@Setter(onMethod_ = @Autowired)
 	private BoardService boardService ;
+	
+	@Setter(onMethod_ = @Autowired)
 	private PostInfoService postInfoService;
+	
+	@Setter(onMethod_ = @Autowired)
+    UserInfoMapper userinfoMapper;
 
 	public BoardController(BoardService boardService) {
 		this.boardService = boardService ;
@@ -72,30 +86,32 @@ public class BoardController {
 	}
 	
 	@PostMapping("/register")
-	public String register(PostInfoVO postInfo,
+	public ResponseEntity<String> register(PostInfoVO postInfo,
 								  @RequestParam int region_id,
 								  @RequestParam int category_id, 
 								  @RequestParam String post_title,
 								  @RequestParam String post_content){
 				
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String username = authentication.getName();
+		int userNum = userinfoMapper.selectUserNum(username);
+		
 		postInfo.setRegion_id(region_id);
 		postInfo.setCategory_id(category_id);
+		postInfo.setUser_num(userNum);
 		postInfo.setPost_title(post_title);
 		postInfo.setPost_content(post_content);
 		
-		System.out.println(postInfo.getRegion_id());
-		System.out.println(postInfo.getCategory_id());
-		System.out.println(postInfo.getPost_title());
-		System.out.println(postInfo.getPost_content());
+		System.out.println("region_id : " + postInfo.getRegion_id());
+		System.out.println("category_id : " + postInfo.getCategory_id());
+		System.out.println("user_num : " + postInfo.getUser_num());
+		System.out.println("post_title :" + postInfo.getPost_title());
+		System.out.println("post_content : " + postInfo.getPost_content());
 		
-
 		postInfoService.insertPost(postInfo);
-
 		
-		return "/board/register";
+		return new ResponseEntity<>(String.valueOf(true),HttpStatus.OK);
 	}
-	
-	
 	
 	@GetMapping("/modify")
 	public String showModify() {

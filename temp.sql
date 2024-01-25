@@ -68,7 +68,7 @@ ADD CONSTRAINT pk_region_id PRIMARY KEY(region_id);
 -- 5. post_info
 CREATE TABLE rc_pro.post_info(
 post_id NUMBER(10,0) NOT NULL, -- 수정
-category_id NUMBER(10,0) NOT NULL UNIQUE,
+category_id NUMBER(10,0) NOT NULL,
 region_id NUMBER(10,0) NOT NULL,
 user_num NUMBER(10,0) NOT NULL,
 post_title VARCHAR2(100) NOT NULL,
@@ -81,10 +81,10 @@ post_hide NUMBER(1,0) DEFAULT 0 CHECK(post_hide IN (0, 1)) NOT NULL , -- 수정
 post_file VARCHAR2(500)
 )TABLESPACE users;
 
-CREATE INDEX rc_pro.idx_post_info_id ON rc_pro.post_info(post_id,category_id,region_id);
+CREATE INDEX rc_pro.idx_post_info_id ON rc_pro.post_info(post_id);
 
 ALTER TABLE rc_pro.post_info
-ADD CONSTRAINT pk_post_id PRIMARY KEY (post_id,category_id,region_id)
+ADD CONSTRAINT pk_post_id PRIMARY KEY (post_id)
 USING INDEX rc_pro.idx_post_info_id;
 
 ALTER TABLE rc_pro.post_info
@@ -118,12 +118,12 @@ ADD CONSTRAINT fk_myuser_num_scrape FOREIGN KEY (user_num)
     REFERENCES rc_pro.user_info(user_num) ON DELETE CASCADE; 
 
 ALTER TABLE rc_pro.scrape_info
-ADD CONSTRAINT fk_post_id_scrape FOREIGN KEY (post_id,category_id,region_id)
-    REFERENCES rc_pro.post_info(post_id,category_id,region_id) ON DELETE CASCADE;
+ADD CONSTRAINT fk_post_id_scrape FOREIGN KEY (post_id)
+    REFERENCES rc_pro.post_info(post_id) ON DELETE CASCADE;
     
 ALTER TABLE rc_pro.scrape_info
 ADD CONSTRAINT fk_category_id_scrape FOREIGN KEY (category_id)
-    REFERENCES rc_pro.category_info(category_id) ON DELETE CASCADE; 
+    REFERENCES rc_pro.category_info(category_id) ON DELETE CASCADE;
     
 ALTER TABLE rc_pro.scrape_info
 ADD CONSTRAINT fk_region_id_scrape FOREIGN KEY (region_id)
@@ -148,8 +148,8 @@ ADD CONSTRAINT fk_myuser_num_like FOREIGN KEY (user_num)
     REFERENCES rc_pro.user_info(user_num) ON DELETE CASCADE; 
 
 ALTER TABLE rc_pro.like_info
-ADD CONSTRAINT fk_post_id_like FOREIGN KEY (post_id,category_id,region_id)
-    REFERENCES rc_pro.post_info(post_id,category_id,region_id) ON DELETE CASCADE;
+ADD CONSTRAINT fk_post_id_like FOREIGN KEY (post_id)
+    REFERENCES rc_pro.post_info(post_id) ON DELETE CASCADE;
     
 ALTER TABLE rc_pro.like_info
 ADD CONSTRAINT fk_category_id_like FOREIGN KEY (category_id)
@@ -180,8 +180,8 @@ ADD CONSTRAINT fk_user_num_reply FOREIGN KEY(user_num)
     REFERENCES rc_pro.user_info(user_num) ON DELETE CASCADE;
 
 ALTER TABLE rc_pro.reply_info
-ADD CONSTRAINT fk_post_id_reply FOREIGN KEY(post_id,category_id,region_id)
-    REFERENCES rc_pro.post_info(post_id,category_id,region_id) ON DELETE CASCADE;
+ADD CONSTRAINT fk_post_id_reply FOREIGN KEY(post_id)
+    REFERENCES rc_pro.post_info(post_id) ON DELETE CASCADE;
 
 ALTER TABLE rc_pro.reply_info
 ADD CONSTRAINT fk_post_category_id_reply FOREIGN KEY(category_id)
@@ -263,5 +263,10 @@ DROP TABLE reply_info CASCADE CONSTRAINTS;
 DROP TABLE like_info CASCADE CONSTRAINTS;
 DROP TABLE reply_like_info CASCADE CONSTRAINTS;
 
+SELECT * FROM user_info;
+DELETE FROM user_info;
+
+SELECT * FROM post_info;
+DELETE FROM post_info;
 
 COMMIT;
