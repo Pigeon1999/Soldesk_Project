@@ -256,22 +256,22 @@
 				</table>
 	  	</div>
 	  </div>
-	  <style>
-	  	#free_post {
-	  		float:left;
-	  		width:50%;
-	  		padding:2px;
-	  	}
-	  	
-	  	#promotion_post {
-	  		float:right;
-	  		width:50%;
-	  		padding:2px;
-	  	}
-	  	#news_post {
-	  		padding:2px;
-	  	}  	
-	  </style>
+<style>
+	#free_post {
+		float:left;
+		width:50%;
+		padding:2px;
+	}
+	
+	#promotion_post {
+		float:right;
+		width:50%;
+		padding:2px;
+	}
+	#news_post {
+		padding:2px;
+	}  	
+</style>
 <script>
 
 	var myCsrfHeaderName = "${_csrf.headerName}" ;

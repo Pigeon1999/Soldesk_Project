@@ -11,8 +11,27 @@
 <body> -->
 	<section>
 		<header style="border-bottom: 1px solid #ccc;">
-			<h1><a href="#">-- 게시판</a></h1> <!-- 나중에 현재 위치한 게시판으로 이동 -->
+			<c:choose>
+				<c:when test="${pagingCreator.boardPaging.category_id == '1'}" >
+					<h2>자유게시판</h2>
+				</c:when>
+				<c:when test="${pagingCreator.boardPaging.category_id == '2'}" >
+					<h2>홍보게시판</h2>
+				</c:when>
+				<c:when test="${pagingCreator.boardPaging.category_id == '3'}" >
+					<h2>뉴스</h2>
+				</c:when>
+				<c:otherwise>
+					<h2>자유게시판</h2>
+				</c:otherwise>
+			</c:choose>
 		</header>
+		
+		<%
+		    // url에서 "post_id" 파라미터 값을 가져오기
+		    String postIdParameter = request.getParameter("post_id");
+		%>
+			
 		<article style="margin-top: 10px;">
 			<header id="postInfo_box" style="border-bottom: 1px solid #ccc; overflow: hidden;"> <!-- 게시글 정보 -->
 				<div id="post">

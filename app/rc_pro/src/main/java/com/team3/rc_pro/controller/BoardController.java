@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.team3.rc_pro.common.paging.domain.BoardPagingCreatorDTO;
 import com.team3.rc_pro.common.paging.domain.BoardPagingDTO;
 import com.team3.rc_pro.domain.PostInfoVO;
-import com.team3.rc_pro.mapper.PostInfoMapper;
 import com.team3.rc_pro.mapper.UserInfoMapper;
 import com.team3.rc_pro.service.BoardService;
 import com.team3.rc_pro.service.PostInfoService;
