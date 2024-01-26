@@ -5,11 +5,7 @@ import com.team3.rc_pro.domain.PostInfoVO;
 
 public interface PostInfoService {
 
-	public List<PostInfoVO> getFreePostInfo();
-	
-	public List<PostInfoVO> getPromotionPostInfo();
-	
-	public List<PostInfoVO> getNewsPostInfo();
+	public List<PostInfoVO> getPostInfo();
 	
 	public void insertPost(PostInfoVO postinfo);
 }

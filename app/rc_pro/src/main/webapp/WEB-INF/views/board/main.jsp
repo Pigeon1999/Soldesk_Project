@@ -5,7 +5,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
-<c:set var="region_id" value="${pagingCreator.boardPaging.region_id }" />
+<c:set var="region_id" value="${pagingCreator.boardPaging.region_id}" />
  
 <!DOCTYPE html>
 <html lang="ko">
@@ -160,11 +160,11 @@
 						</tr>
 					</thead>
  					<tbody>
- 					<c:forEach items="${freePostInfo}" var="FreePost">
- 						<c:if test="${FreePost.post_hide == 0 and FreePost.region_id == region_id}">
+ 					<c:forEach items="${PostInfo}" var="FreePost">
+ 						<c:if test="${FreePost.post_hide == 0 and FreePost.region_id == region_id and FreePost.category_id == 1}">
  							<tr>
 								<td style="text-align:left;">
-									<a href="{대충 게시글로 간다는 내용}">
+									<a href="/rc_pro/board/detail?category_id=1&region_id=${region_id}&post_id=${FreePost.post_id}">
 									    <c:out value="${FreePost.post_title}" />
 									    <span style="float:right;">
 									        <fmt:formatDate pattern="MM/dd hh:mm" value="${FreePost.post_date}" />
@@ -195,11 +195,11 @@
 						</tr>
 					</thead>
  					<tbody>
- 					<c:forEach items="${promtionPostInfo}" var="PromotionPost">
- 						<c:if test="${PromotionPost.post_hide == 0 and PromotionPost.region_id == region_id}">
+ 					<c:forEach items="${PostInfo}" var="PromotionPost">
+ 						<c:if test="${PromotionPost.post_hide == 0 and PromotionPost.region_id == region_id and PromotionPost.category_id == 2}">
  							<tr>
 								<td style="text-align:left;">
-									<a href="{대충 게시글로 간다는 내용}">
+									<a href="/rc_pro/board/detail?category_id=2&region_id=${region_id}&post_id=${PromotionPost.post_id}">
 									    <c:out value="${PromotionPost.post_title}" />
 									    <span style="float:right;">
 									        <fmt:formatDate pattern="MM/dd hh:mm" value="${PromotionPost.post_date}" />
@@ -232,11 +232,11 @@
 						</tr>
 					</thead>
  					<tbody>
-	 					<c:forEach items="${newsPostInfo}" var="NewsPost">
-							<c:if test="${NewsPost.post_hide == 0 and NewsPost.region_id == region_id}">
+	 					<c:forEach items="${PostInfo}" var="NewsPost">
+							<c:if test="${NewsPost.post_hide == 0 and NewsPost.region_id == region_id and NewsPost.category_id == 3}">
 							    <tr>
 							        <td style="text-align:left;">
-							            <a href="{대충 게시글로 간다는 내용}">
+							            <a href="/rc_pro/board/detail?category_id=3&region_id=${region_id}&post_id=${NewsPost.post_id}">
 							                <img src="이미지_경로" alt="대체 텍스트">
 							                <span style="display: inline-block; vertical-align: top; margin-left: 10px; width: calc(100% - 120px);">
 							                    <span style="font-size: 16px; font-weight: bold;">

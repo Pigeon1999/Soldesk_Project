@@ -21,7 +21,7 @@ public class PostInfoMapperTest {
 	
 	@Test 
 	public void testSelectPostlist() {
-		log.info(postinfomapper.selectFreePost());
+		log.info(postinfomapper.selectPost());
 	}
 	
 }

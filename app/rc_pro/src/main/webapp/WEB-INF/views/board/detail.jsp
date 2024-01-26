@@ -1,7 +1,10 @@
 <%@ page session="false" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
+<c:set var="contextPath" value="${pageContext.request.contextPath }" />
+<c:set var="postInfo" value="${PostInfo}"/>
     
 <%@ include file="../myinclude/myheader.jsp" %>
 <!-- myheader.jsp 에서 
@@ -14,7 +17,7 @@
 			<header id="postInfo_box" style="border-bottom: 1px solid #ccc; overflow: hidden;"> <!-- 게시글 정보 -->
 				<div id="post">
 					<h4>제목</h4>
-					<div id="post_info"> <!-- 오류! : 현재 div크기가 하위 div의 텍스트 만큼의 크기여서 우측 고정해도 붙어있음. -->
+					<div id="post_info">
 						<div id="hl" style="float:left;" > 
 							<span> 작성자 </span>
 							<a>|</a>

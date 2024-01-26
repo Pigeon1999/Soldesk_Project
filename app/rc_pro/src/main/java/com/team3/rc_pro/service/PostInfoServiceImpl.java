@@ -17,21 +17,9 @@ public class PostInfoServiceImpl implements PostInfoService {
 	private PostInfoMapper postinfoMapper;
 	
 	@Override
-	public List<PostInfoVO> getFreePostInfo() {
+	public List<PostInfoVO> getPostInfo() {
 		log.info("PostInfoService.getFreePostInfo() 실행");
-		return postinfoMapper.selectFreePost();
-	}
-	
-	@Override
-	public List<PostInfoVO> getPromotionPostInfo() {
-		log.info("PostInfoService.getPromotionPostInfo() 실행");
-		return postinfoMapper.selectPromotionPost();
-	}
-	
-	@Override
-	public List<PostInfoVO> getNewsPostInfo() {
-		log.info("PostInfoService.getNewsPostInfo() 실행");
-		return postinfoMapper.selectNewsPost();
+		return postinfoMapper.selectPost();
 	}
 	
 	@Override 

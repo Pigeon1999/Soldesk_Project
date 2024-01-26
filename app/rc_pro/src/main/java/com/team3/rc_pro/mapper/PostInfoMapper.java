@@ -5,11 +5,7 @@ import com.team3.rc_pro.domain.PostInfoVO;
 
 public interface PostInfoMapper {
 	
-	public List<PostInfoVO> selectFreePost();
-	
-	public List<PostInfoVO> selectPromotionPost();
-	
-	public List<PostInfoVO> selectNewsPost();
+	public List<PostInfoVO> selectPost();
 	
 	public void insertPost(PostInfoVO postinfo);
 	

@@ -71,7 +71,12 @@ public class BoardController {
 	}
 	
 	@GetMapping("/detail")
-	public String showDetail() {
+	public String showDetail(BoardPagingDTO boardPaging, Model model) {
+		BoardPagingCreatorDTO pagingCreator = boardService.getBoardList(boardPaging) ;
+		
+		model.addAttribute("PostInfo", postInfoService.getPostInfo());
+		model.addAttribute("pagingCreator", pagingCreator) ;
+		
 		return "/board/detail";
 	}
 	

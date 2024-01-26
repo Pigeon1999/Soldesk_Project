@@ -48,9 +48,7 @@ public class RegionController {
 	public String main(Model model, BoardPagingDTO boardPaging) {
 		BoardPagingCreatorDTO pagingCreator = boardService.getBoardList(boardPaging);
 		
-		model.addAttribute("freePostInfo", postinfoService.getFreePostInfo());
-		model.addAttribute("promtionPostInfo", postinfoService.getPromotionPostInfo());
-		model.addAttribute("newsPostInfo", postinfoService.getNewsPostInfo());
+		model.addAttribute("PostInfo", postinfoService.getPostInfo());
 		model.addAttribute("pagingCreator", pagingCreator) ;
 		
 		return "/board/main";
