@@ -6,7 +6,7 @@
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <c:set var="region_id" value="${pagingCreator.boardPaging.region_id }" />
-
+ 
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -39,6 +39,7 @@
 
   <!-- Template Main CSS File -->
   <link href="assets/css/main.css" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -111,13 +112,14 @@
 		  <div>
 		  	<sec:authorize access="isAuthenticated()">
 			    <div style="display: flex; align-items: center;">
-				    <form id="logoutForm" role="form" action="${contextPath}/main" method="post" style="padding-right: 10px;">
+				    <form id="logoutForm" role="form" action="${contextPath}/logout" method="post" style="padding-right: 10px;">
 				        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 				        <fieldset>
 				            <a onclick="document.getElementById('logoutForm').submit(); return false;" class="btn-getstarted scrollto">Logout</a>
 				        </fieldset>
 				    </form>
-				    <a class="btn-getstarted scrollto" href="">MyPage</a>
+				    <input type="hidden" id="user_id" value='<sec:authentication property="principal.username"/>'/>
+				    <button class="btn-getstarted scrollto" type="button" id="mypagebtn">MyPage</button>
 				</div>
 			</sec:authorize>
 			
@@ -270,6 +272,20 @@
 	  		padding:2px;
 	  	}  	
 	  </style>
+<script>
 
+	var myCsrfHeaderName = "${_csrf.headerName}" ;
+	var myCsrfToken = "${_csrf.token}" ;
+	$(document).ajaxSend(function(e, xhr){
+		xhr.setRequestHeader(myCsrfHeaderName, myCsrfToken) ;
+			
+	});
+
+	$("#mypagebtn").on("click",function(){
+		var user_id= document.getElementById("user_id").value;
+		window.location.href="/rc_pro/myinfo?user_id="+user_id;
+		
+	});
+</script>
 <%@ include file="../myinclude/myfooter.jsp" %>   	  
 	  

@@ -39,5 +39,28 @@
 		INSERT INTO rc_pro.post_info
 		VALUES (#{post_id}, #{category_id}, #{region_id}, #{user_num}, #{post_title}, #{post_content}, SYSDATE, DEFAULT, DEFAULT, DEFAULT, DEFAULT, 0)
 	</insert>
+
+	<!-- 특정회원이 작성한 게시물 조회 -->
+	<select id="selectPostinfo" resultType="com.team3.rc_pro.domain.PostInfoVO">
+		SELECT post_id,post_title,post_view
+		FROM rc_pro.post_info
+		WHERE user_num=#{user_num}
+		ORDER BY post_id ASC
+	</select>
 	
+	<!-- 회원 번호로 즐겨찾기 정보 조회 -->
+	<select id="selectScrapeinfo" resultType="com.team3.rc_pro.domain.PostInfoVO">
+		SELECT post_id,category_id,region_id
+		FROM rc_pro.scrape_info
+		WHERE user_num=#{user_num}
+		ORDER BY region_id ASC
+	</select>
+	
+	<!-- 글번호로 글정보 조회  -->
+	<select id="selectPostinfo2" resultType="com.team3.rc_pro.domain.PostInfoVO">
+		SELECT category_id,region_id,post_title,post_view
+		FROM rc_pro.post_info
+		WHERE post_id=#{post_id}
+		ORDER BY post_id ASC
+	</select>	
 </mapper>

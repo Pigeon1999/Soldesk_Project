@@ -1,92 +1,111 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html lang="kr">
+    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
-<head>
-
-<meta charset="UTF-8">
-<title>회원가입 페이지</title>
-
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-
-	<!-- jQuery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<!doctype html>
+<html lang="kr" data-bs-theme="auto">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+<head><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+	<meta charset="utf-8">
+	<title>회원가입 페이지</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="assets/css/signup.css" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
-<body>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
-	<h2>회원 가입</h2>
+<body>    
+	<div class="container">
+		<div class="screen">
+			<div class="screen__content">
+				<form class="login">
+					<div class="login__field">
+						<label class="login__inputcontent">이름 : </label>
+				    	<input type="text" class="login__inputname" name="user_name"  id="user_name" required/>
+					</div>
+					<div class="login__field">
+						<label class="login__inputcontent">생년월일 : </label>
+						<input type="text" class="login__inputname" name="user_birth" id="user_birth" placeholder="ex)970627" maxlength="6" required>
+					</div>
+					<div class="login__field btn-group">
+						<label class="login__inputidlabel">아이디 : </label>
+						<input type="text" class="login__inputid" name="user_id" id="user_id" placeholder="9~16자의 영어와 숫자" required>
+						<button type="button" class="button login__submit" name="idcheckbtn" style="width: 105px;" id="idcheckbtn">중복 체크</button>
+					</div>
+					<div class="login__field">
+						<div class="input-group">
+							<div class="col-md-6">
+								<label class="login__inputcontent">비밀번호 : </label>
+								<input type="password" class="login__inputname" name="user_passwd" id="user_passwd" required>
+							</div>
+							<div class="col-md-6">	
+								<label class="login__inputcontent">비밀번호 확인 : </label>
+								<input type="password" class="login__inputname" name="user_passwdck" id="user_passwdck" required>
+							</div>
+						</div>
+					</div>
+					<label class="login__inputcontent">9~16자의 대소문자,숫자와 특수문자</label>
+					<div class="login__field">
+				    	<label class="login__inputcontent">전화번호 : &nbsp;</label>
+		    			<select class="login__inputfirstnumber" id="user_pn1" aria-label="Default select example">
+							<option selected value="">선택</option>
+							<option value="030">030</option>
+							<option value="011">011</option>
+							<option value="010">010</option>
+						</select>
+						<span class="span__tag">-</span>
+						<input class="login__inputnumber" type="text" maxlength="4" class="form-control" name="user_pn2" id="user_pn2" placeholder="xxxx" required>
+						<span class="span__tag">-</span>
+						<input class="login__inputnumber" type="text" maxlength="4" class="form-control" name="user_pn3" id="user_pn3" placeholder="xxxx" required>
+					</div>
+					<div class="login__field">
+					    	<label class="login__inputcontent">이메일 : &nbsp;</label>
+    		    			<input type="text" class="login__inputname" name="firstemail" id="firstemail" placeholder="email" aria-label="email" required>
+							<span class="span__tag">@</span>
+							<select class="login__inputemail" id="secondemail" aria-label="navigation meun">
+								<option selected value="">이메일 선택</option>
+								<option value="naver.com">naver.com</option>
+								<option value="gmail.com">gmail.com</option>
+								<option value="nate.com">nate.com</option>
+							</select>
+					</div>
+					<div class="login__field">
+					    <label class="login__inputcontent">이용 지역 : </label>
+						<select class="login__inputemail" id="reginfo" aria-label="navigation meun">
+							<option selected value="">지역 선택</option>
+							<option value="관철동">관철동</option>
+							<option value="청진동">청진동</option>
+							<option value="공평동">공평동</option>
+							<option value="관수동">관수동</option>
+							<option value="인사동">인사동</option>
+							<option value="종로2가">종로2가</option>
+							<option value="삼각동">삼각동</option>
+							<option value="서린동">서린동</option>
+						</select>
+					</div>					
+					
+					<div class="btn-toolbar">
+						<button class="button login__submit" type="button" style="width: 105px;" name="signinbtn" id="signinbtn">회원 가입</button>
+						<button class="button login__submit" type="button" style="width: 100px;" name="closebtn" id="closebtn">창 닫기</button>
+					</div>
+					<sec:csrfInput/>       
+				</form>
+			</div> <!-- screen content div-end -->
+			<div class="screen__background">
+				<span class="screen__background__shape screen__background__shape4"></span>
+				<span class="screen__background__shape screen__background__shape3"></span>    
+				<span class="screen__background__shape screen__background__shape2"></span>
+				<span class="screen__background__shape screen__background__shape1"></span>
+			</div>    <!--screen__background div-end  -->
+		</div><!-- screen div-end -->
+	</div><!--container div-end  -->
 	
 	
-		<hr>			
-		<div style="width:200px" class="input-group">
-			<h4>이름:&nbsp;&nbsp;</h4>
-			<input type="text" class="form-control" name="user_name"  id="user_name" placeholder="이름" required/> 
-		</div>
-		<div style="width:350px" class="input-group">
-			<h4>아이디:&nbsp;&nbsp;</h4>
-			<input type="text" class="form-control" name="user_id" id="user_id" placeholder="아이디" required>
-			<button type="button" class="btn btn-secondary btn-sm" name="idcheckbtn" id="idcheckbtn">중복 체크</button>
-			<h6>&nbsp;&nbsp;(9~16자의 특수 문자를 제외한 영어와 숫자)</h6>
-		</div>			
-		<div style="width:300px" class="input-group">
-			<h4>비밀번호:&nbsp;&nbsp;</h4>
-			<input type="password" class="form-control" name="user_passwd" id="user_passwd" placeholder="비밀번호" required>
-			<h6>&nbsp;&nbsp;&nbsp;&nbsp;(9~16자의 대소문자,숫자와 특수문자)</h6>	
-		</div>		
-		<div style="width:300px" class="input-group">
-			<h4>생년월일:&nbsp;&nbsp;</h4>
-			<input type="text" class="form-control" name="user_birth" id="user_birth" placeholder="생년월일(6자리)" maxlength="6" required>
-		</div>
-		
-		<div style="width:700px" class="input-group">
-			<h4>전화번호:&nbsp;&nbsp;</h4>
-			<!-- <input width="33%" type="text" class="form-control" name="user_pn" id="user_pn1" placeholder="010" required> -->
-			<select class="form-select" id="user_pn1" aria-label="Default select example">
-				<option selected value="">전화 번호</option>
-				<option value="030">030</option>
-				<option value="011">011</option>
-				<option value="010">010</option>
-			</select>
-			<span class="input-group-text">-</span>
-			<input type="text" maxlength="4" class="form-control" name="user_pn2" id="user_pn2" placeholder="xxxx" required>
-			<span class="input-group-text">-</span>
-			<input type="text" maxlength="4" class="form-control" name="user_pn3" id="user_pn3" placeholder="xxxx" required>
-		</div>
-		
-		<div style="width:600px" class="input-group">
-			<h4>이메일:&nbsp;&nbsp;</h4>
-			<input type="text" class="form-control" name="firstemail" id="firstemail" placeholder="email" aria-label="email" required>
-			<span class="input-group-text">@</span>
-			<select class="form-select" id="secondemail" aria-label="navigation meun">
-				<option selected value="">이메일 선택</option>
-				<option value="naver.com">naver.com</option>
-				<option value="gmail.com">gmail.com</option>
-				<option value="nate.com">nate.com</option>
-			</select>
-		</div>
-		<div style="width:300px" class="input-group">
-			<h4>이용 지역:&nbsp;&nbsp;</h4>
-			<select class="form-select" id="reginfo" aria-label="navigation meun">
-				<option selected value="">지역 선택</option>
-				<option value="관철동">관철동</option>
-				<option value="청진동">청진동</option>
-				<option value="공평동">공평동</option>
-				<option value="관수동">관수동</option>
-				<option value="인사동">인사동</option>
-				<option value="종로2가">종로2가</option>
-				<option value="삼각동">삼각동</option>
-				<option value="서린동">서린동</option>
-			</select>
-		</div>
-<!-- 				<div class="form-group mt-3">
-					<textarea class="form-control" name="message" placeholder="요청사항" required></textarea>
-				</div> -->
-		<button class="btn btn-primary btn-lg" name="signinbtn" id="signinbtn">회원 가입</button>
-		<button class="btn btn-primary btn-lg" onclick="window.location.href='/rc_pro/login';">취소</button>
-	
-	<script>
+<script>
 	
 		var myCsrfHeaderName = "${_csrf.headerName}" ;
 		var myCsrfToken = "${_csrf.token}" ;
@@ -95,6 +114,11 @@
 			xhr.setRequestHeader(myCsrfHeaderName, myCsrfToken) ;
 				
 		});
+		
+		function closescript(){
+			self.opener=self;
+			window.close();	
+		}
 		
 		function checkuser_id(user_id){
 			
@@ -107,6 +131,28 @@
 			$.ajax({
 				url : "/rc_pro/iddupcheck",
 				data : {user_id : user_id},
+				type : "post",
+				dataType : "json",
+				async: false,
+				success: function(result){ //result 0 : 사용가능
+					myresult = result;
+				}
+				
+			});
+			if(myresult == 0){
+				return true;
+			}else{
+				return false;
+			}	
+		}
+		
+		function checkuser_email(user_email){
+			
+			var myresult;
+			
+			$.ajax({
+				url : "/rc_pro/emaildupcheck",
+				data : {user_email : user_email},
 				type : "post",
 				dataType : "json",
 				async: false,
@@ -156,7 +202,8 @@
 			}else if(!expemail.test(email)){
 				alert("이메일을 확인해주세요.");
 				return false;
-			}			
+			}
+			
 			<%--select 절이 입력됐는지 확인--%>
 			if(pn1.length==0){
 				alert("전화번호 앞자리를 선택해주세요.");
@@ -198,6 +245,7 @@
 			var user_name = document.getElementById("user_name").value;
 			var user_id = document.getElementById("user_id").value;
 			var user_passwd = document.getElementById("user_passwd").value;
+			var user_passwdck = document.getElementById("user_passwdck").value;
 			var user_birth = document.getElementById("user_birth").value;
 			var pn1 = document.getElementById("user_pn1").value;
 			var user_address = document.getElementById("reginfo").value;
@@ -207,6 +255,8 @@
 			var email2 = document.getElementById("secondemail").value;
 //			var memberfrm = $("#memberform"); 
 			var myresult;
+			
+			
 			if(!checksignin(user_name,user_id,user_passwd,user_birth,pn2,pn3,email1)){
 				return;
 			}
@@ -219,7 +269,18 @@
 			var user_email = email1;
 				user_email += "@";
 				user_email += email2;
-						
+			
+			if(!(user_passwd == user_passwdck)){
+				alert("비밀번호 과 비밀번호 확인이 일치하지않습니다.")
+				return;
+			}	
+				
+			if(!checkuser_email(user_email)){
+				alert("이미 가입된 이메일입니다.");
+				return;
+			}			
+			
+			
 			$.ajax({
 				type : "post",
 				url : "/rc_pro/signin",
@@ -240,8 +301,12 @@
 			});
 			if(myresult){
 				alert("회원가입이 완료되었습니다.")
-				window.location.href="/rc_pro/login";
+				closescript();
 			}
+		});
+		
+		$("#closebtn").on("click",function(){
+			closescript();
 		});
 	</script>
 </body>

@@ -94,7 +94,7 @@ public class BoardController {
 				
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String username = authentication.getName();
-		int userNum = userinfoMapper.selectUserNum(username);
+		Integer userNum = userinfoMapper.selectUsernum(username);
 		
 		postInfo.setRegion_id(region_id);
 		postInfo.setCategory_id(category_id);

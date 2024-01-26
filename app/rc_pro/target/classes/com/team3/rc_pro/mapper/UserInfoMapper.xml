@@ -60,15 +60,60 @@
 		]]>
 	</select>
 
+	<!-- 회원 주소조회 -->
 	<select id="selectUserInfoAddress" resultMap="userinfoMap">
 		SELECT user_address
 		FROM rc_pro.user_info
 		WHERE user_id=#{user_id}
 	</select>
-	
-	<select id="selectUserNum" resultType="int">
+
+	<!-- 회원번호 조회 -->
+	<select id="selectUsernum" resultType="int">
 		SELECT user_num
 		FROM rc_pro.user_info
 		WHERE user_id=#{user_id}
 	</select>
+	
+	<!-- 비밀번호 찾기후 변경  -->
+	<update id="UpdateUserpw" parameterType="com.team3.rc_pro.domain.UserInfoVO">
+		UPDATE rc_pro.user_info
+		SET user_passwd = #{user_passwd}
+		WHERE user_id = #{user_id}
+	</update>
+	
+	<!-- 마이페이지 정보수정 -->
+	<update id="UpdateUserinfo" parameterType="com.team3.rc_pro.domain.UserInfoVO">
+		UPDATE rc_pro.user_info
+		SET user_passwd = #{user_passwd} , user_email = #{user_email} , user_pn = #{user_pn} , user_address = #{user_address}
+		WHERE user_id=#{user_id}
+	</update>	
+	
+	<!-- 회원 비밀번호조회 -->
+	<select id="selectUserpassword" resultType="String">
+		SELECT user_passwd
+		FROM rc_pro.user_info
+		WHERE user_id=#{user_id}
+	</select>	
+
+	<!-- 이메일 중복체크 -->
+	<select id="emaildupcheck" resultType="Long">
+		SELECT COUNT(*)
+		FROM rc_pro.user_info
+		WHERE user_email=#{user_email}
+	</select>
+	
+	<!-- 아이디 찾기 -->
+	<select id="findUserid" parameterType="com.team3.rc_pro.domain.UserInfoVO" resultType="String">
+		SELECT user_id 
+		FROM rc_pro.user_info 
+		WHERE user_email=#{user_email} AND user_name =#{user_name}
+	</select>
+	
+	<!-- 비밀번호 찾기 -->	
+	<select id="findUserpassword" parameterType="com.team3.rc_pro.domain.UserInfoVO" resultType="Long">
+		SELECT COUNT(*) 
+		FROM rc_pro.user_info 
+		WHERE user_name=#{user_name} AND user_id =#{user_id}
+	</select>
+		
 </mapper>

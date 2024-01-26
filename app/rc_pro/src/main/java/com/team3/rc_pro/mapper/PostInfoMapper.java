@@ -12,4 +12,10 @@ public interface PostInfoMapper {
 	public List<PostInfoVO> selectNewsPost();
 	
 	public void insertPost(PostInfoVO postinfo);
+	
+	public List<PostInfoVO> selectPostinfo(Integer user_num);
+	
+	public List<PostInfoVO> selectScrapeinfo(Integer user_num);
+	
+	public PostInfoVO selectPostinfo2(Integer post_id);
 }
