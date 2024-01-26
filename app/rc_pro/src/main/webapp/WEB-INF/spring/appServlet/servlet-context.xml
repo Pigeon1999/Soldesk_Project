@@ -30,9 +30,13 @@
 	<context:component-scan base-package="com.team3.rc_pro.service" />
  	<context:component-scan base-package="com.team3.rc_pro.controller" />
 	<context:component-scan base-package="com.team3.rc_pro.common.security" />
+	<context:component-scan base-package="com.team3.rc_pro.common.fileupload" />
 	
 	<security:global-method-security pre-post-annotations="enabled" secured-annotations="enabled" />
 	
 	<aop:aspectj-autoproxy/>
+	
+	<!-- 멀티파티 업로드 구성을 위한 MultiPartResolver 빈 설정 -->
+	<beans:bean id="multipartResolver" class= "org.springframework.web.multipart.support.StandardServletMultipartResolver"/>
 	
 </beans:beans>
