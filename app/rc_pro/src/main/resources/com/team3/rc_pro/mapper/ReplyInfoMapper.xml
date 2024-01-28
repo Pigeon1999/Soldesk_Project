@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.team3.rc_pro.mapper.ReplyInfoMapper">
+
+	<select id="selectReplyInfo" resultType="com.team3.rc_pro.domain.ReplyInfoVO">
+		SELECT * 
+		FROM rc_pro.reply_info
+		ORDER BY reply_id
+	</select>
+	
+	<insert id="insertReplyInfo">
+		<selectKey order="BEFORE" keyProperty="reply_id" resultType="int">
+			SELECT rc_pro.seq_replyid.nextval FROM dual
+		</selectKey>
+		INSERT INTO rc_pro.reply_info
+		VALUES (#{reply_id}, #{user_num}, DEFAULT, #{post_id}, #{reply_content}, DEFAULT, DEFAULT, DEFAULT)
+	</insert>
+
+	<insert id="insertReplyGroupInfo">
+		<selectKey order="BEFORE" keyProperty="reply_id" resultType="int">
+			SELECT rc_pro.seq_replyid.nextval FROM dual
+		</selectKey>
+		INSERT INTO rc_pro.reply_info
+		VALUES (#{reply_id}, #{user_num}, #{reply_group}, #{post_id}, #{reply_content}, DEFAULT, DEFAULT, DEFAULT)
+	</insert>
+
+	<select id="countReply" resultType="int">
+		SELECT count(*)
+		FROM rc_pro.reply_info
+		WHERE post_id = #{post_id}
+	</select>
+
+</mapper>

@@ -14,8 +14,8 @@ public class FileUploadAjaxController {
 	private static final Logger logger = LoggerFactory.getLogger(FileUploadAjaxController.class);
 	
 	//저장경로 (Windows 환경이므로 경로구분자를 \\로 지정)
-	private String uploadFileRepoDir = "C:\\Users\\soldesk\\Desktop\\Spring\\upload" ;
-
+	//private String uploadFileRepoDir = "C:\\Users\\soldesk\\Desktop\\Spring\\upload" ;
+	private String uploadFileRepoDir = "D:\\\\Dev\\\\Java\\\\upload" ;
 	//업로드 요청 파일-저장 및 결과 메시지 전송
 	@PostMapping(value = "/board/register/fileUploadAjaxAction", produces = {"text/plain; charset=UTF-8"})
 	public @ResponseBody String fileUploadActionPost(MultipartFile[] uploadFiles) {//Ajax사용 시 Model 필요없슴

@@ -109,7 +109,7 @@
 		}
 	 	
 		if (category_id == 3){}
-		else { post_file = null; }
+		else { post_file = 0; }
 		
 		console.log('서버 응답:', region_id);
 		console.log('서버 응답:', category_id);
@@ -138,7 +138,8 @@
 				region_id : region_id,
 				category_id : category_id,
 				post_title : post_title,
-				post_content : post_content
+				post_content : post_content,
+				post_file : post_file
 			},
 			dataType : "json",
 			async: false,

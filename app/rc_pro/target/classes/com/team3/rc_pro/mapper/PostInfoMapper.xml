@@ -8,12 +8,26 @@
 <mapper namespace="com.team3.rc_pro.mapper.PostInfoMapper">
 
 <!-- 각 문장 유형 요소의 id 속성의 값은, 해당 문장을 호출하는 메퍼-인터페이스의 메소드 이름과 동일해야 함 -->
+	<resultMap type="com.team3.rc_pro.domain.PostInfoVO" id="postInfoMap">
+		<result property="post_id" column="post_id" />
+		<result property="category_id" column="category_id" />
+		<result property="region_id" column="region_id" />
+		<result property="user_num" column="user_num" />
+		<result property="post_title" column="post_title	" />
+		<result property="post_content" column="post_content" />
+		<result property="post_date" column="post_date" />
+		<result property="post_view" column="post_view" />
+		<result property="post_like" column="post_like" />
+		<result property="post_reply" column="post_reply" />
+		<result property="post_hide" column="post_hide" />
+		<result property="post_file" column="post_file" />
+	</resultMap>
+
 
 <!-- 게시물 조회 - 목록 -->
 	<select id="selectPost" resultType="com.team3.rc_pro.domain.PostInfoVO">
 		SELECT *
 		FROM rc_pro.post_info
-		ORDER BY post_view DESC
 	</select>
 	
 	<insert id="insertPost">
@@ -21,7 +35,7 @@
 			SELECT rc_pro.seq_postid.NEXTVAL FROM dual
 		</selectKey>
 		INSERT INTO rc_pro.post_info
-		VALUES (#{post_id}, #{category_id}, #{region_id}, #{user_num}, #{post_title}, #{post_content}, SYSDATE, DEFAULT, DEFAULT, DEFAULT, DEFAULT, 0)
+		VALUES (#{post_id}, #{category_id}, #{region_id}, #{user_num}, #{post_title}, #{post_content}, SYSDATE, DEFAULT, DEFAULT, DEFAULT, DEFAULT, #{post_file})
 	</insert>
 
 	<!-- 특정회원이 작성한 게시물 조회 -->
@@ -47,4 +61,34 @@
 		WHERE post_id=#{post_id}
 		ORDER BY post_id ASC
 	</select>	
+	
+	<update id="countLike">
+		UPDATE rc_pro.post_info
+		SET post_like = #{post_like}
+		WHERE post_id = #{post_id}
+	</update>
+	
+	<update id="countReply">
+		UPDATE rc_pro.post_info
+		SET post_reply = #{post_reply}
+		WHERE post_id = #{post_id}
+	</update>
+	
+	<update id="countView">
+		UPDATE rc_pro.post_info
+		SET post_view = post_view + 1
+		WHERE post_id = #{post_id}
+	</update>
+	
+	<update id="updatePost">
+		UPDATE rc_pro.post_info
+		SET post_title = #{post_title}, post_content = #{post_content}, post_file = #{post_file}
+		WHERE post_id = #{post_id}
+	</update>
+	
+	<delete id="deletePost">
+		DELETE FROM rc_pro.post_info
+		WHERE post_id = #{post_id}	
+	</delete>
+	
 </mapper>

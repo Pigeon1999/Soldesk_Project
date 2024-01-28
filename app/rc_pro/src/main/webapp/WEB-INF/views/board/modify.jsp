@@ -1,32 +1,61 @@
-<%@ page session="false" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+
 <%@ include file="../myinclude/myheader.jsp" %>
+<c:set var="postInfo" value="${PostInfo}"/>
+<c:set var="user_num" value="${user_num}"/>
+
 <!-- myheader.jsp 에서 
 <body> -->
 	<section>
 		<header style="border-bottom: 1px solid #ccc;">
-			<h1><a href="#">-- 게시판</a></h1> <!-- 나중에 현재 위치한 게시판으로 이동 -->
+	        <c:choose>
+				<c:when test="${pagingCreator.boardPaging.category_id == '2'}" >
+					<h1><a href="/rc_pro/board/list?category_id=2&region_id=${region_id}">홍보게시판</a></h1>
+				</c:when>
+				<c:when test="${pagingCreator.boardPaging.category_id == '3'}" >
+					<h1><a href="/rc_pro/board/newslist?category_id=3&region_id=${region_id}">뉴스</a></h1>
+				</c:when>
+				<c:otherwise>
+					<h1><a href="/rc_pro/board/list?category_id=1&region_id=${region_id}">자유게시판</a></h1>
+				</c:otherwise>
+			</c:choose>
 		</header>
+		
+		<%
+		    // URL 파라미터를 가져오기
+		    String postIdParameter = request.getParameter("post_id");
+			pageContext.setAttribute("postIdParameter", postIdParameter);
+		%>
+		
 		<article style="margin-top: 10px;">
-			<form role="form" action="${contextPath}/myboard/register" method="post" name="frmBoard">
-				<div class="form-group">
-					<label>제목</label> <input class="form-control" name="btitle">
-				</div>
-				
-				<div class="form-group" style="margin-top:10px;">
-					<label>내용</label> <textarea class="form-control" rows="3" name="bcontent" style="height:500px;resize:none;"></textarea>
-				</div>
-				
-				<div style="margin-top: 10px;">
-					<button id="img">이미지 첨부</button>
-					<span id="imgName">이미지 이름</span>
-				</div>
-				
-				<a id="modify" class="btn btn-primary" style="margin-top: 10px;" type="post">수정</a>
-			</form>
+			<c:forEach var="postInfo" items="${PostInfo}">
+				<c:choose>
+					<c:when test="${postInfo.post_id == postIdParameter}">
+						<div class="form-group">
+							<label>제목</label> <input class="form-control" name="btitle" id="btitle" value="${postInfo.post_title}">
+						</div>
+						
+						<div class="form-group" style="margin-top:10px;">
+							<label>내용</label> <textarea class="form-control" rows="3" name="bcontent" id="bcontent" style="height:500px;resize:none;">${postInfo.post_content}</textarea>
+						</div>
+						
+						<c:choose>
+							<c:when test="${pagingCreator.boardPaging.category_id == '3'}">
+								<div style="margin-top: 10px;">
+									<div class="uploadDiv"><%-- form이 없습니다 --%>
+										<input id="inputFile" type="file" name="files" multiple><br>
+									</div>
+								</div>
+							</c:when>
+							<c:otherwise></c:otherwise>
+						</c:choose>
+					</c:when>
+				</c:choose>	
+			</c:forEach>
+			
+			
+			<button name="modify" id="modify" class="btn btn-primary" style="margin-top: 10px;">수정</button>
 		</article>
 	</section>
 	<style>
@@ -44,5 +73,109 @@
 	        box-sizing: border-box; /* padding이 width에 포함되도록 box-sizing 설정 */
 	    }
 	</style>
-
+<script>
+	var myCsrfHeaderName = "${_csrf.headerName}";
+	var myCsrfToken = "${_csrf.token}";
+	
+	$(document).ajaxSend(function(e, xhr){
+	   xhr.setRequestHeader(myCsrfHeaderName, myCsrfToken);
+	});
+	
+	$("#modify").on('click', function() {
+		var post_id = ${postIdParameter};
+		var region_id = ${region_id};
+		var category_id = ${category_id};
+		var post_title = document.getElementById("btitle").value;
+		var post_content = document.getElementById("bcontent").value;
+		var post_file;
+		
+		//uploadFiles 이름의 file 유형 input 요소를 변수에 저장
+		try {
+			if (category_id == 3){
+				//파일업로드 처리
+				//FormData() Ajax 파일 전송 시에 사용되는 Web API 클래스의 생성자
+				var formData = new FormData();
+				
+				var inputFiles = $("input[name='files']");
+			
+				//inputFiles에 저장된 파일들을 files 변수에 저장.
+				//inputFiles[0]은 첫번째 input 요소를 의미(input 요소가 하나만 있더라도 [0]을 명시해야 함).
+				var files = inputFiles[0].files;
+				
+				if (files.length > 1) {
+					alert("이미지는 한개만 업로드 해주세요");
+					return;
+				}
+			 
+				//formdata 객체에 파일추가
+				/*
+				for(var i = 0; i < files.length ; i++) {
+					//uploadFiles 파라미터로 file 정보 추가
+					formData.append("uploadFiles", files[i]);
+				}
+				*/
+				// 파일 하나만 업로드하게 했습니다. 
+				formData.append("uploadFiles", files[0]);
+				console.log("files[0] : " + files[0].name);
+				post_file = files[0].name;	
+			}
+		}
+		catch {
+			alert("썸네일을 업로드 해주세요");
+			return;
+		}
+	 	
+		if (category_id == 3){}
+		else { post_file = 0; }
+		
+		console.log('서버 응답:', post_id);
+		console.log('서버 응답:', region_id);
+		console.log('서버 응답:', category_id);
+		console.log('서버 응답:', post_title);
+		console.log('서버 응답:', post_content);
+		console.log('서버 응답:', post_file);
+	
+		//url 키에 명시된 주소의 컨트롤러에게 formData 객체를 POST 방식으로 전송.
+		$.ajax({
+			type: 'post',
+			url: '${contextPath}/board/register/fileUploadAjaxAction',
+			processData: false, //contentType에 설정된 형식으로 data를 처리하지 않음.
+			contentType: false, //contentType에 MIME 타입을 지정하지 않음.
+			data: formData,
+			dataType: 'text',
+			success: function(uploadResult, status){
+			alert(uploadResult + "==첨부파일의 업로드 완료: " + status);
+			}
+		})
+		
+		//insert post_info 
+		$.ajax({
+			type : "post",
+			url : "/rc_pro/board/modify?category_id=${category_id}&region_id=${region_id}",
+			data : {
+				post_id : post_id,
+				region_id : region_id,
+				category_id : category_id,
+				post_title : post_title,
+				post_content : post_content,
+				post_file : post_file
+			},
+			dataType : "json",
+			async: false,
+			success : function(result) { 
+				// 결과 성공 콜백함수        
+				alert("등록되었습니다.") 
+				if (category_id == 3) {
+					window.location.href="/rc_pro/board/newslist?category_id=3&region_id=${region_id}";
+				}
+				else {
+					window.location.href="/rc_pro/board/list?category_id=${category_id}&region_id=${region_id}"
+				}}
+		});
+	});
+</script>
+<!--
+</body>
+ myfooter.jsp에서 
+ -->
 <%@ include file="../myinclude/myfooter.jsp" %>   
