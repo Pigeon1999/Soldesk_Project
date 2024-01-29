@@ -232,4 +232,99 @@
  	<select id="selectSysdate" resultType="java.util.Date">
  		select sysdate from dual
  	</select> -->
+ 	
+ 			<!-- 게시물 목록조회 어드민 : 페이징 고려, 기간검색 포함 -->
+	<select id="selectAdminBoardList" resultType="com.team3.rc_pro.domain.BoardVO"
+			parameterType="com.team3.rc_pro.common.paging.domain.AdminBoardPagingDTO" >
+		<![CDATA[
+			SELECT post_id, category_id, region_id, user_num, post_title, post_content, post_date, post_view, post_like, post_reply, post_hide, post_file
+			FROM ( SELECT /*+ INDEX_DESC (p PK_CATEGORY_INFO) */ ROWNUM rn, p.* 
+			       FROM rc_pro.post_info p
+			       WHERE ROWNUM <= (#{pageNum} * #{rowAmountPerPage})  
+		]]>
+
+		<if test="(category_id != null and category_id != '' and category_id != '0' and region_id != '0')">
+			AND category_id = #{category_id}
+		</if>
+		<if test="(region_id != null and region_id != '')">
+			AND region_id = #{region_id}
+		</if>
+		
+		<if test="(beginDate != null and beginDate != '') and (endDate != null and endDate != '')">
+			AND post_date BETWEEN TO_DATE(#{beginDate}, 'YYYY-MM-DD')
+			AND TO_DATE(#{endDate}, 'YYYY-MM-DD
+			') + 0.99999 
+    	</if>
+    	
+		<trim prefix="AND (" suffix=") " prefixOverrides="OR">
+		   <foreach item='scope' collection="scopeArray">
+		      <trim prefix="OR">
+		         <choose>
+		            <when test="scope == 'T'.toString()">post_title LIKE '%'||#{keyword}||'%'</when>
+		            <when test="scope == 'C'.toString()">post_content LIKE '%'||#{keyword}||'%'</when>
+		            <when test="scope == 'W'.toString()">user_num LIKE '%'||#{keyword}||'%'</when>
+		         </choose>
+		      </trim> 
+		   </foreach>
+		</trim>    
+
+		<![CDATA[
+			    )
+			WHERE rn >= ((#{pageNum} * #{rowAmountPerPage}) - (#{rowAmountPerPage} - 1)) 
+		]]>	
+	</select>
+	
+		<!-- 게시물 총 개수 조회(페이징) 어드민 : 삭제 요청된 행 포함 -->
+	<select id="selectAdminRowTotal" resultType="long"
+			parameterType="com.team3.rc_pro.common.paging.domain.AdminBoardPagingDTO">
+		SELECT COUNT(*) rowTotal FROM rc_pro.post_info 
+		<where>
+			<trim prefix="(" suffix=") AND" prefixOverrides="OR">
+	            <foreach item='scope' collection="scopeArray">
+	               <trim prefix="OR">
+	                  <choose>
+	                     <when test="scope == 'T'.toString()">post_title LIKE '%'||#{keyword}||'%'</when>
+	                     <when test="scope == 'C'.toString()">post_content LIKE '%'||#{keyword}||'%'</when>
+	                     <when test="scope == 'W'.toString()">user_num LIKE '%'||#{keyword}||'%'</when>
+	                  </choose>
+	               </trim> 
+	            </foreach>
+	         </trim>
+	         
+	        <if test="(beginDate != null and beginDate != '') and (endDate != null and endDate != '')">
+				post_date BETWEEN TO_DATE(#{beginDate}, 'YYYY-MM-DD')
+				AND TO_DATE(#{endDate}, 'YYYY-MM-DD') + 0.99999 
+			</if>    
+			<if test="(category_id != null and category_id != '' and category_id != '0')">
+				category_id = #{category_id}
+			</if>
+			<if test="(category_id != null and category_id != '' and category_id != '0') and (region_id != null and region_id != '' and region_id != '0')">
+				AND
+			</if>
+			<if test="(region_id != null and region_id != '' and region_id != '0')">
+				region_id = #{region_id}
+			</if>
+		</where>
+	</select>
+	
+	<!-- 카테고리 변경 -->
+	<update id="updateBoardCategoryRegion" parameterType="com.team3.rc_pro.domain.BoardVO">
+		UPDATE rc_pro.post_info
+		<set>
+			<if test="(category_id != null and category_id != '' and category_id != '0')">
+				category_id = #{category_id} ,
+			</if>
+			<if test="(region_id != null and region_id != '' and region_id != '0')">
+				region_id = #{region_id} ,
+			</if>
+		</set>
+		WHERE post_id = #{post_id} 
+	</update>
+	
+	<!-- 게시글 삭제(post_hide) 1로 값 변경 -->
+	<update id="updatePosthide" parameterType="long">
+		UPDATE rc_pro.post_info
+		SET post_hide = 1
+		WHERE post_id = #{post_id}
+	</update>
 </mapper>

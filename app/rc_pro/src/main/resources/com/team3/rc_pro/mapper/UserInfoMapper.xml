@@ -116,4 +116,69 @@
 		WHERE user_name=#{user_name} AND user_id =#{user_id}
 	</select>
 		
+	<select id="selectUserInfo" resultType="com.team3.rc_pro.domain.UserInfoVO">
+		SELECT * 
+		FROM user_info
+	</select>
+	
+	<!-- 회원 조회 -->
+	<select id="adminViewUserinfo" resultMap="userinfoMap"
+			parameterType="com.team3.rc_pro.common.paging.domain.AdminPagingDTO">
+		<![CDATA[
+		SELECT us.user_num, us.user_name, us.user_birth, us.user_pn, us.user_address, us.user_email, us.user_id, us.user_passwd, us.user_regdate, auth.user_authority 
+		FROM ( SELECT /*+ INDEX_DESC (us PK_USER_INFO) */ ROWNUM rn, us.* 
+			FROM rc_pro.user_info us 
+			WHERE ROWNUM <= (#{pageNum} * #{rowAmountPerPage})
+		]]>
+		<trim prefix="AND (" suffix=") " prefixOverrides="OR">
+		   <foreach item='scope' collection="scopeArray">
+		      <trim prefix="OR">
+		         <choose>
+		            <when test="scope == 'I'.toString()">user_id LIKE '%'||#{keyword}||'%'</when>
+		            <when test="scope == 'N'.toString()">user_name LIKE '%'||#{keyword}||'%'</when>
+		            <when test="scope == 'A'.toString()">user_address LIKE '%'||#{keyword}||'%'</when>
+		         </choose>
+		      </trim> 
+		   </foreach>
+		</trim>
+		
+		<![CDATA[
+		      ) us INNER JOIN rc_pro.authority_info auth ON us.user_id = auth.user_id
+		WHERE rn >= ((#{pageNum} * #{rowAmountPerPage}) - (#{rowAmountPerPage} - 1)) 
+		]]>
+		<foreach item='scope' collection="scopeArray">
+			<if test="(scope != null and scope !='') and (scope == 'U'.toString())">
+			AND auth.user_authority LIKE '%'||#{keyword}||'%'
+			</if>
+		</foreach>
+	</select>
+	
+	
+	<!-- 회원 총 명수 -->
+	<select id="adminSelectRowTotal" resultType="long"
+			parameterType="com.team3.rc_pro.common.paging.domain.AdminPagingDTO">
+		SELECT COUNT(*) rowTotal FROM rc_pro.user_info us INNER JOIN rc_pro.authority_info auth ON us.user_id = auth.user_id
+		<where>
+		<trim prefix="(" suffix=")" prefixOverrides="OR">
+		   <foreach item='scope' collection="scopeArray">
+		      <trim prefix="OR">
+		         <choose>
+		            <when test="scope == 'I'.toString()">us.user_id LIKE '%'||#{keyword}||'%'</when>
+		            <when test="scope == 'N'.toString()">us.user_name LIKE '%'||#{keyword}||'%'</when>
+		            <when test="scope == 'A'.toString()">us.user_address LIKE '%'||#{keyword}||'%'</when>
+		            <when test="scope == 'U'.toString()">auth.user_authority LIKE '%'||#{keyword}||'%'</when>
+		         </choose>
+		      </trim> 
+		   </foreach>
+		</trim>
+		</where>
+	</select>
+	
+	<!-- 권한 변경 -->
+	<update id="updateUserAuth" parameterType="com.team3.rc_pro.domain.AuthorityInfoVO">
+		UPDATE rc_pro.authority_info
+		SET user_authority = #{user_authority}
+		WHERE user_id = #{user_id} 
+	</update>
+	
 </mapper>

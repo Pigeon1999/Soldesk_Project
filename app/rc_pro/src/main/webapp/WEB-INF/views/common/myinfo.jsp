@@ -17,6 +17,7 @@
 
 	<!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link href="assets/css/myinfo.css" rel="stylesheet">
 </head>
 <body>
 <div class="container">
@@ -31,77 +32,78 @@
 				<form class="row g-3">
 					<div style="display: block;" id="userinfo">
 				    <input type="hidden" id="user_id" value='<sec:authentication property="principal.username"/>'/>
-					  	<div class="col-md-12">
+					  	<div class="col-md-12 myinfo__inputcontent">
 					    	<label class="form-label">이름 : </label>
 					    	<c:out value="${userinfo.user_name }"/>
 					  	</div>
 					  	<hr>
-					  	<div class="col-md-12">
+					  	<div class="col-md-12 myinfo__inputcontent">
 					    	<label class="form-label">생년월일 : </label>
 						    <c:out value="${userinfo.user_birth }"/>
 						</div>
 					 	<hr>
-					  	<div class="col-12">
+					  	<div class="col-12 myinfo__inputcontent">
 					    	<label class="form-label">아이디 : </label>
 							<c:out value="${userinfo.user_id }"/>
 					  	</div>
 					  	<hr>
-	  				  	<div class="col-12">
+	  				  	<div class="col-12 myinfo__inputcontent">
 						    <label class="form-label">전화번호 : </label>
 							<c:out value="${userinfo.user_pn }"/>
 					  	</div>
 					  	<hr>
-	   				  	<div class="col-12">
+	   				  	<div class="col-12 myinfo__inputcontent">
 					    	<label class="form-label">주소 : </label>
 							<c:out value="${userinfo.user_address }"/>
 					  	</div>
 					  	<hr>
-	   				  	<div class="col-12">
+	   				  	<div class="col-12 myinfo__inputcontent">
 					    	<label class="form-label">이메일 : </label>
 							<c:out value="${userinfo.user_email }"/>
 					  	</div>
 					  	<hr>
-	   				  	<div class="col-12">
+	   				  	<div class="col-12 myinfo__inputcontent">
 					    	<label class="form-label">회원가입일자 : </label>
 					    	<fmt:formatDate value="${userinfo.user_regdate }" pattern="yyyy년 MM월 dd일 HH시mm분"/>
 					  	</div>
 					  	<hr>
-					  	<div class="col-md-6">
+					  	<div class="col-md-6 myinfo__inputcontent">
 						    <label class="form-label">기존 비밀번호</label>
 						    <input type="password" class="form-control" name="user_passwd" id="user_passwd" required>
 						</div>
 						<hr>
-						<label class="form-label">내가 쓴 글 </label>
+						<label class="form-label myinfo__inputcontent">글 조회 </label>
 						<div>
 							<c:if test="${param.sortmenu eq 'post_id'}">
-								<select id="sortmenu">
+								<select id="sortmenu" class="myinfo__inputcontent">
 									<option selected value="post_id">글 번호순</option>
 									<option value="post_view">조회수순</option>
 									<option value="post_date">작성 날짜순</option>
 								</select>
 							</c:if>
 							<c:if test="${param.sortmenu eq 'post_view'}">
-								<select id="sortmenu">
+								<select id="sortmenu" class="myinfo__inputcontent">
 									<option value="post_id">글 번호순</option>
 									<option selected value="post_view">조회수순</option>
 									<option value="post_date">작성 날짜순</option>
 								</select>
 							</c:if>
 							<c:if test="${param.sortmenu eq 'post_date'}">
-								<select id="sortmenu">
+								<select id="sortmenu" class="myinfo__inputcontent">
 									<option value="post_id">글 번호순</option>
 									<option value="post_view">조회수순</option>
 									<option selected value="post_date">작성 날짜순</option>
 								</select>
 							</c:if>
-							<select id="mypostinfo" aria-label="navigation meun">
-								<option selected value="" >내가 쓴 글 선택</option>
+							<br>
+							<select id="mypostinfo" aria-label="navigation meun" class="myinfo__inputcontent">
+								<option selected value="">내가 쓴 글 선택</option>
 								<c:forEach var="post" items="${postinfolist}">
 									<option value="${post }">글번호 : <c:out value="${post.post_id }"/> 글 제목: <c:out value="${post.post_title }"/> 글 조회수 : <c:out value="${post.post_view }"/></option>
 								</c:forEach>
 							</select>	
-							<hr>				
-							<select id="myscrapeinfo" aria-label="navigation meun">
+							<br>
+							<select id="myscrapeinfo" aria-label="navigation meun" class="myinfo__inputcontent">
 								<option selected value="">즐겨찾기 글 선택</option>
 								<c:forEach var="scrape" items="${scrapelist}">	
 									<option value="${scrape}">글번호 : <c:out value="${scrape.post_id }"/> 글 제목: <c:out value="${scrape.post_title }"/> 글 조회수 : <c:out value="${scrape.post_view }"/></option>
@@ -110,7 +112,7 @@
 						</div>                      
 					  	<hr>
 				  	</div>
-				  <div style="display: none" id="modifyinfo">				  
+				  <div style="display: none" id="modifyinfo" class="myinfo__inputcontent">				  
 	  				  <div class="col-md-12">
 					    <label class="form-label">변경할 비밀번호</label>
 					    <input type="password" class="form-control" name="user_passwdch" id="user_passwdch" placeholder="9~16자의 대소문자,숫자와 특수문자">
@@ -164,9 +166,10 @@
 					  </div>
 				  </div>
 				  <div class="col-12 btn-toolbar" >
-				    <button class="btn btn-primary" type="button" name="modifybtn" id="modifybtn" style="display:block;">정보 변경</button>
-				    <button class="btn btn-primary" type="button" name="storebtn" id="storebtn" style="display:none;">변경 저장</button>
-				    <button class="btn btn-primary" type="button" name="closebtn" id="closebtn">뒤로 가기</button>
+				    <button class="btn login__submit" type="button" name="modifybtn" id="modifybtn" style="display:block;">정보 변경</button>
+				    <button class="btn login__submit" type="button" name="storebtn" id="storebtn" style="display:none;">변경 저장</button>
+				    <button class="btn login__submit" type="button" name="closebtn" id="closebtn" style="display:block;">홈으로</button>
+				    <button class="btn login__submit" type="button" name="backbtn" id="backbtn" style="display:none;">뒤로</button>
 				  </div>
 				</form>
 				</article> <!-- card-body end .// -->
@@ -177,12 +180,12 @@
 <!--container end.//-->
 
 <br><br><br><br>
-	<article class="bg-primary mb-3">  
-		<div class="card-body text-center">
-		    <h3 class="text-white mt-3">색조정하기</h3>
-			<p class="h5 text-white">쓸말정하기</p><br><br>
-		</div>
-	</article>
+<!-- 	<article class="bg-primary mb-3">   -->
+<!-- 		<div class="card-body text-center"> -->
+<!-- 		    <h3 class="text-white mt-3">색조정하기</h3> -->
+<!-- 			<p class="h5 text-white">쓸말정하기</p><br><br> -->
+<!-- 		</div> -->
+<!-- 	</article> -->
 	<script>
 		var myCsrfHeaderName = "${_csrf.headerName}" ;
 		var myCsrfToken = "${_csrf.token}" ;
@@ -283,13 +286,18 @@
 			}
 		}
 	
+		$("#backbtn").on("click",function(){
+			location.reload();
+		});
+		
 		$("#modifybtn").on("click",function(){
 			var storebtn = document.getElementById("storebtn");
 			var modifybtn = document.getElementById("modifybtn");
 			var user_passwd = document.getElementById("user_passwd").value;
 			var userinfo = document.getElementById("userinfo");
 			var modifyinfo = document.getElementById("modifyinfo");
-			
+			var closebtn = document.getElementById("closebtn");
+			var backbtn = document.getElementById("backbtn");
 			
 			if(!checkpw(user_passwd)){
 				return;
@@ -298,12 +306,16 @@
 			modifyinfo.style.display = "block";
 			storebtn.style.display = "block";
 			modifybtn.style.display = "none";
+			closebtn.style.display = "none";
+			backbtn.style.display = "block";
 		});
 		
 	
 		$("#storebtn").on("click",function(){
 			var storebtn = document.getElementById("storebtn");
 			var modifybtn = document.getElementById("modifybtn");
+			var closebtn = document.getElementById("closebtn");
+			var backbtn = document.getElementById("backbtn");
 			var user_passwd = document.getElementById("user_passwdch").value; 
 			var user_passwdck = document.getElementById("user_passwdck").value;
 			var pn2 = document.getElementById("user_pn2").value;

@@ -1,4 +1,4 @@
--- ?œ ?? rc_pro ?ƒ?„± ë°? ê¶Œí•œ ?• ?‹¹
+-- ?ï¿½ï¿½?? rc_pro ?ï¿½ï¿½?ï¿½ï¿½ ï¿½? ê¶Œí•œ ?ï¿½ï¿½?ï¿½ï¿½
 CREATE USER rc_pro 
 IDENTIFIED BY rc_pro 
 DEFAULT TABLESPACE users 
@@ -9,7 +9,7 @@ GRANT CREATE SESSION, CREATE TABLE, CREATE SEQUENCE, CREATE PROCEDURE,
  CREATE TRIGGER, CREATE VIEW, CREATE SYNONYM, ALTER SESSION
 TO rc_pro;
 
--- ?‹œ???Š¤ ?ƒ?„± : PK ë²ˆí˜¸ë¥? ?ˆœ?„œ??ë¡? ì£¼ê²Œ ?•˜ê¸? ?œ„?•´
+-- ?ï¿½ï¿½???ï¿½ï¿½ ?ï¿½ï¿½?ï¿½ï¿½ : PK ë²ˆí˜¸ï¿½? ?ï¿½ï¿½?ï¿½ï¿½??ï¿½? ì£¼ê²Œ ?ï¿½ï¿½ï¿½? ?ï¿½ï¿½?ï¿½ï¿½
 CREATE SEQUENCE rc_pro.seq_userno;
 CREATE SEQUENCE rc_pro.seq_postid;
 CREATE SEQUENCE rc_pro.seq_replyid;
@@ -17,7 +17,7 @@ CREATE SEQUENCE rc_pro.seq_replyid;
 DROP SEQUENCE rc_pro.seq_userno;
 DROP SEQUENCE rc_pro.seq_postid;
 DROP SEQUENCE rc_pro.seq_replyid;
--- ?…Œ?´ë¸? ?ƒ?„± 
+-- ?ï¿½ï¿½?ï¿½ï¿½ï¿½? ?ï¿½ï¿½?ï¿½ï¿½ 
 
 -- 1. user_info
 CREATE TABLE rc_pro.user_info(
@@ -27,7 +27,7 @@ user_birth VARCHAR2(20) NOT NULL,
 user_pn VARCHAR2(20) NOT NULL, 
 user_address VARCHAR2(100) NOT NULL,
 user_email VARCHAR2(100) NOT NULL, 
-user_id VARCHAR2(20) NOT NULL UNIQUE, -- ?•„?´?””?Š” ì¤‘ë³µ ë¶ˆê? 
+user_id VARCHAR2(20) NOT NULL UNIQUE, -- ?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½ ì¤‘ë³µ ë¶ˆï¿½? 
 user_passwd VARCHAR2(100) NOT NULL,
 user_regdate DATE DEFAULT sysdate 
 )TABLESPACE users;
@@ -38,7 +38,7 @@ ADD CONSTRAINT pk_myuser_num PRIMARY KEY (user_num);
 -- 2. authority_info
 CREATE TABLE rc_pro.authority_info(
 user_id VARCHAR2(20) NOT NULL,
-user_authority VARCHAR2(20) DEFAULT 'generaluser' CHECK(user_authority IN ('admin', 'generaluser', 'reporter', 'suspended')) NOT NULL -- ?ˆ˜? •
+user_authority VARCHAR2(20) DEFAULT 'generaluser' CHECK(user_authority IN ('admin', 'generaluser', 'reporter', 'suspended')) NOT NULL -- ?ï¿½ï¿½?ï¿½ï¿½
 )TABLESPACE users;
 
 ALTER TABLE rc_pro.authority_info
@@ -52,7 +52,7 @@ ADD CONSTRAINT fk_authority_info FOREIGN KEY (user_id)
 CREATE TABLE rc_pro.category_info(
 category_id NUMBER(10,0) NOT NULL,
 category_name VARCHAR2(20) NOT NULL,
-category_authority VARCHAR2(20) NOT NULL -- ?ˆ˜? •
+category_authority VARCHAR2(20) NOT NULL -- ?ï¿½ï¿½?ï¿½ï¿½
 )TABLESPACE users;
 
 ALTER TABLE rc_pro.category_info
@@ -69,17 +69,17 @@ ADD CONSTRAINT pk_region_id PRIMARY KEY(region_id);
 
 -- 5. post_info
 CREATE TABLE rc_pro.post_info(
-post_id NUMBER(10,0) NOT NULL, -- ?ˆ˜? •
+post_id NUMBER(10,0) NOT NULL, -- ?ï¿½ï¿½?ï¿½ï¿½
 category_id NUMBER(10,0) NOT NULL,
 region_id NUMBER(10,0) NOT NULL,
 user_num NUMBER(10,0) NOT NULL,
 post_title VARCHAR2(100) NOT NULL,
 post_content VARCHAR2(500) NOT NULL,
 post_date DATE DEFAULT sysdate, 
-post_view NUMBER(10,0) DEFAULT 0 NOT NULL,  -- ?ˆ˜? •
-post_like NUMBER(10,0) DEFAULT 0 NOT NULL, -- ?ˆ˜? •
-post_reply NUMBER(10,0) DEFAULT 0 NOT NULL, -- ?ˆ˜? •
-post_hide NUMBER(1,0) DEFAULT 0 CHECK(post_hide IN (0, 1)) NOT NULL , -- ?ˆ˜? •
+post_view NUMBER(10,0) DEFAULT 0 NOT NULL,  -- ?ï¿½ï¿½?ï¿½ï¿½
+post_like NUMBER(10,0) DEFAULT 0 NOT NULL, -- ?ï¿½ï¿½?ï¿½ï¿½
+post_reply NUMBER(10,0) DEFAULT 0 NOT NULL, -- ?ï¿½ï¿½?ï¿½ï¿½
+post_hide NUMBER(1,0) DEFAULT 0 CHECK(post_hide IN (0, 1)) NOT NULL , -- ?ï¿½ï¿½?ï¿½ï¿½
 post_file VARCHAR2(500)
 )TABLESPACE users;
 
@@ -145,12 +145,12 @@ ADD CONSTRAINT fk_post_id_like FOREIGN KEY (post_id)
 CREATE TABLE rc_pro.reply_info(
 reply_id NUMBER(10,0) NOT NULL,
 user_num NUMBER(10,0) NOT NULL,
-reply_group NUMBER(10,0) DEFAULT NULL, -- ?ˆ˜? •
+reply_group NUMBER(10,0) DEFAULT NULL, -- ?ï¿½ï¿½?ï¿½ï¿½
 post_id NUMBER(10,0) NOT NULL,
 reply_content VARCHAR2(500) NOT NULL,
 reply_regdate DATE DEFAULT sysdate,
-reply_moddate DATE DEFAULT NULL,
-reply_like NUMBER(5,0) DEFAULT 0 NOT NULL -- ?ˆ˜? •
+reply_like NUMBER(5,0) DEFAULT 0 NOT NULL,
+reply_hide NUMBER(1,0) DEFAULT 0 CHECK(reply_hide IN (0, 1)) NOT NULL
 )TABLESPACE users;
     
 ALTER TABLE rc_pro.reply_info
@@ -196,44 +196,44 @@ token VARCHAR2(64) NOT NULL,
 last_used TIMESTAMP(0) NOT NULL
 ) TABLESPACE users;
 
--- ?…Œ?´ë¸? ê°? ?‚½?… 
+-- ?ï¿½ï¿½?ï¿½ï¿½ï¿½? ï¿½? ?ï¿½ï¿½?ï¿½ï¿½ 
 
 -- region_info
 INSERT INTO rc_pro.region_info 
-VALUES (1, '°üÃ¶µ¿');
+VALUES (1, 'ï¿½ï¿½Ã¶ï¿½ï¿½');
 
 INSERT INTO rc_pro.region_info 
-VALUES (2, 'Ã»Áøµ¿');
+VALUES (2, 'Ã»ï¿½ï¿½ï¿½ï¿½');
 
 INSERT INTO rc_pro.region_info 
-VALUES (3, '°øÆòµ¿');
+VALUES (3, 'ï¿½ï¿½ï¿½ï¿½');
 
 INSERT INTO rc_pro.region_info 
-VALUES (4, '°ü¼öµ¿');
+VALUES (4, 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½');
 
 INSERT INTO rc_pro.region_info 
-VALUES (5, 'ÀÎ»çµ¿');
+VALUES (5, 'ï¿½Î»çµ¿');
 
 INSERT INTO rc_pro.region_info 
-VALUES (6, 'Á¾·Î2°¡');
+VALUES (6, 'ï¿½ï¿½ï¿½ï¿½2ï¿½ï¿½');
 
 INSERT INTO rc_pro.region_info 
-VALUES (7, '»ï°¢µ¿');
+VALUES (7, 'ï¿½ï°¢ï¿½ï¿½');
 
 INSERT INTO rc_pro.region_info 
-VALUES (8, '¼­¸°µ¿');
+VALUES (8, 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½');
 
 -- category_info
 INSERT INTO rc_pro.category_info
-VALUES(1, 'ÀÚÀ¯°Ô½ÃÆÇ', 'generaluser');
+VALUES(1, 'ï¿½ï¿½ï¿½ï¿½ï¿½Ô½ï¿½ï¿½ï¿½', 'generaluser');
 
 INSERT INTO rc_pro.category_info
-VALUES(2, ' È«º¸°Ô½ÃÆÇ', 'generaluser');
+VALUES(2, ' È«ï¿½ï¿½ï¿½Ô½ï¿½ï¿½ï¿½', 'generaluser');
 
 INSERT INTO rc_pro.category_info
-VALUES(3, '´º½º', 'reporter');
+VALUES(3, 'ï¿½ï¿½ï¿½ï¿½', 'reporter');
 
--- ?…Œ?´ë¸? ? œê±? 
+-- ?ï¿½ï¿½?ï¿½ï¿½ï¿½? ?ï¿½ï¿½ï¿½? 
 DROP TABLE user_info CASCADE CONSTRAINTS;
 DROP TABLE authority_info CASCADE CONSTRAINTS;
 DROP TABLE category_info CASCADE CONSTRAINTS;

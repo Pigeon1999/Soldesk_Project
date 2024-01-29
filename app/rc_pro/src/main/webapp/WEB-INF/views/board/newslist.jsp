@@ -264,7 +264,7 @@
 				</ul>
 			</div> <!-- 페이지 버튼 영역 끝 -->
 			<div>
-				<button type="button" id="btnToRegister" class="btn btn-primary btn-sm pull-right">새글 등록</button> 
+				<button type="button" id="btnToRegister" type="button" class="btn btn-primary btn-sm pull-right">새글 등록</button> 
 			</div>
 		</div>
 		    
@@ -348,7 +348,6 @@ var result = '<c:out value="${result}" />' ;
 //등록페이지 이동
 $("#btnToRegister").on("click", function() {
 	window.location.href = "${contextPath}/board/register?category_id=3&region_id=${region_id}" ;
-	
 });
 
 //상세페이지 이동

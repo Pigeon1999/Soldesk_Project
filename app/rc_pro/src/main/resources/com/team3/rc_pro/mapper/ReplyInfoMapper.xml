@@ -31,5 +31,11 @@
 		FROM rc_pro.reply_info
 		WHERE post_id = #{post_id}
 	</select>
+	
+	<update id="hideReply">
+		UPDATE rc_pro.reply_info
+		SET reply_hide = 1
+		WHERE reply_id = #{reply_id}
+	</update>
 
 </mapper>

@@ -1,5 +1,9 @@
 package com.team3.rc_pro.mapper;
 
+import java.util.List;
+
+import com.team3.rc_pro.common.paging.domain.AdminPagingDTO;
+import com.team3.rc_pro.domain.AuthorityInfoVO;
 import com.team3.rc_pro.domain.UserInfoVO;
 
 public interface UserInfoMapper {
@@ -41,5 +45,15 @@ public interface UserInfoMapper {
 	public Integer selectUsernum(String user_id);
 	
 	
+	public List<UserInfoVO> selectUserInfo();
+	
+	//모든 회원 조회
+	public List<UserInfoVO> adminViewUserinfo(AdminPagingDTO adminPaging) ;
+	
+	//회원 총수 조회
+	public long adminSelectRowTotal(AdminPagingDTO adminPaging) ;
+	
+	//권한 변경
+	public int updateUserAuth(AuthorityInfoVO authInfo) ;
 }
 

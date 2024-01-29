@@ -29,5 +29,5 @@ public interface PostInfoMapper {
 	
 	public void countView(PostInfoVO postinfo);
 	
-	public void deletePost(PostInfoVO postinfo);
+	public void hidePost(PostInfoVO postinfo);
 }
