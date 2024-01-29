@@ -18,6 +18,7 @@ import com.team3.rc_pro.common.paging.domain.BoardPagingCreatorDTO;
 import com.team3.rc_pro.common.paging.domain.BoardPagingDTO;
 import com.team3.rc_pro.domain.PostInfoVO;
 import com.team3.rc_pro.domain.UserInfoVO;
+import com.team3.rc_pro.mapper.PostInfoMapper;
 import com.team3.rc_pro.mapper.UserInfoMapper;
 import com.team3.rc_pro.service.BoardService;
 import com.team3.rc_pro.service.PostInfoService;
@@ -44,10 +45,16 @@ public class RegionController {
 	@Setter(onMethod_ = @Autowired)
     UserInfoMapper userinfoMapper;
 	
+	@Setter(onMethod_ = @Autowired)
+	PostInfoMapper postInfoMapper;
+	
 	@GetMapping("/main")
 	public String main(Model model, BoardPagingDTO boardPaging) {
 		BoardPagingCreatorDTO pagingCreator = boardService.getBoardList(boardPaging);
 		
+		model.addAttribute("freePost", postInfoMapper.selectFreePost());
+		model.addAttribute("promotionPost", postInfoMapper.selectPromotionPost());
+		model.addAttribute("newsPost", postInfoMapper.selectNewsPost());
 		model.addAttribute("PostInfo", postinfoService.getPostInfo());
 		model.addAttribute("pagingCreator", pagingCreator) ;
 		

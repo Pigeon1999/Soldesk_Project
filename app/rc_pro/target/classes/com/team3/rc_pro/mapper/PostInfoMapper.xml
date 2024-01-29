@@ -45,14 +45,6 @@
 		WHERE user_num=#{user_num}
 		ORDER BY post_id ASC
 	</select>
-	
-	<!-- 회원 번호로 즐겨찾기 정보 조회 -->
-	<select id="selectScrapeinfo" resultType="com.team3.rc_pro.domain.PostInfoVO">
-		SELECT post_id,category_id,region_id
-		FROM rc_pro.scrape_info
-		WHERE user_num=#{user_num}
-		ORDER BY region_id ASC
-	</select>
 
 	<!-- 특정회원이 작성한 게시물 조회(조회수 순) -->
 	<select id="selectPostinfo_view" resultType="com.team3.rc_pro.domain.PostInfoVO">
@@ -65,30 +57,6 @@
 	<!-- 특정회원이 작성한 게시물 조회(날짜 순) -->
 	<select id="selectPostinfo_date" resultType="com.team3.rc_pro.domain.PostInfoVO">
 		SELECT post_id,post_title,post_view,category_id	
-		FROM rc_pro.post_info
-		WHERE user_num=#{user_num}
-		ORDER BY post_date ASC
-	</select>
-	
-	<!-- 특정회원의 즐겨찾기 조회(글번호순 정렬)  -->
-	<select id="selectPostinfo2" resultType="com.team3.rc_pro.domain.PostInfoVO">
-		SELECT post_id,category_id,region_id,post_title,post_view
-		FROM rc_pro.post_info
-		WHERE user_num=#{user_num}
-		ORDER BY post_id ASC
-	</select>	
-
-	<!-- 특정회원의 즐겨찾기 조회(조회수순 정렬)  -->
-	<select id="selectPostinfo2_view" resultType="com.team3.rc_pro.domain.PostInfoVO">
-		SELECT post_id,category_id,region_id,post_title,post_view
-		FROM rc_pro.post_info
-		WHERE user_num=#{user_num}
-		ORDER BY post_view ASC
-	</select>	
-
-	<!-- 특정회원의 즐겨찾기 조회(날짜순 정렬)  -->
-	<select id="selectPostinfo2_date" resultType="com.team3.rc_pro.domain.PostInfoVO">
-		SELECT post_id,category_id,region_id,post_title,post_view
 		FROM rc_pro.post_info
 		WHERE user_num=#{user_num}
 		ORDER BY post_date ASC
@@ -123,5 +91,53 @@
 		SET post_hide = 1
 		WHERE post_id = #{post_id}	
 	</delete>
+	
+	<select id="selectFreePost" resultType="com.team3.rc_pro.domain.PostInfoVO">
+		SELECT * 
+		FROM rc_pro.post_info
+		WHERE (category_id = 1) and (post_date BETWEEN SYSDATE - 7 AND SYSDATE) and post_hide = 0
+		ORDER BY post_view DESC
+		FETCH FIRST 5 ROWS ONLY
+	</select>
+	
+	<select id="selectPromotionPost" resultType="com.team3.rc_pro.domain.PostInfoVO">
+		SELECT * 
+		FROM rc_pro.post_info
+		WHERE (category_id = 2) and (post_date BETWEEN SYSDATE - 7 AND SYSDATE) and post_hide = 0
+		ORDER BY post_view DESC
+		FETCH FIRST 5 ROWS ONLY
+	</select>
+	
+	<select id="selectNewsPost" resultType="com.team3.rc_pro.domain.PostInfoVO">
+		SELECT * 
+		FROM rc_pro.post_info
+		WHERE (category_id = 3) and (post_date BETWEEN SYSDATE - 7 AND SYSDATE) and post_hide = 0
+		ORDER BY post_view DESC
+		FETCH FIRST 5 ROWS ONLY
+	</select>
+	
+		<!-- 회원 번호로 즐겨찾기 정보 조회 (글번호 순)-->
+	<select id="selectScrapeinfo" resultType="com.team3.rc_pro.domain.PostInfoVO">
+		SELECT ps.post_id,ps.category_id,ps.region_id,ps.user_num,ps.post_title,ps.post_view
+		FROM rc_pro.post_info ps INNER JOIN rc_pro.scrape_info sc ON ps.post_id = sc.post_id
+		WHERE ps.user_num = #{user_num}
+		ORDER BY ps.post_id ASC
+	</select>
+
+	<!-- 회원 번호로 즐겨찾기 정보 조회(날짜순) -->
+	<select id="selectScrapeinfo_date" resultType="com.team3.rc_pro.domain.PostInfoVO">
+		SELECT ps.post_id,ps.category_id,ps.region_id,ps.user_num,ps.post_title,ps.post_view
+		FROM rc_pro.post_info ps INNER JOIN rc_pro.scrape_info sc ON ps.post_id = sc.post_id
+		WHERE ps.user_num = #{user_num}
+		ORDER BY ps.post_date ASC
+	</select>
+	
+	<!-- 회원 번호로 즐겨찾기 정보 조회(조회수순) -->
+	<select id="selectScrapeinfo_view" resultType="com.team3.rc_pro.domain.PostInfoVO">
+		SELECT ps.post_id,ps.category_id,ps.region_id,ps.user_num,ps.post_title,ps.post_view
+		FROM rc_pro.post_info ps INNER JOIN rc_pro.scrape_info sc ON ps.post_id = sc.post_id
+		WHERE ps.user_num = #{user_num}
+		ORDER BY ps.post_view ASC
+	</select>
 	
 </mapper>

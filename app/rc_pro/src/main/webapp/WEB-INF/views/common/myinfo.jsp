@@ -95,16 +95,16 @@
 								</select>
 							</c:if>
 							<select id="mypostinfo" aria-label="navigation meun">
-								<option selected value="">내가 쓴 글 선택</option>
+								<option selected value="" >내가 쓴 글 선택</option>
 								<c:forEach var="post" items="${postinfolist}">
-									<option value="${post.post_id }">글번호 : <c:out value="${post.post_id }"/> 글 제목: <c:out value="${post.post_title }"/> 글 조회수 : <c:out value="${post.post_view }"/></option>
+									<option value="${post }">글번호 : <c:out value="${post.post_id }"/> 글 제목: <c:out value="${post.post_title }"/> 글 조회수 : <c:out value="${post.post_view }"/></option>
 								</c:forEach>
 							</select>	
 							<hr>				
 							<select id="myscrapeinfo" aria-label="navigation meun">
 								<option selected value="">즐겨찾기 글 선택</option>
 								<c:forEach var="scrape" items="${scrapelist}">	
-									<option value="${scrape.post_id }">글번호 : <c:out value="${scrape.post_id }"/> 글 제목: <c:out value="${scrape.post_title }"/> 글 조회수 : <c:out value="${scrape.post_view }"/></option>
+									<option value="${scrape}">글번호 : <c:out value="${scrape.post_id }"/> 글 제목: <c:out value="${scrape.post_title }"/> 글 조회수 : <c:out value="${scrape.post_view }"/></option>
 								</c:forEach>
 							</select>
 						</div>                      
@@ -359,7 +359,7 @@
 			}
 		});	
 		$("#closebtn").on("click",function(){
-			history.back();
+			window.location.href="/rc_pro/";
 		});
 		
 		$("#sortmenu").on("change",function(){
@@ -379,10 +379,30 @@
 		
 		$("#mypostinfo").on("change",function(){
 			var mypostinfo = document.getElementById("mypostinfo").value;
-			
-			window.location.href="/rc_pro/detail?post_id="+mypostinfo;
-			
-			
+			var pos1 = mypostinfo.indexOf('post_id')+8;//number, +8
+			var pos2 = mypostinfo.indexOf(',');
+			var pos3 = mypostinfo.indexOf('category_id')+12; //+12
+			var pos4 = mypostinfo.indexOf(',',pos2+1);
+			var pos5 = mypostinfo.indexOf('region_id')+10; // +10
+			var pos6 = mypostinfo.indexOf(',',pos4+1);
+			var post_id = mypostinfo.slice(pos1,pos2);
+			var category_id = mypostinfo.slice(pos3,pos4);
+			var region_id = mypostinfo.slice(pos5,pos6);
+ 			window.location.href="/rc_pro/board/detail?category_id="+category_id+"&region_id="+region_id +"&post_id="+post_id;
+		});
+		
+		$("#myscrapeinfo").on("change",function(){
+			var myscrapeinfo = document.getElementById("myscrapeinfo").value;
+			var pos1 = myscrapeinfo.indexOf('post_id')+8;//number, +8
+			var pos2 = myscrapeinfo.indexOf(',');
+			var pos3 = myscrapeinfo.indexOf('category_id')+12; //+12
+			var pos4 = myscrapeinfo.indexOf(',',pos2+1);
+			var pos5 = myscrapeinfo.indexOf('region_id')+10; // +10
+			var pos6 = myscrapeinfo.indexOf(',',pos4+1);
+			var post_id = myscrapeinfo.slice(pos1,pos2);
+			var category_id = myscrapeinfo.slice(pos3,pos4);
+			var region_id = myscrapeinfo.slice(pos5,pos6);
+ 			window.location.href="/rc_pro/board/detail?category_id="+category_id+"&region_id="+region_id +"&post_id="+post_id;
 		});
 	</script>
 	

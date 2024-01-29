@@ -19,11 +19,9 @@ public interface PostInfoMapper {
 	
 	public List<PostInfoVO> selectScrapeinfo(Integer user_num);
 	
-	public List<PostInfoVO> selectPostinfo2(Integer user_num);
+	public List<PostInfoVO> selectScrapeinfo_date(Integer user_num);
 	
-	public List<PostInfoVO> selectPostinfo2_date(Integer user_num);
-	
-	public List<PostInfoVO> selectPostinfo2_view(Integer user_num);
+	public List<PostInfoVO> selectScrapeinfo_view(Integer user_num);
 	
 	public void countLike(PostInfoVO postinfo);
 
@@ -32,4 +30,11 @@ public interface PostInfoMapper {
 	public void countView(PostInfoVO postinfo);
 	
 	public void hidePost(PostInfoVO postinfo);
+	
+	public List<PostInfoVO> selectFreePost();
+	
+	public List<PostInfoVO> selectPromotionPost();
+	
+	public List<PostInfoVO> selectNewsPost();
+	
 }

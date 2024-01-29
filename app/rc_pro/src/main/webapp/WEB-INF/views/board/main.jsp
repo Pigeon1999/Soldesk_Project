@@ -160,7 +160,7 @@
 						</tr>
 					</thead>
  					<tbody>
- 					<c:forEach items="${PostInfo}" var="FreePost">
+ 					<c:forEach items="${freePost}" var="FreePost">
  						<c:if test="${FreePost.post_hide == 0 and FreePost.region_id == region_id and FreePost.category_id == 1}">
  							<tr>
 								<td style="text-align:left;">
@@ -195,7 +195,7 @@
 						</tr>
 					</thead>
  					<tbody>
- 					<c:forEach items="${PostInfo}" var="PromotionPost">
+ 					<c:forEach items="${promotionPost}" var="PromotionPost">
  						<c:if test="${PromotionPost.post_hide == 0 and PromotionPost.region_id == region_id and PromotionPost.category_id == 2}">
  							<tr>
 								<td style="text-align:left;">
@@ -232,12 +232,12 @@
 						</tr>
 					</thead>
  					<tbody>
-	 					<c:forEach items="${PostInfo}" var="NewsPost">
+	 					<c:forEach items="${newsPost}" var="NewsPost">
 							<c:if test="${NewsPost.post_hide == 0 and NewsPost.region_id == region_id and NewsPost.category_id == 3}">
 							    <tr>
 							        <td style="text-align:left;">
 							            <a href="/rc_pro/board/detail?category_id=3&region_id=${region_id}&post_id=${NewsPost.post_id}">
-							                <img src="이미지_경로" alt="대체 텍스트">
+							                <img src="${pageContext.request.contextPath}/upload/${NewsPost.post_file}">
 							                <span style="display: inline-block; vertical-align: top; margin-left: 10px; width: calc(100% - 120px);">
 							                    <span style="font-size: 16px; font-weight: bold;">
 							                        <c:out value="${NewsPost.post_title}" />
@@ -249,7 +249,7 @@
 							                </span>
 							            </a>
 							        </td>
-							    </tr>
+							    </tr>	
 							</c:if>
 	 					</c:forEach>
  					</tbody>
