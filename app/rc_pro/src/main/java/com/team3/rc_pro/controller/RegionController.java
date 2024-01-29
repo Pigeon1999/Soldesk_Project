@@ -152,12 +152,16 @@ public class RegionController {
 	//마이페이지 호출
 	@GetMapping("/myinfo")
 	@PreAuthorize("isAuthenticated()")
-	public String showMyinfo(String user_id,Model model) {
+	public String showMyinfo(String user_id,String sortmenu,Model model) {
 		UserInfoVO userinfo = new UserInfoVO();
 		userinfo = signinService.viewmyinfo(user_id);
-		List<PostInfoVO> postinfolist = signinService.viewpostinfo(user_id);
-		List<PostInfoVO> scrapelist = signinService.viewscrapeinfo(user_id);
+		System.out.println("sortmenu :" + sortmenu);
+		List<PostInfoVO> postinfolist;
+		List<PostInfoVO> scrapelist;
+		postinfolist = signinService.viewpostinfo(user_id,sortmenu);
+		scrapelist = signinService.viewscrapeinfo(user_id,sortmenu);
 		model.addAttribute("scrapelist", scrapelist);
+		System.out.println("정렬된 postinfolist :" + postinfolist);
 		model.addAttribute("postinfolist", postinfolist);
 		model.addAttribute("userinfo", userinfo);
 		return"common/myinfo";

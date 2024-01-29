@@ -85,22 +85,33 @@ public class SigninServiceImpl implements SigninService {
 	}
 	
 	@Override
-	public List<PostInfoVO> viewpostinfo(String user_id) {
+	public List<PostInfoVO> viewpostinfo(String user_id,String sortmenu) {
 		Integer user_num = userinfoMapper.selectUsernum(user_id);
-		List<PostInfoVO> postinfolist = postinfoMapper.selectPostinfo(user_num);
+		List<PostInfoVO> postinfolist = null;
+		if(sortmenu.equals("post_view")) {
+			postinfolist = postinfoMapper.selectPostinfo_view(user_num);
+		}
+		else if(sortmenu.equals("post_date")) {
+			postinfolist = postinfoMapper.selectPostinfo_date(user_num);
+		}else {
+			postinfolist = postinfoMapper.selectPostinfo(user_num);
+		}
 		return postinfolist;
 	}
 	
 	@Override
-	public List<PostInfoVO> viewscrapeinfo(String user_id){
+	public List<PostInfoVO> viewscrapeinfo(String user_id,String sortmenu){
 		Integer user_num = userinfoMapper.selectUsernum(user_id);
-		List<PostInfoVO> scrapelist = postinfoMapper.selectScrapeinfo(user_num);
-		PostInfoVO postinfo = new PostInfoVO();
-		for( int i = 0 ; i < scrapelist.size() ; i ++) {
-			postinfo =scrapelist.get(i);
-			int post_id = postinfo.getPost_id();
-			scrapelist.set(i, postinfoMapper.selectPostinfo2(post_id));
+		List<PostInfoVO> scrapelist = null;
+		if(sortmenu.equals("post_view")) {
+			scrapelist = postinfoMapper.selectPostinfo2_view(user_num);
 		}
+		else if(sortmenu.equals("post_date")) {
+			scrapelist = postinfoMapper.selectPostinfo2_date(user_num);
+		}else {
+			scrapelist = postinfoMapper.selectPostinfo2(user_num);
+		}
+		System.out.println("viewscrapeinfo scrapelist : "+scrapelist);
 		return scrapelist;
 	}
 	

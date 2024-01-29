@@ -35,8 +35,8 @@ public interface SigninService {
 	public boolean CheckUserpasswd(String user_id,String user_passwd);
 	
 	//게시글 조회
-	public List<PostInfoVO> viewpostinfo(String user_id);
+	public List<PostInfoVO> viewpostinfo(String user_id,String sortmenu);
 	
 	//즐겨찾기 조회
-	public List<PostInfoVO> viewscrapeinfo(String user_id);
+	public List<PostInfoVO> viewscrapeinfo(String user_id,String sortmenu);
 }

@@ -12,10 +12,18 @@ public interface PostInfoMapper {
 	public void updatePost(PostInfoVO postinfo);
 	
 	public List<PostInfoVO> selectPostinfo(Integer user_num);
+		
+	public List<PostInfoVO> selectPostinfo_view(Integer user_num);
+	
+	public List<PostInfoVO> selectPostinfo_date(Integer user_num);
 	
 	public List<PostInfoVO> selectScrapeinfo(Integer user_num);
 	
-	public PostInfoVO selectPostinfo2(Integer post_id);
+	public List<PostInfoVO> selectPostinfo2(Integer user_num);
+	
+	public List<PostInfoVO> selectPostinfo2_date(Integer user_num);
+	
+	public List<PostInfoVO> selectPostinfo2_view(Integer user_num);
 	
 	public void countLike(PostInfoVO postinfo);
 

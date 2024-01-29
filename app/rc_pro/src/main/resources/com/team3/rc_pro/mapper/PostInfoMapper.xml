@@ -38,9 +38,9 @@
 		VALUES (#{post_id}, #{category_id}, #{region_id}, #{user_num}, #{post_title}, #{post_content}, SYSDATE, DEFAULT, DEFAULT, DEFAULT, DEFAULT, #{post_file})
 	</insert>
 
-	<!-- 특정회원이 작성한 게시물 조회 -->
+	<!-- 특정회원이 작성한 게시물 조회(글 번호순으로) -->
 	<select id="selectPostinfo" resultType="com.team3.rc_pro.domain.PostInfoVO">
-		SELECT post_id,post_title,post_view
+		SELECT post_id,post_title,post_view,category_id	
 		FROM rc_pro.post_info
 		WHERE user_num=#{user_num}
 		ORDER BY post_id ASC
@@ -53,13 +53,45 @@
 		WHERE user_num=#{user_num}
 		ORDER BY region_id ASC
 	</select>
-	
-	<!-- 글번호로 글정보 조회  -->
-	<select id="selectPostinfo2" resultType="com.team3.rc_pro.domain.PostInfoVO">
-		SELECT category_id,region_id,post_title,post_view
+
+	<!-- 특정회원이 작성한 게시물 조회(조회수 순) -->
+	<select id="selectPostinfo_view" resultType="com.team3.rc_pro.domain.PostInfoVO">
+		SELECT post_id,post_title,post_view,category_id	
 		FROM rc_pro.post_info
-		WHERE post_id=#{post_id}
+		WHERE user_num=#{user_num}
+		ORDER BY post_view ASC
+	</select>
+
+	<!-- 특정회원이 작성한 게시물 조회(날짜 순) -->
+	<select id="selectPostinfo_date" resultType="com.team3.rc_pro.domain.PostInfoVO">
+		SELECT post_id,post_title,post_view,category_id	
+		FROM rc_pro.post_info
+		WHERE user_num=#{user_num}
+		ORDER BY post_date ASC
+	</select>
+	
+	<!-- 특정회원의 즐겨찾기 조회(글번호순 정렬)  -->
+	<select id="selectPostinfo2" resultType="com.team3.rc_pro.domain.PostInfoVO">
+		SELECT post_id,category_id,region_id,post_title,post_view
+		FROM rc_pro.post_info
+		WHERE user_num=#{user_num}
 		ORDER BY post_id ASC
+	</select>	
+
+	<!-- 특정회원의 즐겨찾기 조회(조회수순 정렬)  -->
+	<select id="selectPostinfo2_view" resultType="com.team3.rc_pro.domain.PostInfoVO">
+		SELECT post_id,category_id,region_id,post_title,post_view
+		FROM rc_pro.post_info
+		WHERE user_num=#{user_num}
+		ORDER BY post_view ASC
+	</select>	
+
+	<!-- 특정회원의 즐겨찾기 조회(날짜순 정렬)  -->
+	<select id="selectPostinfo2_date" resultType="com.team3.rc_pro.domain.PostInfoVO">
+		SELECT post_id,category_id,region_id,post_title,post_view
+		FROM rc_pro.post_info
+		WHERE user_num=#{user_num}
+		ORDER BY post_date ASC
 	</select>	
 	
 	<update id="countLike">
