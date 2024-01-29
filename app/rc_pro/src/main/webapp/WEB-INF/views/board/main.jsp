@@ -237,14 +237,14 @@
 							    <tr>
 							        <td style="text-align:left;">
 							            <a href="/rc_pro/board/detail?category_id=3&region_id=${region_id}&post_id=${NewsPost.post_id}">
-							                <img src="${pageContext.request.contextPath}/upload/${NewsPost.post_file}">
-							                <span style="display: inline-block; vertical-align: top; margin-left: 10px; width: calc(100% - 120px);">
+							                <img src="${contextPath}/assets/upload/${NewsPost.post_file}" id="img" style="width:15%;">
+							                <span style="display: inline-block; vertical-align: top; margin-left: 10px; width: calc(100% - 120px); width:75%;">
 							                    <span style="font-size: 16px; font-weight: bold;">
 							                        <c:out value="${NewsPost.post_title}" />
 							                    </span><br><br>
 							                    <c:out value="${NewsPost.post_content}" />
 							                </span>
-							                <span style="float:right; text-align: right; width: 100px;">
+							                <span style="float:right; text-align: right; width: 10%;">
 							                    <fmt:formatDate pattern="MM/dd hh:mm" value="${NewsPost.post_date}"/>
 							                </span>
 							            </a>
@@ -270,7 +270,12 @@
 	}
 	#news_post {
 		padding:2px;
-	}  	
+	} 
+	
+	#img {
+		width: 150px; /* 원하는 너비 */
+		height: 150px; /* 원하는 높이 */
+    } 	
 </style>
 <script>
 
