@@ -72,7 +72,7 @@
 			<!--
 			<location>C:\\Users\\soldesk\\Desktop\\Spring\\upload\\temp</location>   
 			-->
-			<location>D:\\Dev\\Java\\upload\\temp</location>
+			<location>C:\\Users\\soldesk\\Desktop\\Spring\\Spring_workspace\\Soldesk_Project\\app\\rc_pro\\src\\main\\webapp\\WEB-INF\\views\\upload\\temp</location>
 			<max-file-size>20971520</max-file-size><!-- 20MB: 업로드가 허용되는 한 개 파일의 최대크기 -->
 			<max-request-size>41943040</max-request-size><!-- 40MB: 한 번의 업로드 요청에서 허용되는 최대 파일 크기 -->
 			<file-size-threshold>20971520</file-size-threshold><!-- 20MB --><!-- 메모리 제한 크기 -->

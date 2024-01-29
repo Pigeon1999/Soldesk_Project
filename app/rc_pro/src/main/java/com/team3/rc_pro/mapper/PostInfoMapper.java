@@ -30,4 +30,11 @@ public interface PostInfoMapper {
 	public void countView(PostInfoVO postinfo);
 	
 	public void hidePost(PostInfoVO postinfo);
+	
+	public List<PostInfoVO> selectFreePost();
+	
+	public List<PostInfoVO> selectPromotionPost();
+	
+	public List<PostInfoVO> selectNewsPost();
+	
 }
