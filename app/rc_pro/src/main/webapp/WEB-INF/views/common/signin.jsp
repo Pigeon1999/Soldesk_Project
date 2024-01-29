@@ -90,7 +90,7 @@
 					
 					<div class="btn-toolbar">
 						<button class="button login__submit" type="button" style="width: 105px;" name="signinbtn" id="signinbtn">회원 가입</button>
-						<button class="button login__submit" type="button" style="width: 100px;" name="closebtn" id="closebtn">창 닫기</button>
+						<button class="button login__submit" type="button" style="width: 100px;" name="closebtn" id="closebtn">취소</button>
 					</div>
 					<sec:csrfInput/>       
 				</form>
@@ -301,12 +301,12 @@
 			});
 			if(myresult){
 				alert("회원가입이 완료되었습니다.")
-				closescript();
+				window.location.href="/rc_pro/"
 			}
 		});
 		
 		$("#closebtn").on("click",function(){
-			closescript();
+			history.back();
 		});
 	</script>
 </body>

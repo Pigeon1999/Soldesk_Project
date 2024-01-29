@@ -66,7 +66,7 @@
 	</div>
 	<script>
 		$("#signupbtn").on("click",function(){
-			window.open("/rc_pro/signin","_blank","width=500, height=900, scrollbars=yes, resizable=no");
+			window.location.href="/rc_pro/signin";
 		});
 		
 		$("#findidbtn").on("click",function(){

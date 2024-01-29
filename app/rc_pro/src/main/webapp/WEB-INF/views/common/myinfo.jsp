@@ -19,12 +19,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 <body>
-	<article class="bg-primary mb-3">  
-		<div class="card-body text-center">
-		    <h3 class="text-white mt-3">색조정하기</h3>
-			<p class="h5 text-white">쓸말정하기</p><br><br>
-		</div>
-	</article>
 <div class="container">
 	<br> 
 	<div class="row justify-content-center">
@@ -36,6 +30,7 @@
 				<article class="card-body">
 				<form class="row g-3">
 					<div style="display: block;" id="userinfo">
+				    <input type="hidden" id="user_id" value='<sec:authentication property="principal.username"/>'/>
 					  	<div class="col-md-12">
 					    	<label class="form-label">이름 : </label>
 					    	<c:out value="${userinfo.user_name }"/>
@@ -70,35 +65,50 @@
 					    	<label class="form-label">회원가입일자 : </label>
 					    	<fmt:formatDate value="${userinfo.user_regdate }" pattern="yyyy년 MM월 dd일 HH시mm분"/>
 					  	</div>
-						<c:forEach var="post" items="${postinfolist}">
-							<hr>
-		   				  	<div class="col-12">
-				    			<label class="form-label">글 번호 : </label>
-								<c:out value="${post.post_id }"/>
-				    			<label class="form-label">글 제목 : </label>
-								<c:out value="${post.post_title }"/>
-				    			<label class="form-label">글 조회수 : </label>
-								<c:out value="${post.post_view }"/>
-				  			</div>
-						</c:forEach>
-						<c:forEach var="scrape" items="${scrapelist}">
-							<hr>
-		   				  	<div class="col-12">
-				    			<label class="form-label">게시판 이름 : </label>
-								<c:out value="${scrape.category_id }"/>
-				    			<label class="form-label">지역 게시판 : </label>
-								<c:out value="${scrape.region_id }"/>
-				    			<label class="form-label">글 제목: </label>
-								<c:out value="${scrape.post_title }"/>
-				    			<label class="form-label">조회수 : </label>
-								<c:out value="${scrape.post_view}"/>
-				  			</div>
-						</c:forEach>                      
 					  	<hr>
 					  	<div class="col-md-6">
 						    <label class="form-label">기존 비밀번호</label>
 						    <input type="password" class="form-control" name="user_passwd" id="user_passwd" required>
 						</div>
+						<hr>
+						<label class="form-label">내가 쓴 글 </label>
+						<div>
+							<c:if test="${param.sortmenu eq 'post_id'}">
+								<select id="sortmenu">
+									<option selected value="post_id">글 번호순</option>
+									<option value="post_view">조회수순</option>
+									<option value="post_date">작성 날짜순</option>
+								</select>
+							</c:if>
+							<c:if test="${param.sortmenu eq 'post_view'}">
+								<select id="sortmenu">
+									<option value="post_id">글 번호순</option>
+									<option selected value="post_view">조회수순</option>
+									<option value="post_date">작성 날짜순</option>
+								</select>
+							</c:if>
+							<c:if test="${param.sortmenu eq 'post_date'}">
+								<select id="sortmenu">
+									<option value="post_id">글 번호순</option>
+									<option value="post_view">조회수순</option>
+									<option selected value="post_date">작성 날짜순</option>
+								</select>
+							</c:if>
+							<select id="mypostinfo" aria-label="navigation meun">
+								<option selected value="">내가 쓴 글 선택</option>
+								<c:forEach var="post" items="${postinfolist}">
+									<option value="${post.post_id }">글번호 : <c:out value="${post.post_id }"/> 글 제목: <c:out value="${post.post_title }"/> 글 조회수 : <c:out value="${post.post_view }"/></option>
+								</c:forEach>
+							</select>	
+							<hr>				
+							<select id="myscrapeinfo" aria-label="navigation meun">
+								<option selected value="">즐겨찾기 글 선택</option>
+								<c:forEach var="scrape" items="${scrapelist}">	
+									<option value="${scrape.post_id }">글번호 : <c:out value="${scrape.post_id }"/> 글 제목: <c:out value="${scrape.post_title }"/> 글 조회수 : <c:out value="${scrape.post_view }"/></option>
+								</c:forEach>
+							</select>
+						</div>                      
+					  	<hr>
 				  	</div>
 				  <div style="display: none" id="modifyinfo">				  
 	  				  <div class="col-md-12">
@@ -156,7 +166,7 @@
 				  <div class="col-12 btn-toolbar" >
 				    <button class="btn btn-primary" type="button" name="modifybtn" id="modifybtn" style="display:block;">정보 변경</button>
 				    <button class="btn btn-primary" type="button" name="storebtn" id="storebtn" style="display:none;">변경 저장</button>
-				    <button class="btn btn-primary" type="button" name="closebtn" id="closebtn">창 닫기</button>
+				    <button class="btn btn-primary" type="button" name="closebtn" id="closebtn">뒤로 가기</button>
 				  </div>
 				</form>
 				</article> <!-- card-body end .// -->
@@ -349,7 +359,30 @@
 			}
 		});	
 		$("#closebtn").on("click",function(){
-			closescript();
+			history.back();
+		});
+		
+		$("#sortmenu").on("change",function(){
+			
+			var sortmenu = document.getElementById("sortmenu").value;
+			var user_id = '<c:out value="${userinfo.user_id}"/>';
+
+			if(sortmenu == ("post_id")){
+				window.location.href="/rc_pro/myinfo?user_id="+user_id+"&sortmenu=post_id";
+			}else if(sortmenu == ("post_view")){
+				window.location.href="/rc_pro/myinfo?user_id="+user_id+"&sortmenu=post_view";
+			}else if(sortmenu == ("post_date")){
+				window.location.href="/rc_pro/myinfo?user_id="+user_id+"&sortmenu=post_date";
+			}
+			return;
+		});
+		
+		$("#mypostinfo").on("change",function(){
+			var mypostinfo = document.getElementById("mypostinfo").value;
+			
+			window.location.href="/rc_pro/detail?post_id="+mypostinfo;
+			
+			
 		});
 	</script>
 	
