@@ -102,14 +102,15 @@ public class SigninServiceImpl implements SigninService {
 	@Override
 	public List<PostInfoVO> viewscrapeinfo(String user_id,String sortmenu){
 		Integer user_num = userinfoMapper.selectUsernum(user_id);
-		List<PostInfoVO> scrapelist = null;
+		List<PostInfoVO> scrapelist = null; 
+		
 		if(sortmenu.equals("post_view")) {
-			scrapelist = postinfoMapper.selectPostinfo2_view(user_num);
+			scrapelist = postinfoMapper.selectScrapeinfo_view(user_num);
 		}
 		else if(sortmenu.equals("post_date")) {
-			scrapelist = postinfoMapper.selectPostinfo2_date(user_num);
+			scrapelist = postinfoMapper.selectScrapeinfo_date(user_num);
 		}else {
-			scrapelist = postinfoMapper.selectPostinfo2(user_num);
+			scrapelist = postinfoMapper.selectScrapeinfo(user_num);
 		}
 		System.out.println("viewscrapeinfo scrapelist : "+scrapelist);
 		return scrapelist;
