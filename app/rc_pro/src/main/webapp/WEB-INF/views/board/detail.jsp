@@ -6,6 +6,7 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath }" />
 <c:set var="postInfo" value="${PostInfo}"/>
 <c:set var="user_num" value="${user_num}"/>
+<c:set var="userInfo" value="${userInfo}"/>
     
 <%@ include file="../myinclude/myheader.jsp" %>
 <!-- myheader.jsp 에서 
@@ -43,9 +44,15 @@
 								<h2>${postInfo.post_title}</h2>
 								<div id="post_info">
 									<div id="hl" style="float:left;" > 
-										<span> 작성자 ${postInfo.user_num} </span>
+										<c:forEach var="userInfo" items="${userInfo}">
+											<c:choose>
+												<c:when test="${userInfo.user_num == postInfo.user_num}">
+													<span> ${userInfo.user_name} </span>
+												</c:when>
+											</c:choose>
+										</c:forEach>
 										<a>|</a>
-										<span> 작성일 ${postInfo.post_date}</span>
+										<span><fmt:formatDate pattern="MM/dd hh:mm" value="${postInfo.post_date}"/></span>
 									</div>
 									<div id="hr" style="float:right;">
 										<span> 조회수 ${postInfo.post_view}</span>
@@ -82,10 +89,22 @@
 					<c:forEach items="${ReplyInfo}" var="reply">
 						<c:if test="${reply.post_id == postIdParameter && reply.reply_group == 0}">
 							<li style="border-top: 1px solid #ccc; list-style-type: none; padding:10px;">
-								<div id="reply" style="display: flex;" onclick="toggleReplyGroup_${reply.reply_id}()">
-									<div id="replyName"><c:out value="${reply.user_num}"/></div>
-									<div id="replyContent"><c:out value="${reply.reply_content}"/></div>
-									<div id="replyDate"><c:out value="${reply.reply_regdate}"/></div>
+								<div id="reply" style="display: flex;">
+									<c:forEach var="userInfo" items="${userInfo}">
+										<c:choose>
+											<c:when test="${userInfo.user_num == reply.user_num and reply.reply_hide == 0}">
+												<div id="replyName"><c:out value="${userInfo.user_name}"/></div>
+												<div id="replyContent" onclick="toggleReplyGroup_${reply.reply_id}()"><c:out value="${reply.reply_content}"/></div>
+												<div id="replyDate"><fmt:formatDate pattern="YYYY/MM/dd hh:mm" value="${reply.reply_regdate}"/></div>
+												<c:if test="${reply.user_num == user_num}">
+													<a class="btn-getstarted" id="hideReply" onclick="hideReply(${reply.reply_id})">삭제</a>
+												</c:if>
+											</c:when>
+											<c:when test="${userInfo.user_num == reply.user_num and reply.reply_hide == 1}">
+												<div id="deleteReply" style="width:100%; text-align:center;">사용자에 의해 지워진 댓글입니다.</div>
+											</c:when>
+										</c:choose>
+									</c:forEach>
 								</div>
 								
 								<div id="replyGroup_${reply.reply_id}" style="display : none; margin : 10px;">
@@ -110,9 +129,21 @@
 								<c:if test="${replyGroup.post_id == postIdParameter && replyGroup.reply_group == reply.reply_id}">
 									<li style="border: 1px solid #ccc; list-style-type: none; padding:10px; width:95%; float:right; margin-top : 10px; margin-bottom : 10px;">
 										<div id="replyGroup" style="display: flex;">
-											<div id="replyName"><c:out value="${replyGroup.user_num}"/></div>
-											<div id="replyContent"><c:out value="${replyGroup.reply_content}"/></div>
-											<div id="replyDate"><c:out value="${replyGroup.reply_regdate}"/></div>
+											<c:forEach var="userInfo" items="${userInfo}">
+												<c:choose>
+													<c:when test="${userInfo.user_num == replyGroup.user_num and replyGroup.reply_hide == 0}">
+														<div id="replyName"><c:out value="${userInfo.user_name}"/></div>
+														<div id="replyContent"><c:out value="${replyGroup.reply_content}"/></div>
+														<div id="replyDate"><fmt:formatDate pattern="YYYY/MM/dd hh:mm" value="${replyGroup.reply_regdate}"/></div>
+														<c:if test="${replyGroup.user_num == user_num}">
+															<a class="btn-getstarted" id="hideReply" onclick="hideReply(${replyGroup.reply_id})">삭제</a>
+														</c:if>
+													</c:when>
+													<c:when test="${userInfo.user_num == replyGroup.user_num and replyGroup.reply_hide == 1}">
+														<div id="deleteReply" style="width:100%; text-align:center;">사용자에 의해 지워진 댓글입니다.</div>
+													</c:when>
+												</c:choose>
+											</c:forEach>
 										</div>
 									</li>
 								</c:if>
@@ -169,13 +200,18 @@
 	    }
 	    
 	    #replyContent {
-	    	width : 80%;
+	    	width : 77%;
 	    	word-wrap: break-word; 
 	    }
 	    
 	    #replyDate {
 	    	width : 10%;
 	    	text-align:right;
+	    }
+	    
+	    #hideReply {
+	    	width : 3%;
+	    	text-align:center;
 	    }
 	    
 	    #replyGroupReg {
@@ -360,7 +396,7 @@
 		    // AJAX 요청
 		    $.ajax({
 		        type: "POST",
-		        url: "/rc_pro/board/detail/delete",
+		        url: "/rc_pro/board/detail/hide",
 		        data: {
 		            post_id: post_id
 		        },
@@ -370,7 +406,7 @@
 		            console.log("AJAX 요청 성공");
 		            console.log(result);
 		            alert("삭제되었습니다.");
-		            location.reload(true);
+		            window.location.href="/rc_pro/";
 		        },
 		        error: function(xhr, status, error) {
 		            // 에러 발생 시 실행할 코드
@@ -381,6 +417,36 @@
 		    });
 			
 		});
+		
+		function hideReply(reply_id) {
+			
+			var reply_id = reply_id
+			
+			console.log("reply_id : " + reply_id);
+			
+		    // AJAX 요청
+		    $.ajax({
+		        type: "POST",
+		        url: "/rc_pro/board/detail/hideReply",
+		        data: {
+		        	reply_id : reply_id
+		        },
+		        dataType: "json",
+		        success: function(result) {
+		            // 성공 시 실행할 코드
+		            console.log("AJAX 요청 성공");
+		            console.log(result);
+		            alert("댓글이 삭제되었습니다.");
+		            location.reload(true);
+		        },
+		        error: function(xhr, status, error) {
+		            // 에러 발생 시 실행할 코드
+		            console.error("AJAX 요청 실패");
+		            console.log("Status: " + status);
+		            console.log("Error: " + error);
+		        }
+		    });
+		}
 		
 	    $.ajax({
 	        type: "GET",

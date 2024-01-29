@@ -1,5 +1,7 @@
 package com.team3.rc_pro.mapper;
 
+import java.util.List;
+
 import com.team3.rc_pro.domain.UserInfoVO;
 
 public interface UserInfoMapper {
@@ -40,6 +42,7 @@ public interface UserInfoMapper {
 	//회원번호 확인
 	public Integer selectUsernum(String user_id);
 	
+	public List<UserInfoVO> selectUserInfo();
 	
 }
 

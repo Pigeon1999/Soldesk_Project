@@ -16,5 +16,7 @@ public interface ReplyInfoMapper {
 	public void insertReplyGroupInfo(ReplyInfoVO replyInfo); 
 	
 	public int countReply(int post_id);
+	
+	public void hideReply(ReplyInfoVO replyInfo);
 
 }

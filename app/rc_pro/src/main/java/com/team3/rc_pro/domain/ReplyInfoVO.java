@@ -12,7 +12,7 @@ public class ReplyInfoVO {
 	private int post_id;
 	private String reply_content;
 	private Date reply_regdate;
-	private Date reply_moddate;
 	private int reply_like;
+	private int reply_hide;
 	
 }

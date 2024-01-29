@@ -116,4 +116,8 @@
 		WHERE user_name=#{user_name} AND user_id =#{user_id}
 	</select>
 		
+	<select id="selectUserInfo" resultType="com.team3.rc_pro.domain.UserInfoVO">
+		SELECT * 
+		FROM user_info
+	</select>
 </mapper>

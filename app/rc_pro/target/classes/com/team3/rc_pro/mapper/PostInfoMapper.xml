@@ -118,8 +118,9 @@
 		WHERE post_id = #{post_id}
 	</update>
 	
-	<delete id="deletePost">
-		DELETE FROM rc_pro.post_info
+	<delete id="hidePost">
+		UPDATE rc_pro.post_info
+		SET post_hide = 1
 		WHERE post_id = #{post_id}	
 	</delete>
 	

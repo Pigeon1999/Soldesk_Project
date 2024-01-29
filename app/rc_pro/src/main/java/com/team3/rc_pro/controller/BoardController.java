@@ -99,6 +99,7 @@ public class BoardController {
 		model.addAttribute("pagingCreator", pagingCreator) ;
 		model.addAttribute("ReplyInfo", replyInfoMapper.selectReplyInfo());
 		model.addAttribute("user_num", userNum);
+		model.addAttribute("userInfo", userinfoMapper.selectUserInfo());
 		
 		postInfo.setPost_id(post_id);
 		postInfoMapper.countView(postInfo);
@@ -255,13 +256,24 @@ public class BoardController {
 		return new ResponseEntity<>(String.valueOf(true),HttpStatus.OK);
 	}
 	
-	@PostMapping("/detail/delete")
-	public ResponseEntity<String> delPost(PostInfoVO postInfo,
+	@PostMapping("/detail/hide")
+	public ResponseEntity<String> hidePost(PostInfoVO postInfo,
 									  	  @RequestParam int post_id) {
 		
 		postInfo.setPost_id(post_id);
 		
-		postInfoMapper.deletePost(postInfo);
+		postInfoMapper.hidePost(postInfo);
+		
+		return new ResponseEntity<>(String.valueOf(true),HttpStatus.OK);
+	}
+	
+	@PostMapping("/detail/hideReply")
+	public ResponseEntity<String> hideReply(ReplyInfoVO replyInfo,
+									  	  	@RequestParam int reply_id) {
+		
+		replyInfo.setReply_id(reply_id);
+		
+		replyInfoMapper.hideReply(replyInfo);
 		
 		return new ResponseEntity<>(String.valueOf(true),HttpStatus.OK);
 	}
