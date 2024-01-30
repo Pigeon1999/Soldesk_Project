@@ -95,14 +95,9 @@
 									<option selected value="post_date">작성 날짜순</option>
 								</select>
 							</c:if>
-<<<<<<< HEAD
 							<br>
 							<select id="mypostinfo" aria-label="navigation meun" class="myinfo__inputcontent">
 								<option selected value="">내가 쓴 글 선택</option>
-=======
-							<select id="mypostinfo" aria-label="navigation meun">
-								<option selected value="" >내가 쓴 글 선택</option>
->>>>>>> 72b0fca20238b87c6f284e308f56190e68ed213b
 								<c:forEach var="post" items="${postinfolist}">
 									<option value="${post }">글번호 : <c:out value="${post.post_id }"/> 글 제목: <c:out value="${post.post_title }"/> 글 조회수 : <c:out value="${post.post_view }"/></option>
 								</c:forEach>

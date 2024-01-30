@@ -66,7 +66,7 @@
 						</header>
 						<div id="content_box" style="min-height: 500px; padding:15px;"> <!-- 본문 -->
 							<c:if test="${postInfo.category_id == 3}">
-								<img src="${contextPath}/assets/upload/${postInfo.post_file}" id="img" style="text-align:center; width:100%; height:300px;">
+								<img src="${contextPath}/assets/img/${postInfo.post_file}" id="img" style="text-align:center;">
 							</c:if>
 							<div style="margin-top:10px;">${postInfo.post_content}</div>
 						</div>

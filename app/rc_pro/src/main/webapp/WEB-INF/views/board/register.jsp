@@ -126,7 +126,6 @@
 			data: formData,
 			dataType: 'text',
 			success: function(uploadResult, status){
-			alert(uploadResult + "==첨부파일의 업로드 완료: " + status);
 			}
 		})
 		

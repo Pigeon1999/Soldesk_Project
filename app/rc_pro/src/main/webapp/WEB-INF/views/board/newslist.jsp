@@ -86,11 +86,7 @@
 			<c:when test="${board.post_hide == 1 }">
 			<div class="col-lg-6"><!-- Start post list item -->
                 <article class="d-flex flex-column">
-
-                  <div class="post-img">
-                    <img src="" alt="이미지가 없습니다" class="img-fluid">
-                  </div>
-
+                
                   <h2 class="title">
                     <a href="#me">삭제된 기사입니다.</a>
                   </h2>
@@ -121,18 +117,18 @@
                 <article class="d-flex flex-column">
 
                   <div class="post-img">
-                    <img src="img/<c:out value="${board.post_file }"/>" alt="이미지가 없습니다" class="img-fluid">
+                    <img src="${contextPath}/assets/img/${board.post_file}" alt="이미지가 없습니다" class="img-fluid">
                   </div>
 
                   <h2 class="title">
-                    <a href="blog-details.html"><c:out value="${board.post_title }"/></a>
+                    <a href="/rc_pro/board/detail?category_id=3&region_id=${region_id}&post_id=${board.post_id}"><c:out value="${board.post_title }"/></a>
                   </h2>
 
                   <div class="meta-top">
                     <ul>
-                      <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="blog-details.html"><c:out value="${board.user_num }"/></a></li>
-                      <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a href="blog-details.html"><fmt:formatDate value="${board.post_date }" pattern="yyyy/MM/dd HH:mm:ss"/></a></li>
-                      <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a href="blog-details.html"><c:out value="${board.post_reply }"/></a></li>
+                      <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="/rc_pro/board/detail?category_id=3&region_id=${region_id}&post_id=${board.post_id}"><c:out value="${board.user_num }"/></a></li>
+                      <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a href="/rc_pro/board/detail?category_id=3&region_id=${region_id}&post_id=${board.post_id}"><fmt:formatDate value="${board.post_date }" pattern="yyyy/MM/dd HH:mm:ss"/></a></li>
+                      <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a href="/rc_pro/board/detail?category_id=3&region_id=${region_id}&post_id=${board.post_id}"><c:out value="${board.post_reply }"/></a></li>
                     </ul>
                   </div>
 
@@ -143,7 +139,7 @@
                   </div>
 
                   <div class="read-more mt-auto align-self-end">
-                    <a href="blog-details.html">Read More</a>
+                    <a href="/rc_pro/board/detail?category_id=3&region_id=${region_id}&post_id=${board.post_id}">Read More</a>
                   </div>
 
                 </article>
@@ -161,14 +157,14 @@
                   </div>
 
                   <h2 class="title">
-                    <a href="blog-details.html">기사가 없습니다</a>
+                    <a href="/rc_pro/board/detail?category_id=3&region_id=${region_id}&post_id=${board.post_id}">기사가 없습니다</a>
                   </h2>
 
                   <div class="meta-top">
                     <ul>
-                      <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="blog-details.html"></a></li>
-                      <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a href="blog-details.html"></a></li>
-                      <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a href="blog-details.html"></a></li>
+                      <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="/rc_pro/board/detail?category_id=3&region_id=${region_id}&post_id=${board.post_id}"></a></li>
+                      <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a href="/rc_pro/board/detail?category_id=3&region_id=${region_id}&post_id=${board.post_id}"></a></li>
+                      <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a href="/rc_pro/board/detail?category_id=3&region_id=${region_id}&post_id=${board.post_id}"></a></li>
                     </ul>
                   </div>
 
@@ -196,14 +192,14 @@
                   </div>
 
                   <h2 class="title">
-                    <a href="blog-details.html">Dolorum optio tempore voluptas dignissimos cumque fuga qui quibusdam quia</a>
+                    <a href="/rc_pro/board/detail?category_id=3&region_id=${region_id}&post_id=${board.post_id}">Dolorum optio tempore voluptas dignissimos cumque fuga qui quibusdam quia</a>
                   </h2>
 
                   <div class="meta-top">
                     <ul>
-                      <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="blog-details.html">John Doe</a></li>
-                      <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a href="blog-details.html"><time datetime="2022-01-01">Jan 1, 2022</time></a></li>
-                      <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a href="blog-details.html">12 Comments</a></li>
+                      <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="/rc_pro/board/detail?category_id=3&region_id=${region_id}&post_id=${board.post_id}">John Doe</a></li>
+                      <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a href="/rc_pro/board/detail?category_id=3&region_id=${region_id}&post_id=${board.post_id}"><time datetime="2022-01-01">Jan 1, 2022</time></a></li>
+                      <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a href="/rc_pro/board/detail?category_id=3&region_id=${region_id}&post_id=${board.post_id}">12 Comments</a></li>
                     </ul>
                   </div>
 
@@ -214,7 +210,7 @@
                   </div>
 
                   <div class="read-more mt-auto align-self-end">
-                    <a href="blog-details.html">Read More</a>
+                    <a href="/rc_pro/board/detail?category_id=3&region_id=${region_id}&post_id=${board.post_id}">Read More</a>
                   </div>
 
                 </article>

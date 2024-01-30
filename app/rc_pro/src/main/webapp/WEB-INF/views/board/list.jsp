@@ -165,6 +165,12 @@
 				</ul>
 			</div> <!-- 페이지 버튼 영역 끝 -->
 			<div>
+	         <sec:authorize access="isAnonymous()">
+            	<input type="hidden" id="user_id" value=""/>
+         	</sec:authorize>
+         	<sec:authorize access="isAuthenticated()">
+         		<input type="hidden" id="user_id" value='<sec:authentication property="principal.username"/>'/>
+         	</sec:authorize>
 				<button type="button" id="btnToRegister" class="btn btn-primary btn-sm pull-right">새글 등록</button> 
 			</div>
 		</div>
@@ -248,6 +254,13 @@ var result = '<c:out value="${result}" />' ;
 
 //등록페이지 이동
 $("#btnToRegister").on("click", function() {
+	
+   var user_id = document.getElementById("user_id").value;
+   var region_id = ${region_id};
+
+   if(user_id.length == 0){
+      alert("글 등록은 로그인 후 가능합니다.");
+   }
 	window.location.href = "${contextPath}/board/register?category_id=${category_id}&region_id=${region_id}" ;
 	
 });

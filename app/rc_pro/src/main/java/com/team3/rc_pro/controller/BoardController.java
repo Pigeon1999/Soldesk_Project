@@ -3,6 +3,7 @@ package com.team3.rc_pro.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -279,6 +280,7 @@ public class BoardController {
 	}
 							
 	@GetMapping("/register")
+	@PreAuthorize("isAuthenticated()")
 	public String showRegister(BoardPagingDTO boardPaging, Model model) {
 		BoardPagingCreatorDTO pagingCreator = boardService.getBoardList(boardPaging) ;
 		System.out.println("컨트롤러에 전달된 boardPagingCreator: \n" + pagingCreator);
@@ -289,6 +291,7 @@ public class BoardController {
 	}
 	
 	@PostMapping("/register")
+	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity<String> register(PostInfoVO postInfo,
 								  @RequestParam int region_id,
 								  @RequestParam int category_id, 
@@ -320,6 +323,7 @@ public class BoardController {
 	}
 	
 	@GetMapping("/modify")
+	@PreAuthorize("isAuthenticated()")
 	public String showModify(BoardPagingDTO boardPaging, Model model) {
 		BoardPagingCreatorDTO pagingCreator = boardService.getBoardList(boardPaging) ;
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -334,6 +338,7 @@ public class BoardController {
 	}
 	
 	@PostMapping("/modify")
+	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity<String> modify(PostInfoVO postInfo,
 									  @RequestParam int region_id,
 									  @RequestParam int category_id, 

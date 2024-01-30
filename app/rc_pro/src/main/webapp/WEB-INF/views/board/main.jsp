@@ -237,7 +237,7 @@
 							    <tr>
 							        <td style="text-align:left;">
 							            <a href="/rc_pro/board/detail?category_id=3&region_id=${region_id}&post_id=${NewsPost.post_id}">
-							                <img src="${contextPath}/assets/upload/${NewsPost.post_file}" id="img" style="width:15%;">
+							                <img src="${contextPath}/assets/img/${NewsPost.post_file}" id="img" style="width:15%;">
 							                <span style="display: inline-block; vertical-align: top; margin-left: 10px; width: calc(100% - 120px); width:75%;">
 							                    <span style="font-size: 16px; font-weight: bold;">
 							                        <c:out value="${NewsPost.post_title}" />
