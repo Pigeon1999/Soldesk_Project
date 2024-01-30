@@ -59,7 +59,7 @@
     <section id="blog" class="blog">
       <div class="container" > <!-- container 시작 -->
       
-		<div class="col-lg-8">
+		<div class="col-lg">
 	        <div class="section-header"> <!-- 섹션 헤더 시작 -->
 			<c:choose>
 				<c:when test="${pagingCreator.boardPaging.category_id == '1'}" >
@@ -87,8 +87,12 @@
 			<div class="col-lg-6"><!-- Start post list item -->
                 <article class="d-flex flex-column">
                 
+                  <div class="post-img">
+                    <img src="" alt="이미지가 없습니다" class="img-fluid">
+                  </div>
+                  
                   <h2 class="title">
-                    <a href="#me">삭제된 기사입니다.</a>
+                    <a href="#main">삭제된 기사입니다.</a>
                   </h2>
 
                   <div class="meta-top">
@@ -112,12 +116,13 @@
                 </article>
               </div><!-- End post list item -->	
 			</c:when>
+			
 			<c:otherwise>
 				<div class="col-lg-6"><!-- Start post list item -->
                 <article class="d-flex flex-column">
 
                   <div class="post-img">
-                    <img src="${contextPath}/assets/img/${board.post_file}" alt="이미지가 없습니다" class="img-fluid">
+                  	<img src="${contextPath}/assets/img/${board.post_file}" alt="이미지가 없습니다" class="img-fluid">
                   </div>
 
                   <h2 class="title">
@@ -126,7 +131,7 @@
 
                   <div class="meta-top">
                     <ul>
-                      <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="/rc_pro/board/detail?category_id=3&region_id=${region_id}&post_id=${board.post_id}"><c:out value="${board.user_num }"/></a></li>
+					  <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="/rc_pro/board/detail?category_id=3&region_id=${region_id}&post_id=${board.post_id}"><c:out value="${board.user_num }"/></a></li>
                       <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a href="/rc_pro/board/detail?category_id=3&region_id=${region_id}&post_id=${board.post_id}"><fmt:formatDate value="${board.post_date }" pattern="yyyy/MM/dd HH:mm:ss"/></a></li>
                       <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a href="/rc_pro/board/detail?category_id=3&region_id=${region_id}&post_id=${board.post_id}"><c:out value="${board.post_reply }"/></a></li>
                     </ul>
@@ -153,7 +158,7 @@
                 <article class="d-flex flex-column">
 
                   <div class="post-img">
-                    <img src=img/"<c:out value="${board.post_file }"/>" alt="이미지가 없습니다" class="img-fluid">
+                    <img src="${contextPath}/assets/img/${board.post_file}" alt="이미지가 없습니다" class="img-fluid">
                   </div>
 
                   <h2 class="title">
@@ -162,9 +167,9 @@
 
                   <div class="meta-top">
                     <ul>
-                      <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="/rc_pro/board/detail?category_id=3&region_id=${region_id}&post_id=${board.post_id}"></a></li>
-                      <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a href="/rc_pro/board/detail?category_id=3&region_id=${region_id}&post_id=${board.post_id}"></a></li>
-                      <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a href="/rc_pro/board/detail?category_id=3&region_id=${region_id}&post_id=${board.post_id}"></a></li>
+                      <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="#me"></a></li>
+                      <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a href="#me"></a></li>
+                      <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a href="#me"></a></li>
                     </ul>
                   </div>
 
@@ -182,42 +187,7 @@
               </div><!-- End post list item -->
 </c:otherwise>
 </c:choose>
-			
-<!-- 			
-              <div class="col-lg-6">Start post list item
-                <article class="d-flex flex-column">
 
-                  <div class="post-img">
-                    <img src="assets/img/blog/blog-1.jpg" alt="" class="img-fluid">
-                  </div>
-
-                  <h2 class="title">
-                    <a href="/rc_pro/board/detail?category_id=3&region_id=${region_id}&post_id=${board.post_id}">Dolorum optio tempore voluptas dignissimos cumque fuga qui quibusdam quia</a>
-                  </h2>
-
-                  <div class="meta-top">
-                    <ul>
-                      <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="/rc_pro/board/detail?category_id=3&region_id=${region_id}&post_id=${board.post_id}">John Doe</a></li>
-                      <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a href="/rc_pro/board/detail?category_id=3&region_id=${region_id}&post_id=${board.post_id}"><time datetime="2022-01-01">Jan 1, 2022</time></a></li>
-                      <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a href="/rc_pro/board/detail?category_id=3&region_id=${region_id}&post_id=${board.post_id}">12 Comments</a></li>
-                    </ul>
-                  </div>
-
-                  <div class="content">
-                    <p>
-                      Similique neque nam consequuntur ad non maxime aliquam quas. Quibusdam animi praesentium. Aliquam et laboriosam eius aut nostrum quidem aliquid dicta.
-                    </p>
-                  </div>
-
-                  <div class="read-more mt-auto align-self-end">
-                    <a href="/rc_pro/board/detail?category_id=3&region_id=${region_id}&post_id=${board.post_id}">Read More</a>
-                  </div>
-
-                </article>
-              </div>End post list item
-
-            </div>End blog posts list -->
-            
 	        
 	      	<div class="blog-pagination"> <!-- 페이지 버튼 영역 시작 -->
 				<ul class="justify-content-center" >
@@ -258,18 +228,24 @@
 			  			</li>
 			  		</c:if>
 				</ul>
-			</div> <!-- 페이지 버튼 영역 끝 -->
-			<div>
-				<button type="button" id="btnToRegister" type="button" class="btn btn-primary btn-sm pull-right">새글 등록</button> 
-			</div>
+			</div> <!-- 페이지 버튼 영역 끝 -->			
+			<div> <!-- 새글 등록 버튼 영역 시작 -->	
+	         <sec:authorize access="isAnonymous()">
+            	<input type="hidden" id="user_id" value=""/>
+         	</sec:authorize>
+         	<sec:authorize access="isAuthenticated()">
+         		<input type="hidden" id="user_id" value='<sec:authentication property="principal.username"/>'/>
+         	</sec:authorize>
+				<button type="button" id="btnToRegister" class="btn btn-primary btn-sm pull-right">새글 등록</button> 
+			</div> <!-- 새글 등록 버튼 영역 끝 -->
 		</div>
 		    
-    	<div class="col-lg-6">
+    	<div class="col-lg-4">
 
             <div class="sidebar" >
 			  <div class="sidebar-item search-form">
                 <h3 class="sidebar-title">Search</h3>
-                <form class="form-inline mt-3" id="frmSendValue" name="frmSendValue" action="${contextPath }/board/list" method="get" >
+                <form class="form-inline mt-3" id="frmSendValue" name="frmSendValue" action="${contextPath }/board/newslist" method="get" >
 					<div class="from-group">
 
 						<select id="selectAmount" name="rowAmountPerPage">
@@ -313,7 +289,8 @@
 
             </div><!-- End Blog Sidebar -->
 
-          </div>
+			</div>
+		</div>
 		</div>
     </section><!-- End blog Page -->
 
@@ -343,7 +320,14 @@ var result = '<c:out value="${result}" />' ;
 
 //등록페이지 이동
 $("#btnToRegister").on("click", function() {
-	window.location.href = "${contextPath}/board/register?category_id=3&region_id=${region_id}" ;
+	   var user_id = document.getElementById("user_id").value;
+	   var region_id = ${region_id};
+
+	   if(user_id.length == 0){
+	      alert("글 등록은 로그인 후 가능합니다.");
+	   } else {
+		   window.location.href = "${contextPath}/board/register?category_id=${category_id}&region_id=${region_id}" ;
+	   }
 });
 
 //상세페이지 이동
@@ -383,7 +367,7 @@ $("li.pagination-button a").on("click", function(e){
 	e.preventDefault() ;
 	frmSendValue.find("input[name='pageNum']").val($(this).attr("href"));
 	console.log(frmSendValue.find("input[name='pageNum']").val());
-	frmSendValue.attr("action", "${contextPath}/board/list") ;
+	frmSendValue.attr("action", "${contextPath}/board/newslist") ;
 	frmSendValue.attr("method", "get") ;
 	
 	frmSendValue.submit();

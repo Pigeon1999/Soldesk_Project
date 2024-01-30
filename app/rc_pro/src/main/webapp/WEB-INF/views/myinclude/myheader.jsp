@@ -51,6 +51,9 @@
   <!-- jQuery -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
+
+  <link href="${contextPath}/assets/css/list.css" rel="stylesheet">
+  
   <!-- =======================================================
   * Template Name: HeroBiz
   * Updated: Sep 18 2023 with Bootstrap v5.3.2
@@ -128,13 +131,21 @@
       </nav><!-- .navbar -->
 		<div>
 			<sec:authorize access="isAuthenticated()">
-			    <form id="logoutForm" role="form" action="${contextPath}/main" method="post" style="padding-right: 10px;">
-			        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-			        <fieldset>
-			            <a onclick="document.getElementById('logoutForm').submit(); return false;" class="btn-getstarted scrollto">Logout</a>
-			        </fieldset>
-			    </form>
+				<div style="display: flex; align-items: center;">
+				    <form id="logoutForm" role="form" action="${contextPath}/logout" method="post" style="padding-right: 10px;">
+				    	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" >
+				    	<fieldset>
+				        	<a onclick="document.getElementById('logoutForm').submit(); return false;" class="btn-getstarted scrollto">Logout</a>
+				        </fieldset>
+				    </form>
+					<input type="hidden" id="user_id" value='<sec:authentication property="principal.username"/>'/>
+				    <button class="btn-getstarted scrollto" type="button" id="mypagebtn">MyPage</button>
+				 </div><%-- 
+				   	<sec:authorize access="hasAuthority('admin')"> 
+				    <a class="btn-getstarted scrollto" href="/rc_pro/admin">AdminPage</a>
+				    </sec:authorize> --%>
 			</sec:authorize>
+			
 			<sec:authorize access="isAnonymous()">
 		      	<a class="btn-getstarted scrollto" href="/rc_pro/login">Login</a>
 		      	<a class="btn-getstarted scrollto" href="/rc_pro/signin">Sign In</a>
@@ -142,3 +153,18 @@
 		</div>
     </div>
   </header><!-- End Header -->
+  
+ <script>
+	var myCsrfHeaderName = "${_csrf.headerName}" ;
+	var myCsrfToken = "${_csrf.token}" ;
+	$(document).ajaxSend(function(e, xhr){
+		xhr.setRequestHeader(myCsrfHeaderName, myCsrfToken) ;
+			
+	});
+
+	$("#mypagebtn").on("click",function(){
+		var user_id= document.getElementById("user_id").value;
+		window.location.href="/rc_pro/myinfo?user_id="+user_id +"&sortmenu=post_id";
+		
+	});
+</script>

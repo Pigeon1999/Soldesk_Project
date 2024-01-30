@@ -133,10 +133,7 @@
 			        </fieldset>
 			    </form>
 			    <a class="btn-getstarted scrollto" href="">MyPage</a>
-			    
-			   	<sec:authorize access="hasAuthority('admin')"> 
-			    <a class="btn-getstarted scrollto" href="/rc_pro/admin">AdminPage</a>
-			    </sec:authorize>
+
 			    
 			</div>
 		</sec:authorize>

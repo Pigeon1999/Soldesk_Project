@@ -427,8 +427,8 @@ function runModal(result) {
 	} else if( result == "successRemove") {
 		var myMsg = "게시물이 삭제되었습니다. " ;
  		
-	} else if(parseInt(result) > 0) {
-		var myMsg = result + "번 게시물이 등록되었습니다."
+	} else if result == "successModify") {
+		var myMsg = "게시물이 수정되었습니다. "
 		
 	}
 	
@@ -530,12 +530,12 @@ $("#boardModifyButton").on("click", function(){
 	
 	frmboardmodify.find("input[name='post_id']").val(Number(selectPost)) ;
 	
-	if(modifyCategory != null && modifyCategory != "" && modifyCategory != "0") {
+	if(modifyCategory != null && modifyCategory != "" && modifyCategory != 0) {
 		frmboardmodify.find("input[name='category_id']").val(Number(modifyCategory)) ;
 		alert(modifyCategory) ;	
 
 	}
-	if(modifyRegion != null && modifyRegion != "" && modifyRegion != "0") {
+	if(modifyRegion != null && modifyRegion != "" && modifyRegion != 0) {
 		frmboardmodify.find("input[name='region_id']").val(Number(modifyRegion)) ;
 		alert(modifyRegion) ;	
 	}
