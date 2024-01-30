@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class AuthorityInfoVO {
 
-	private int user_num;
+	private String user_id;
 	private String user_authority;
 	
 }

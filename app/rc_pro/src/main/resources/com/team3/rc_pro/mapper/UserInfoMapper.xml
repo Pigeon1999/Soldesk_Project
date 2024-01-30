@@ -6,7 +6,7 @@
 <mapper namespace="com.team3.rc_pro.mapper.UserInfoMapper">
 
 	<resultMap id="authorityinfoMap" type="com.team3.rc_pro.domain.AuthorityInfoVO">
-		<result property="user_num" column="USER_NUM"/>
+		<result property="user_id" column="USER_ID"/>
 		<result property="user_authority" column="USER_AUTHORITY"/>
 	</resultMap>
 
