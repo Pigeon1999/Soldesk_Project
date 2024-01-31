@@ -1,18 +1,13 @@
 <%@ page session="false" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <c:set var="contextPath" value="${pageContext.request.contextPath }" />
-
-
 <c:set var="region_id" value="${adminboardpagingCreator.adminboardPaging.region_id }" />
 <c:set var="category_id" value="${adminboardpagingCreator.adminboardPaging.category_id }" />
-
 <c:set var="region" value="${region}"/>
-
 <c:set var="userInfo" value="${userInfo}"/>
 
 <!DOCTYPE html>
@@ -85,8 +80,8 @@
       
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a class="nav-link scrollto" href="${contextPath }/admin">멤버 목록</a></li>
-          <li><a class="nav-link scrollto" href="${contextPath }/admin_board">게시판 목록</a></li>
+          <li><a class="nav-link scrollto" href="${contextPath}/admin">멤버 목록</a></li>
+          <li><a class="nav-link scrollto" href="${contextPath}/admin_board">게시판 목록</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle d-none"></i>
       </nav><!-- .navbar -->
@@ -100,7 +95,7 @@
 			        	<a onclick="document.getElementById('logoutForm').submit(); return false;" class="btn-getstarted scrollto">Logout</a>
 			        </fieldset>
 			    </form>
-			    <a class="btn-getstarted scrollto" href="">MyPage</a>
+			    <button class="btn-getstarted scrollto" type="button" id="mypagebtn">MyPage</button>
 
 			</div>
 		</sec:authorize>
@@ -122,9 +117,7 @@
 		<div class="container"> <!-- container 시작 -->
 
 		<div class="d-flex justify-content-between align-items-center"> <!-- 상단 제목 시작 -->
-		
 			<h2>관리자 페이지</h2>
-		
 				<ol>
 					<li><a href="${contextPath }/main">Home</a></li>
 					<li>관리자 페이지</li>
@@ -138,8 +131,6 @@
     <!-- ======= Blog Section ======= -->
     <section id="blog" class="blog">
       <div class="container" > <!-- container 시작 -->
-      
-<<<<<<< HEAD
 		<div class="col-lg"> <!-- 영역 시작 -->	
 			<div style="display:flex;">
 				<h4 style="width:85%;">게시판 목록</h4>
@@ -165,13 +156,6 @@
 		            </form>
 	            </div> <!-- 카테고리 및 지역 조회 영역 끝 -->
 			</div>
-=======
-		<div class="col-lg"> <!-- 영역 시작 -->
-	        <div class="section-header"> <!-- 섹션 헤더 시작 -->
-			<h2>게시판 목록</h2>
-	      	</div> <!-- 섹션 헤더 끝 -->
-	      	
->>>>>>> 23998da608716eb2b9f0cfdb2f8391d81187bb93
 			<table > <!-- 테이블 영역 시작 -->
 				<thead>
 					<tr>
@@ -187,7 +171,6 @@
 					</tr>
 				</thead>
 				<tbody>
-<<<<<<< HEAD
 					<c:choose>                         
 						<c:when test="${not empty adminboardpagingCreator.boardList }">                               
 							<c:forEach var="board" items="${adminboardpagingCreator.boardList}">
@@ -227,48 +210,6 @@
 							</tr>
 						</c:otherwise>
 					</c:choose>                        
-=======
-	<c:choose>                         
-	<c:when test="${not empty adminboardpagingCreator.boardList }">                               
-		<c:forEach var="board" items="${adminboardpagingCreator.boardList}">
-<c:choose>
-				<c:when test="${board.post_hide == 1 }">
-					<tr style="background-color: Moccasin; text-align: center">
-						<td></td>
-						<td>${board.post_id }</td>
-	             		<td colspan="8"><em>작성자에 의해서 삭제된 게시글입니다.</em></td>
-	         		</tr>
-				</c:when>
-				<c:otherwise>
-					<tr class="moveDetail" data-post_id="${board.post_id }">
-						<td><input type="radio" name="radioPostid" value="${board.post_id }"></td>
-					    <td><c:out value="${board.post_id }"/></td>
-					    <td><c:out value="${board.category_id }"/></td>
-					    <td><c:out value="${board.region_id }"/></td>
-					    <td ><c:out value="${board.post_title }"/></td>
-						<c:forEach var="userInfo" items="${userInfo}">
-							<c:choose>
-								<c:when test="${userInfo.user_num == board.user_num}">
-								<td class="center">${userInfo.user_name}</td>
-								</c:when>
-							</c:choose>
-						</c:forEach>
-					    <td class="center">${board.post_reply }</td>
-					    <td class="center"><fmt:formatDate value="${board.post_date }" pattern="MM/dd HH:mm"/></td>
-					    <td class="center"><c:out value="${board.post_view }"/></td>
-					    <td class="center"><c:out value="${board.post_like }"/></td>
-					</tr>
-				</c:otherwise>
-			</c:choose>
-		</c:forEach>
-	</c:when>
-	<c:otherwise>
-		<tr class="odd gradeX">
-			<td colspan="10">등록된 게시물이 없습니다.</td>
-		</tr>
-	</c:otherwise>
-	</c:choose>                        
->>>>>>> 23998da608716eb2b9f0cfdb2f8391d81187bb93
 				</tbody>
 			</table> <%-- 테이블 영역 끝 --%>
 			
@@ -338,14 +279,6 @@
 								<option value="TC" ${(adminboardpagingCreator.adminboardPaging.scope == "TC" ) ? "selected" : "" }>제목+내용</option>
 								<option value="W" ${(adminboardpagingCreator.adminboardPaging.scope == "W" ) ? "selected" : "" }>작성자</option>
 							</select>
-<<<<<<< HEAD
-=======
-							<div class="input-group-btn">
-								<input class="form-control " id="keyword" name="keyword" type="text" 
-									placeholder="검색어를 입력하세요" value='<c:out value="${adminboardpagingCreator.adminboardPaging.keyword}" />' >
-				                	<button type="button" id="btnSearchGo" ><i class="bi bi-search"></i></button>
-							</div>
->>>>>>> 23998da608716eb2b9f0cfdb2f8391d81187bb93
 		
 							<input type="hidden" name="pageNum" value="${adminboardpagingCreator.adminboardPaging.pageNum }" >
 							<input type="hidden" name="rowAmountPerPage" value="${adminboardpagingCreator.adminboardPaging.rowAmountPerPage }" >
@@ -368,33 +301,6 @@
 	              </div><!-- End sidebar search formn-->
 	
 	            </div><!-- End Blog Sidebar -->
-	          
-	            
-<<<<<<< HEAD
-=======
-	            <div class="input-group input-group-text"> <!-- 카테고리 및 지역 조회 영역 시작 -->
-	            <form id="frmboardValue" name="frmboardValue" action="${contextPath }/admin_board" method="get" >
-	            	<select id="selectCategory" name="category_id">
-	            		<option value="" ${(adminboardpagingCreator.adminboardPaging.category_id  == 0) ? "selected" : "" }>선택</option>
-	            		<option value="1" ${(adminboardpagingCreator.adminboardPaging.category_id  == 1) ? "selected" : "" }>>자유게시판</option>
-	            		<option value="2" ${(adminboardpagingCreator.adminboardPaging.category_id  == 2) ? "selected" : "" }>>홍보게시판</option>
-	            		<option value="3" ${(adminboardpagingCreator.adminboardPaging.category_id  == 3) ? "selected" : "" }>>뉴스</option>
-	            	</select>
-	            	<select id="selectRegion" name="region_id">
-	            		<option value="" ${(adminboardpagingCreator.adminboardPaging.region_id  == 0) ? "selected" : "" }>선택</option>
-	            		<option value="1" ${(adminboardpagingCreator.adminboardPaging.region_id  == 1) ? "selected" : "" }>관철동</option>
-	            		<option value="2" ${(adminboardpagingCreator.adminboardPaging.region_id  == 2) ? "selected" : "" }>청진동</option>
-	            		<option value="3" ${(adminboardpagingCreator.adminboardPaging.region_id  == 3) ? "selected" : "" }>공평동</option>
-	            		<option value="4" ${(adminboardpagingCreator.adminboardPaging.region_id  == 4) ? "selected" : "" }>관수동</option>
-	            		<option value="5" ${(adminboardpagingCreator.adminboardPaging.region_id  == 5) ? "selected" : "" }>인사동</option>
-	            		<option value="6" ${(adminboardpagingCreator.adminboardPaging.region_id  == 6) ? "selected" : "" }>종로2가</option>
-	            		<option value="7" ${(adminboardpagingCreator.adminboardPaging.region_id  == 7) ? "selected" : "" }>삼각동</option>
-	            		<option value="8" ${(adminboardpagingCreator.adminboardPaging.region_id  == 8) ? "selected" : "" }>서린동</option>
-	            	</select>
-	            </form>
-	            </div> <!-- 카테고리 및 지역 조회 영역 끝 -->
-	            
->>>>>>> 23998da608716eb2b9f0cfdb2f8391d81187bb93
 	
 	          </div> 
           </div> <!-- 하단 검색 부분 영역 끝 -->
@@ -421,131 +327,136 @@
 </div><%-- /.modal --%>
 
 <script>
-var frmSendValue = $("#frmSendValue") ;
-var result = '<c:out value="${result}" />' ;
-
-var frmboardValue = $("#frmboardValue") ;
-
-var category_id = $("#selectCategory").find("option:selected").val() ;
-var region_id = $("#selectRegion").find("option:selected").val()  ;
-
-
-//모달 호출 함수
-function runModal(result) {
+	var frmSendValue = $("#frmSendValue") ;
+	var result = '<c:out value="${result}" />' ;
 	
-	if(result.length == 0) {
-		return ;
+	var frmboardValue = $("#frmboardValue") ;
+	
+	var category_id = $("#selectCategory").find("option:selected").val() ;
+	var region_id = $("#selectRegion").find("option:selected").val()  ;
+	
+	
+	//모달 호출 함수
+	function runModal(result) {
 		
-	} else if(result == "successRemove") {
-		var myMsg = "게시물이 삭제되었습니다. " ;
- 		
-	} else if(result == "successModify") {
-		var myMsg = "게시물이 수정되었습니다. "
+		if(result.length == 0) {
+			return ;
+			
+		} else if(result == "successRemove") {
+			var myMsg = "게시물이 삭제되었습니다. " ;
+	 		
+		} else if(result == "successModify") {
+			var myMsg = "게시물이 수정되었습니다. "
+			
+		}
+	
+		$("#yourModal-body").html(myMsg) ;
 		
-	}
-
-	$("#yourModal-body").html(myMsg) ;
-	
-	$("#yourModal").modal("show") ;
-	
-	myMsg = "" ;
-}
-
-<%-- 페이징 처리: 검색 목록 페이지 이동 --%>
-$("li.pagination-button a").on("click", function(e){
-	e.preventDefault() ;
-	frmSendValue.find("input[name='pageNum']").val($(this).attr("href"));
-	console.log(frmSendValue.find("input[name='pageNum']").val());
-	frmSendValue.attr("action", "${contextPath}/admin_board") ;
-	frmSendValue.attr("method", "get") ;
-	
-	frmSendValue.submit();
-	
-});
-
-<%--검색 관련 요소의 이벤트 처리--%>
-<%--표시행수 변경 이벤트 처리--%>
-$("#selectAmount").on("change", function(){
-	frmSendValue.find("input[name='pageNum']").val(1) ;
-	frmSendValue.submit() ;
-	
-});
-
-<%--검색범위 변경 이벤트 처리 --%>
-$("#selectScope").on("change", function(){
-	$("#pageNum").val(1) ;
-	frmSendValue.submit() ;
-});
-
-
-<%--카테고리 변경 이벤트 처리 --%>
-$("#selectCategory").on("change", function(){
-
-
-	frmboardValue.find("input[name='category_id']").val(Number(category_id)) ;
-
-	$("#pageNum").val(1) ;
-	frmboardValue.submit() ;
-});
-
-<%--지역범위 변경 이벤트 처리 --%>
-$("#selectRegion").on("change", function(){
-
-	frmboardValue.find("input[name='category_id']").val(Number(region_id)) ;
-	
-	$("#pageNum").val(1) ;
-	frmboardValue.submit() ;
-});
-
-<%--검색버튼 클릭 이벤트 처리 --%>
-$("#btnSearchGo").on("click", function(){
-	
-	var scope = $("#selectScope").find("option:selected").val() ;
-	
-
-	if(!scope || scope == "") {
-		alert("검색범위를 선택하세요.") ;
-		return false;
+		$("#yourModal").modal("show") ;
+		
+		myMsg = "" ;
 	}
 	
-	var keyword = $("#keyword").val() ;
-	
-	if(!keyword || keyword.length == 0) {
-		alert("검색어를 입력하세요.") ;
-		return ;
-	}
-	
-	frmSendValue.find("input[name='pageNum']").val(1) ;
-	frmSendValue.submit() ;
-	
-});	
-
-
-<%--게시글삭제버튼 클릭 이벤트 처리 --%>
-$("#boardRemoveButton").on("click", function(){
-	var selectPost = document.querySelector('input[name="radioPostid"]:checked').value;
-	
-	frmboardmodify.find("input[name='post_id']").val(Number(selectPost)) ;
-	
-	frmboardmodify.attr("action", "${contextPath}/admin_board/remove") ;
-	frmboardmodify.attr("method", "get") ;
-	
-	frmboardmodify.submit() ;
-
-});	
-
-$(document).ready(function(){
-
-	runModal(result) ;
-	
-	window.addEventListener("popstate", function(event){
-		history.pushState(null, null, location.href) ;
+	<%-- 페이징 처리: 검색 목록 페이지 이동 --%>
+	$("li.pagination-button a").on("click", function(e){
+		e.preventDefault() ;
+		frmSendValue.find("input[name='pageNum']").val($(this).attr("href"));
+		console.log(frmSendValue.find("input[name='pageNum']").val());
+		frmSendValue.attr("action", "${contextPath}/admin_board") ;
+		frmSendValue.attr("method", "get") ;
+		
+		frmSendValue.submit();
 		
 	});
 	
-	history.pushState(null, null, location.href) ;
+	<%--검색 관련 요소의 이벤트 처리--%>
+	<%--표시행수 변경 이벤트 처리--%>
+	$("#selectAmount").on("change", function(){
+		frmSendValue.find("input[name='pageNum']").val(1) ;
+		frmSendValue.submit() ;
+		
+	});
 	
-}) ;
+	<%--검색범위 변경 이벤트 처리 --%>
+	$("#selectScope").on("change", function(){
+		$("#pageNum").val(1) ;
+		frmSendValue.submit() ;
+	});
+	
+	
+	<%--카테고리 변경 이벤트 처리 --%>
+	$("#selectCategory").on("change", function(){
+	
+	
+		frmboardValue.find("input[name='category_id']").val(Number(category_id)) ;
+	
+		$("#pageNum").val(1) ;
+		frmboardValue.submit() ;
+	});
+	
+	<%--지역범위 변경 이벤트 처리 --%>
+	$("#selectRegion").on("change", function(){
+	
+		frmboardValue.find("input[name='category_id']").val(Number(region_id)) ;
+		
+		$("#pageNum").val(1) ;
+		frmboardValue.submit() ;
+	});
+	
+	<%--검색버튼 클릭 이벤트 처리 --%>
+	$("#btnSearchGo").on("click", function(){
+		
+		var scope = $("#selectScope").find("option:selected").val() ;
+		
+	
+		if(!scope || scope == "") {
+			alert("검색범위를 선택하세요.") ;
+			return false;
+		}
+		
+		var keyword = $("#keyword").val() ;
+		
+		if(!keyword || keyword.length == 0) {
+			alert("검색어를 입력하세요.") ;
+			return ;
+		}
+		
+		frmSendValue.find("input[name='pageNum']").val(1) ;
+		frmSendValue.submit() ;
+		
+	});	
+	
+	
+	<%--게시글삭제버튼 클릭 이벤트 처리 --%>
+	$("#boardRemoveButton").on("click", function(){
+		var selectPost = document.querySelector('input[name="radioPostid"]:checked').value;
+		
+		frmboardmodify.find("input[name='post_id']").val(Number(selectPost)) ;
+		
+		frmboardmodify.attr("action", "${contextPath}/admin_board/remove") ;
+		frmboardmodify.attr("method", "get") ;
+		
+		frmboardmodify.submit() ;
+	
+	});	
+	
+	$(document).ready(function(){
+	
+		runModal(result) ;
+		
+		window.addEventListener("popstate", function(event){
+			history.pushState(null, null, location.href) ;
+			
+		});
+		
+		history.pushState(null, null, location.href) ;
+		
+	}) ;
+	
+	$("#mypagebtn").on("click",function(){
+		var user_id= document.getElementById("user_id").value;
+		window.location.href="/rc_pro/myinfo?user_id="+user_id +"&sortmenu=post_id";
+	});
 
 </script>
 
