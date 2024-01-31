@@ -7,10 +7,7 @@
 
 <c:set var="contextPath" value="${pageContext.request.contextPath }" />
 
-<%-- 
-<c:set var="region_id" value="${pagingCreator.boardPaging.region_id }" />
-<c:set var="category_id" value="${pagingCreator.boardPaging.category_id }" />
- --%>
+
 <c:set var="region" value="${region}"/>
 
 
@@ -58,6 +55,8 @@
   <!-- jQuery -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
+  <link href="${contextPath}/assets/css/list.css" rel="stylesheet">
+
   <!-- =======================================================
   * Template Name: HeroBiz
   * Updated: Sep 18 2023 with Bootstrap v5.3.2
@@ -66,9 +65,7 @@
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
   
-	<style>
-	 	th {text-align: center;}
-	 </style>  
+ 
 </head>
 
 
@@ -83,6 +80,10 @@
         <h1>RC<span>.</span></h1>
       </a>
       
+<<<<<<< HEAD
+=======
+      
+>>>>>>> 23998da608716eb2b9f0cfdb2f8391d81187bb93
       <nav id="navbar" class="navbar">
         <ul>
           <li><a class="nav-link scrollto" href="${contextPath }/admin">이용자 정보 목록</a></li>
@@ -128,7 +129,7 @@
 			<h2>관리자 페이지</h2>
 		
 				<ol>
-					<li><a href="index.html">Home</a></li>
+					<li><a href="${contextPath }/main">Home</a></li>
 					<li>관리자 페이지</li>
 					<li>이용자 정보 목록</li>
 				</ol>
@@ -142,8 +143,16 @@
       <div class="container" > <!-- container 시작 -->
       
 		<div class="col-lg"> <!-- 영역 시작 -->
+<<<<<<< HEAD
 	      	<h4>이용자 정보 목록</h4>
 			<table style="width:100%;text-align:center;" > <!-- 테이블 영역 시작 -->
+=======
+	        <div class="section-header"> <!-- 섹션 헤더 시작 -->
+			<h2>멤버 목록</h2>
+	      	</div> <!-- 섹션 헤더 끝 -->
+	      	
+			<table> <!-- 테이블 영역 시작 -->
+>>>>>>> 23998da608716eb2b9f0cfdb2f8391d81187bb93
 				<thead>
 					<tr>
 					    <th>유저번호</th>
@@ -158,6 +167,7 @@
 					</tr>
 				</thead>
 				<tbody>
+<<<<<<< HEAD
 					<c:choose>                         
 					<c:when test="${not empty adminPagingCreator.userList }">                               
 						<c:forEach var="userinfo" items="${adminPagingCreator.userList}">
@@ -180,6 +190,30 @@
 						</tr>
 					</c:otherwise>
 					</c:choose>                        
+=======
+	<c:choose>                         
+	<c:when test="${not empty adminPagingCreator.userList }">                               
+		<c:forEach var="userinfo" items="${adminPagingCreator.userList}">
+					<tr class="userinfos" data-user_num="${userinfo.user_num }">
+						<td><c:out value="${userinfo.user_num }"/></td>
+					    <td><c:out value="${userinfo.user_name }"/></td>
+					    <td class="center"><c:out value="${userinfo.user_birth }"/></td>
+					    <td class="center"><c:out value="${userinfo.user_pn }"/></td>
+					    <td class="center"><c:out value="${userinfo.user_address }"/></td>
+					    <td class="center"><c:out value="${userinfo.user_email }"/></td>
+					    <td class="center"><c:out value="${userinfo.user_id }"/></td>
+					    <td class="center"><fmt:formatDate value="${userinfo.user_regdate }" pattern="yyyy/MM/dd HH:mm:ss"/></td>
+					    <td class="center"><c:out value="${userinfo.authorityList[0].user_authority }"/></td>
+					</tr>
+		</c:forEach>
+	</c:when>
+	<c:otherwise>
+		<tr class="odd gradeX">
+			<td colspan="8">등록된 게시물이 없습니다.</td>
+		</tr>
+	</c:otherwise>
+	</c:choose>                        
+>>>>>>> 23998da608716eb2b9f0cfdb2f8391d81187bb93
 				</tbody>
 			</table> <%-- 테이블 영역 끝 --%>
 	      	<div class="blog-pagination"> <!-- 페이지 버튼 영역 시작 -->

@@ -54,13 +54,6 @@ public class AdminServiceImpl implements AdminService {
 			boardlistMapper.selectAdminBoardList(adminboardPaging)) ;
 	}
 
-	@Override
-	public boolean modifyBoardCategoryRegion(BoardVO board) {
-		
-		int rows = boardlistMapper.updateBoardCategoryRegion(board) ;
-		
-		return (rows == 1) ;
-	}
 
 	@Override
 	public boolean modifyPosthide(long post_id) {

@@ -13,6 +13,7 @@ import com.team3.rc_pro.common.paging.domain.AdminPagingCreatorDTO;
 import com.team3.rc_pro.common.paging.domain.AdminPagingDTO;
 import com.team3.rc_pro.domain.AuthorityInfoVO;
 import com.team3.rc_pro.domain.BoardVO;
+import com.team3.rc_pro.mapper.UserInfoMapper;
 import com.team3.rc_pro.service.AdminService;
 
 @Controller
@@ -20,9 +21,11 @@ public class AdminController {
 
 	
 	private AdminService adminService ;
+	private UserInfoMapper userinfoMapper;
 	
-	public AdminController(AdminService adminService) {
+	public AdminController(AdminService adminService, UserInfoMapper userinfoMapper) {
 		this.adminService = adminService ;
+		this.userinfoMapper = userinfoMapper;
 		System.out.println("AdminController의 모든 필드 초기화 생성자 입니다.");
 	}
 	
@@ -80,43 +83,12 @@ public class AdminController {
 		System.out.println("컨트롤러에 전달된 adminboardPagingCreator: \n" + adminboardpagingCreator);
 
 		model.addAttribute("adminboardpagingCreator", adminboardpagingCreator) ;
+		model.addAttribute("userInfo", userinfoMapper.selectUserInfo());
 
         // 권한 체크를 통과한 경우에만 해당 페이지로 이동
         return "/board/admin_board";
 	}
 	
-	@GetMapping("/admin_board/modify")
-	public String adminBoardModify(BoardVO board,
-								   RedirectAttributes redirectAttr,
-								   AdminBoardPagingDTO adminboardPaging) {
-        // admin 권한을 가진 사용자만 해당 페이지에 접근할 수 있도록 체크
-        SecurityContextHolder.getContext().getAuthentication().getAuthorities().stream()
-                .filter(a -> a.getAuthority().equals("admin"))
-                .findFirst()
-                .orElseThrow(() -> new AccessDeniedException("Access denied"));
-        
-        System.out.println("수정 실행 " ) ;
-		
-        boolean modifyResult = adminService.modifyBoardCategoryRegion(board) ;
-        
-        
-		
-		if(modifyResult) {
-			redirectAttr.addAttribute("result", "successModify") ;
-
-		} else {
-			redirectAttr.addAttribute("result", "failModify") ;
-		}
-
-		redirectAttr.addAttribute("pageNum", adminboardPaging.getPageNum());
-		redirectAttr.addAttribute("rowAmountPerPage", adminboardPaging.getRowAmountPerPage());
-		redirectAttr.addAttribute("scope", adminboardPaging.getScope());
-		redirectAttr.addAttribute("keyword", adminboardPaging.getKeyword());
-		
-
-        // 권한 체크를 통과한 경우에만 해당 페이지로 이동
-        return "redirect:/admin_board" ;
-	}
 	
 	@GetMapping("/admin_board/remove")
 	public String adminBoardRemove(long post_id,

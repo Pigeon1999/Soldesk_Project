@@ -17,9 +17,6 @@ public interface AdminService {
 	
 	//어드민 게시판 페이지
 	public AdminBoardPagingCreatorDTO getAdminBoardList(AdminBoardPagingDTO adminboardPaging) ;
-
-	//게시글 카테고리 및 지역 수정
-	public boolean modifyBoardCategoryRegion(BoardVO board) ;
 	
 	//게시글 삭제 요청
 	public boolean modifyPosthide(long post_id) ;

@@ -23,9 +23,6 @@ public interface BoardListMapper {
 	//게시물 총수(admin)
 	public long selectAdminRowTotal(AdminBoardPagingDTO adminboardPaging) ;
 	
-	//게시물 카테고리,지역 업데이트(admin)
-	public int updateBoardCategoryRegion(BoardVO board) ;
-	
 	//특정게시물 삭제 요청(admin)
 	public int updatePosthide(long post_id) ;
 //	//회원 아이디조회
