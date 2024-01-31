@@ -3,6 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%> 
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <c:set var="region_id" value="${pagingCreator.boardPaging.region_id}" />
@@ -49,7 +50,7 @@
 	    <div class="container-fluid d-flex align-items-center justify-content-between">
 	
 	      <a href="#" class="logo d-flex align-items-center scrollto me-auto me-lg-0">
-	        <h1>리컴<span>.</span></h1>
+	        <h1>RC<span>.</span></h1>
 	      </a>
 	
 	      <a class="logo d-flex align-items-center scrollto me-auto me-lg-0">
@@ -152,8 +153,7 @@
 					</div><%-- /.row --%>
 	  			</div>
 	  			
-	  			<table class="table table-striped table-bordered table-hover"
- 						style="width:100%;text-align:center;" >
+	  			<table style="width:100%;text-align:center;" >
  					<thead>
  						<tr>
 							<th style="text-align:center;">인기글</th>
@@ -187,8 +187,7 @@
 					</div><%-- /.row --%>
 	  			</div>
 	  			
-	  				  			<table class="table table-striped table-bordered table-hover"
- 						style="width:100%;text-align:center;" >
+	  			<table style="width:100%;text-align:center;" >
  					<thead>
  						<tr>
 							<th style="text-align:center;">인기글</th>
@@ -224,8 +223,7 @@
 					</div><%-- /.row --%>
 	  			</div>
 	  			
-	  			<table class="table table-striped table-bordered table-hover"
- 						style="width:100%;text-align:center;" >
+	  			<table style="width:100%;text-align:center;" >
  					<thead>
  						<tr>
 							<th style="text-align:center;">인기글</th>
@@ -237,7 +235,7 @@
 							    <tr>
 							        <td style="text-align:left;">
 							            <a href="/rc_pro/board/detail?category_id=3&region_id=${region_id}&post_id=${NewsPost.post_id}">
-							                <img src="${contextPath}/assets/img/${NewsPost.post_file}" id="img" style="width:15%;">
+							                <img src="/rc_pro/upload/${NewsPost.post_file}" id="img" style="width:15%;">
 							                <span style="display: inline-block; vertical-align: top; margin-left: 10px; width: calc(100% - 120px); width:75%;">
 							                    <span style="font-size: 16px; font-weight: bold;">
 							                        <c:out value="${NewsPost.post_title}" />
@@ -276,6 +274,84 @@
 		width: 150px; /* 원하는 너비 */
 		height: 150px; /* 원하는 높이 */
     } 	
+    
+    table {
+	  border: 1px #a39485 solid;
+	  font-size: .9em;
+	  box-shadow: 0 2px 5px rgba(0,0,0,.25);
+	  width: 100%;
+	  border-collapse: collapse;
+	  border-radius: 5px;
+	  overflow: hidden;
+	}
+
+	th {
+	  text-align: left;
+	}
+	  
+	thead {
+	  font-weight: bold;
+	  color: #fff;
+	  background: #73685d;
+	}
+	  
+	 td, th {
+	  padding: 1em .5em;
+	  vertical-align: middle;
+	}
+	  
+	 td {
+	  border-bottom: 1px solid rgba(0,0,0,.1);
+	  background: #fff;
+	}
+
+	a {
+	  color: #73685d;
+	}
+  
+	@media all and (max-width: 768px) {
+	   
+		table, thead, tbody, th, td, tr {
+			display: block;
+		}
+		 
+		th {
+		  	text-align: right;
+		}
+		 
+		table {
+			position: relative; 
+			padding-bottom: 0;
+			border: none;
+			box-shadow: 0 0 10px rgba(0,0,0,.2);
+		}
+		 
+		thead {
+			float: left;
+			white-space: nowrap;
+		}
+		 
+		tbody {
+			overflow-x: auto;
+			overflow-y: hidden;
+			position: relative;
+			white-space: nowrap;
+		}
+		 
+		tr {
+			display: inline-block;
+			vertical-align: top;
+		}
+	
+		th {
+			border-bottom: 1px solid #a39485;
+		}
+		 
+		td {
+		    border-bottom: 1px solid #e5e5e5;
+		}
+		
+	}
 </style>
 <script>
 

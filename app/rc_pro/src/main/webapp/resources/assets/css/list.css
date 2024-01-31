@@ -11,7 +11,7 @@ table {
 }
 
 th {
-  text-align: left;
+  text-align: center;
 }
   
 thead {
@@ -23,6 +23,7 @@ thead {
  td, th {
   padding: 1em .5em;
   vertical-align: middle;
+  text-align:center;
 }
   
  td {
@@ -41,7 +42,7 @@ a {
   }
   
   th {
-    text-align: right;
+    text-align: center;
   }
   
   table {

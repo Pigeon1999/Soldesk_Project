@@ -44,7 +44,7 @@
 							<c:when test="${pagingCreator.boardPaging.category_id == '3'}">
 								<div style="margin-top: 10px;">
 									<div class="uploadDiv"><%-- form이 없습니다 --%>
-										<input id="inputFile" type="file" name="files" multiple><br>
+										<input id="inputFile" type="file" name="files">
 									</div>
 								</div>
 							</c:when>

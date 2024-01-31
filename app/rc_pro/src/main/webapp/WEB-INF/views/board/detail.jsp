@@ -12,7 +12,7 @@
 <!-- myheader.jsp 에서 
 <body> -->
 	<section>
-		<header style="border-bottom: 1px solid #ccc;">
+		<header style="border-bottom: 2px solid #0EA2BD;">
 			<c:choose>
 				<c:when test="${pagingCreator.boardPaging.category_id == '1'}" >
 					<h2>자유게시판</h2>
@@ -66,16 +66,16 @@
 						</header>
 						<div id="content_box" style="min-height: 500px; padding:15px;"> <!-- 본문 -->
 							<c:if test="${postInfo.category_id == 3}">
-								<img src="${contextPath}/assets/img/${postInfo.post_file}" id="img" style="text-align:center;">
+								<img src="/rc_pro/upload/${postInfo.post_file}" id="img" style="margin: 0 auto; display: block;">
 							</c:if>
-							<div style="margin-top:10px;">${postInfo.post_content}</div>
+							<div style="margin-top:50px;">${postInfo.post_content}</div>
 						</div>
 					</c:when>
 					<c:otherwise>
 					</c:otherwise>
 				</c:choose>
 			</c:forEach>
-			<div style="border-bottom: 1px solid #ccc; display:flex; float:right; width:100%; text-align:right;">
+			<div style="border-bottom: 2px solid #0EA2BD; display:flex; float:right; width:100%; text-align:right;">
 				<div style="margin-right:10px;">
 					<a class="btn-getstarted" id="like">추천</a>
 				</div>
@@ -91,7 +91,7 @@
 				<div> <!-- 여기에 댓글이 생깁니다! -->
 					<c:forEach items="${ReplyInfo}" var="reply">
 						<c:if test="${reply.post_id == postIdParameter && reply.reply_group == 0}">
-							<li style="border-top: 1px solid #ccc; list-style-type: none; padding:10px; margin:10px;">
+							<div style="border-top: 1px solid #ccc; padding:10px;">
 								<div id="reply" style="display: flex;">
 									<c:forEach var="userInfo" items="${userInfo}">
 										<c:choose>
@@ -108,8 +108,7 @@
 											</c:when>
 										</c:choose>
 									</c:forEach>
-								</div>
-								
+								</div>		
 								<div id="replyGroup_${reply.reply_id}" style="display : none; margin : 10px;">
 									<textarea id="replyGroupContent_${reply.reply_id}" style="width:100%; resize:none;"></textarea>
 									<div id="replyGroupReg_${reply.reply_id}" style="width:100%; text-align:right;">
@@ -127,32 +126,32 @@
 								        }
 								    }
 								</script>
-								
-								<c:forEach items="${ReplyInfo}" var="replyGroup">
-									<c:if test="${replyGroup.post_id == postIdParameter && replyGroup.reply_group == reply.reply_id}">
-										<li style="list-style-type: none; padding:10px; margin:10px; width:100%; float:right; border-top: 1px solid #ccc;">
-											<div id="replyGroup" style="display: flex;">
-												<c:forEach var="userInfo" items="${userInfo}">
-													<c:choose>
-														<c:when test="${userInfo.user_num == replyGroup.user_num and replyGroup.reply_hide == 0}">
-															<div>→</div>
-															<div id="replyName" style="padding-left:40px;"><c:out value="${userInfo.user_name}"/></div>
-															<div id="replyContent"><c:out value="${replyGroup.reply_content}"/></div>
-															<div id="replyDate"><fmt:formatDate pattern="YYYY/MM/dd hh:mm" value="${replyGroup.reply_regdate}"/></div>
-															<c:if test="${replyGroup.user_num == user_num}">
-																<a class="btn-getstarted" id="hideReply" onclick="hideReply(${replyGroup.reply_id})">삭제</a>
-															</c:if>
-														</c:when>
-														<c:when test="${userInfo.user_num == replyGroup.user_num and replyGroup.reply_hide == 1}">
-															<div id="deleteReply" style="width:100%; text-align:center;">사용자에 의해 지워진 댓글입니다.</div>
-														</c:when>
-													</c:choose>
-												</c:forEach>
-											</div>
-										</li>
-									</c:if>
-								</c:forEach>
-							</li>
+							</div>
+																
+							<c:forEach items="${ReplyInfo}" var="replyGroup">
+								<c:if test="${replyGroup.post_id == postIdParameter && replyGroup.reply_group == reply.reply_id}">
+									<div style="margin-bottom:5px; padding-left:50px;">
+										<div id="replyGroup" style="display: flex; border: 1px solid #ccc;">
+											<c:forEach var="userInfo" items="${userInfo}">
+												<c:choose>
+													<c:when test="${userInfo.user_num == replyGroup.user_num and replyGroup.reply_hide == 0}">
+														<div style="font-weight: bold;">→</div>
+														<div id="replyName" style="padding-left:40px;"><c:out value="${userInfo.user_name}"/></div>
+														<div id="replyContent"><c:out value="${replyGroup.reply_content}"/></div>
+														<div id="replyDate"><fmt:formatDate pattern="YYYY/MM/dd hh:mm" value="${replyGroup.reply_regdate}"/></div>
+														<c:if test="${replyGroup.user_num == user_num}">
+															<a class="btn-getstarted" id="hideReply" onclick="hideReply(${replyGroup.reply_id})">삭제</a>
+														</c:if>
+													</c:when>
+													<c:when test="${userInfo.user_num == replyGroup.user_num and replyGroup.reply_hide == 1}">
+														<div id="deleteReply" style="width:100%; text-align:center;">사용자에 의해 지워진 댓글입니다.</div>
+													</c:when>
+												</c:choose>
+											</c:forEach>
+										</div>
+									</div>
+								</c:if>
+							</c:forEach>
 						</c:if>
 					</c:forEach>
 				</div>
@@ -160,7 +159,7 @@
 			<c:forEach var="postInfo" items="${PostInfo}">
 				<c:choose>
 					<c:when test="${postInfo.post_id == postIdParameter and postInfo.user_num == user_num}">
-						<div id="btn_box" style="border-bottom: 1px solid #ccc; text-align:right; width:100%;">
+						<div id="btn_box" style="border-bottom: 1px solid #ccc; border-top: 1px solid #ccc; text-align:right; width:100%;">
 							<a class="btn-getstarted scrollto" id="modifyPost" href="/rc_pro/board/modify?category_id=${postInfo.category_id}&region_id=${postInfo.region_id}&post_id=${postInfo.post_id}">수정</a>
 							<a>|</a>
 							<a class="btn-getstarted scrollto" id="deletePost">삭제</a>

@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="kr">
-
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
@@ -74,39 +74,39 @@
 						<hr>
 						<label class="form-label myinfo__inputcontent">글 조회 </label>
 						<div>
-							<c:if test="${param.sortmenu eq 'post_id'}">
+							<c:if test="${param.sortmenu eq 'post_date'}">
 								<select id="sortmenu" class="myinfo__inputcontent">
-									<option selected value="post_id">글 번호순</option>
+									<option selected value="post_date">작성 날짜순</option>
 									<option value="post_view">조회수순</option>
-									<option value="post_date">작성 날짜순</option>
+									<option value="post_like">추천순</option>
 								</select>
 							</c:if>
 							<c:if test="${param.sortmenu eq 'post_view'}">
 								<select id="sortmenu" class="myinfo__inputcontent">
-									<option value="post_id">글 번호순</option>
-									<option selected value="post_view">조회수순</option>
 									<option value="post_date">작성 날짜순</option>
+									<option selected value="post_view">조회수순</option>
+									<option value="post_like">추천순</option>
 								</select>
 							</c:if>
-							<c:if test="${param.sortmenu eq 'post_date'}">
+							<c:if test="${param.sortmenu eq 'post_like'}">
 								<select id="sortmenu" class="myinfo__inputcontent">
-									<option value="post_id">글 번호순</option>
+									<option value="post_date">작성 날짜순</option>
 									<option value="post_view">조회수순</option>
-									<option selected value="post_date">작성 날짜순</option>
+									<option selected value="post_like">추천순</option>
 								</select>
 							</c:if>
 							<br>
-							<select id="mypostinfo" aria-label="navigation meun" class="myinfo__inputcontent">
+							<select id="mypostinfo" aria-label="navigation meun" class="myinfo__inputconten">
 								<option selected value="">내가 쓴 글 선택</option>
 								<c:forEach var="post" items="${postinfolist}">
-									<option value="${post }">글번호 : <c:out value="${post.post_id }"/> 글 제목: <c:out value="${post.post_title }"/> 글 조회수 : <c:out value="${post.post_view }"/></option>
+									<option value="${post }">글 제목: <c:out value="${post.post_title }"/> / 글 조회수 : <c:out value="${post.post_view }"/> / 추천 수 : <c:out value="${post.post_like }"/></option>
 								</c:forEach>
 							</select>	
 							<br>
-							<select id="myscrapeinfo" aria-label="navigation meun" class="myinfo__inputcontent">
+							<select id="myscrapeinfo" aria-label="navigation meun" class="myinfo__inputconten">
 								<option selected value="">즐겨찾기 글 선택</option>
 								<c:forEach var="scrape" items="${scrapelist}">	
-									<option value="${scrape}">글번호 : <c:out value="${scrape.post_id }"/> 글 제목: <c:out value="${scrape.post_title }"/> 글 조회수 : <c:out value="${scrape.post_view }"/></option>
+									<option value="${scrape}">글 제목: <c:out value="${post.post_title }"/> / 글 조회수 : <c:out value="${post.post_view }"/> / 추천 수 : <c:out value="${post.post_like }"/></option>
 								</c:forEach>
 							</select>
 						</div>                      
@@ -170,6 +170,11 @@
 				    <button class="btn login__submit" type="button" name="storebtn" id="storebtn" style="display:none;">변경 저장</button>
 				    <button class="btn login__submit" type="button" name="closebtn" id="closebtn" style="display:block;">홈으로</button>
 				    <button class="btn login__submit" type="button" name="backbtn" id="backbtn" style="display:none;">뒤로</button>
+				    
+				    <sec:authorize access="hasAuthority('admin')"> <!-- 관리자페이지 이동버튼 -->
+				    <button class="btn login__submit" type="button" name="adminbtn" id="adminbtn" style="display:block;">관리자 페이지</button>
+				    </sec:authorize>
+				    
 				  </div>
 				</form>
 				</article> <!-- card-body end .// -->
@@ -379,8 +384,8 @@
 			var sortmenu = document.getElementById("sortmenu").value;
 			var user_id = '<c:out value="${userinfo.user_id}"/>';
 
-			if(sortmenu == ("post_id")){
-				window.location.href="/rc_pro/myinfo?user_id="+user_id+"&sortmenu=post_id";
+			if(sortmenu == ("post_like")){
+				window.location.href="/rc_pro/myinfo?user_id="+user_id+"&sortmenu=post_like";
 			}else if(sortmenu == ("post_view")){
 				window.location.href="/rc_pro/myinfo?user_id="+user_id+"&sortmenu=post_view";
 			}else if(sortmenu == ("post_date")){
@@ -415,6 +420,10 @@
 			var category_id = myscrapeinfo.slice(pos3,pos4);
 			var region_id = myscrapeinfo.slice(pos5,pos6);
  			window.location.href="/rc_pro/board/detail?category_id="+category_id+"&region_id="+region_id +"&post_id="+post_id;
+		});
+		
+		$("#adminbtn").on("click",function(){
+			window.location.href="/rc_pro/admin";
 		});
 	</script>
 	

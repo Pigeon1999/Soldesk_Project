@@ -83,41 +83,9 @@
         <h1>RC<span>.</span></h1>
       </a>
       
-     <a class="logo d-flex align-items-center scrollto me-auto me-lg-0">
-		<c:choose>
-			<c:when test="${pagingCreator.boardPaging.region_id == '1'}" >
-			  <h1>관철동</h1>
-			</c:when>
-			<c:when test="${pagingCreator.boardPaging.region_id == '2'}" >
-			  <h1>청진동</h1>
-			</c:when>
-			<c:when test="${pagingCreator.boardPaging.region_id == '3'}" >
-			  <h1>공평동</h1>
-			</c:when>
-			<c:when test="${pagingCreator.boardPaging.region_id == '4'}" >
-			  <h1>관수동</h1>
-			</c:when>
-			<c:when test="${pagingCreator.boardPaging.region_id == '5'}" >
-			  <h1>인사동</h1>
-			</c:when>
-			<c:when test="${pagingCreator.boardPaging.region_id == '6'}" >
-			  <h1>종로2가</h1>
-			</c:when>
-			<c:when test="${pagingCreator.boardPaging.region_id == '7'}" >
-			  <h1>삼각동</h1>
-			</c:when>
-			<c:when test="${pagingCreator.boardPaging.region_id == '8'}" >
-			  <h1>서린동</h1>
-			</c:when>
-			<c:otherwise>
-			  <h1>관철동</h1>
-			</c:otherwise>
-		</c:choose>
-      </a>
-      
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a class="nav-link scrollto" href="${contextPath }/admin">멤버 목록</a></li>
+          <li><a class="nav-link scrollto" href="${contextPath }/admin">이용자 정보 목록</a></li>
           <li><a class="nav-link scrollto" href="${contextPath }/admin_board">게시판 목록</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle d-none"></i>
@@ -129,10 +97,11 @@
 			    <form id="logoutForm" role="form" action="${contextPath}/main" method="post" style="padding-right: 10px;">
 			    	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" >
 			    	<fieldset>
-			        	<a onclick="document.getElementById('logoutForm').submit(); return false;" class="btn-getstarted scrollto">Logout</a>
+			        	<button onclick="document.getElementById('logoutForm').submit(); return false;" class="btn-getstarted scrollto">Logout</button>
 			        </fieldset>
 			    </form>
-			    <a class="btn-getstarted scrollto" href="">MyPage</a>
+			    <input type="hidden" id="user_id" value='<sec:authentication property="principal.username"/>'/>
+			    <button class="btn-getstarted scrollto" type="button" id="mypagebtn">MyPage</button>
 
 			    
 			</div>
@@ -161,6 +130,7 @@
 				<ol>
 					<li><a href="index.html">Home</a></li>
 					<li>관리자 페이지</li>
+					<li>이용자 정보 목록</li>
 				</ol>
 		</div> <!-- 상단 제목 끝 -->
 
@@ -172,15 +142,10 @@
       <div class="container" > <!-- container 시작 -->
       
 		<div class="col-lg"> <!-- 영역 시작 -->
-	        <div class="section-header"> <!-- 섹션 헤더 시작 -->
-			<h2>멤버 목록</h2>
-	      	</div> <!-- 섹션 헤더 끝 -->
-	      	
-			<table class="table table-striped table-bordered table-hover" 
-	        	style="width:100%;text-align:center;" > <!-- 테이블 영역 시작 -->
+	      	<h4>이용자 정보 목록</h4>
+			<table style="width:100%;text-align:center;" > <!-- 테이블 영역 시작 -->
 				<thead>
 					<tr>
-						<th>선택</th>
 					    <th>유저번호</th>
 					    <th>유저이름</th>
 					    <th>유저생일</th>
@@ -193,33 +158,30 @@
 					</tr>
 				</thead>
 				<tbody>
-	<c:choose>                         
-	<c:when test="${not empty adminPagingCreator.userList }">                               
-		<c:forEach var="userinfo" items="${adminPagingCreator.userList}">
-					<tr class="userinfos" data-user_num="${userinfo.user_num }">
-						<td><input type="checkbox"></td>
-						<td><c:out value="${userinfo.user_num }"/></td>
-					    <td><c:out value="${userinfo.user_name }"/></td>
-					    <td class="center"><c:out value="${userinfo.user_birth }"/></td>
-					    <td class="center"><c:out value="${userinfo.user_pn }"/></td>
-					    <td class="center"><c:out value="${userinfo.user_address }"/></td>
-					    <td class="center"><c:out value="${userinfo.user_email }"/></td>
-					    <td class="center"><c:out value="${userinfo.user_id }"/></td>
-					    <td class="center"><fmt:formatDate value="${userinfo.user_regdate }" pattern="yyyy/MM/dd HH:mm:ss"/></td>
-					    <td class="center"><c:out value="${userinfo.authorityList[0].user_authority }"/></td>
-					</tr>
-		</c:forEach>
-	</c:when>
-	<c:otherwise>
-		<tr class="odd gradeX">
-			<td colspan="9">등록된 게시물이 없습니다.</td>
-		</tr>
-	</c:otherwise>
-	</c:choose>                        
+					<c:choose>                         
+					<c:when test="${not empty adminPagingCreator.userList }">                               
+						<c:forEach var="userinfo" items="${adminPagingCreator.userList}">
+									<tr class="userinfos" data-user_num="${userinfo.user_num }">
+										<td><c:out value="${userinfo.user_num }"/></td>
+									    <td><c:out value="${userinfo.user_name }"/></td>
+									    <td class="center"><c:out value="${userinfo.user_birth }"/></td>
+									    <td class="center"><c:out value="${userinfo.user_pn }"/></td>
+									    <td class="center"><c:out value="${userinfo.user_address }"/></td>
+									    <td class="center"><c:out value="${userinfo.user_email }"/></td>
+									    <td class="center"><c:out value="${userinfo.user_id }"/></td>
+									    <td class="center"><fmt:formatDate value="${userinfo.user_regdate }" pattern="yyyy/MM/dd HH:mm:ss"/></td>
+									    <td class="center"><c:out value="${userinfo.authorityList[0].user_authority }"/></td>
+									</tr>
+						</c:forEach>
+					</c:when>
+					<c:otherwise>
+						<tr class="odd gradeX">
+							<td colspan="9">등록된 게시물이 없습니다.</td>
+						</tr>
+					</c:otherwise>
+					</c:choose>                        
 				</tbody>
 			</table> <%-- 테이블 영역 끝 --%>
-			
-	        
 	      	<div class="blog-pagination"> <!-- 페이지 버튼 영역 시작 -->
 				<ul class="justify-content-center" >
 			  		<c:if test="${adminPagingCreator.prev }">
@@ -263,36 +225,34 @@
 		</div> <!-- 영역 끝 -->
 		
 		<div class="row justify-content-lg-center">   <!-- 하단 검색 부분 영역 시작 -->
-	    	<div class="col-lg-4" > 
+	    	<div class="col-lg-4" style="width:100%;"> 
 	    	
 	            <div class="sidebar"> <!-- sidebar 시작 -->
 	            
 				  <div class="search-form"> <!-- start sidebar search-form -->
 				  
 	                <h3 class="sidebar-title">Search</h3>
-	                <form class="search-form " id="frmSendValue" name="frmSendValue" action="${contextPath }/admin" method="get" >
-						<div class="from-group"> <!-- 검색어 폼 그룹 영역 시작 -->
+	                <form class="search-form " id="frmSendValue" name="frmSendValue" action="${contextPath}/admin" method="get" >
+						<div class="from-group" style="display:flex;"> <!-- 검색어 폼 그룹 영역 시작 -->
 	
-							<select id="selectAmount" name="rowAmountPerPage">
+							<select id="selectAmount" name="rowAmountPerPage" style="margin-right:5px;">
 								<option value="10" ${(adminPagingCreator.adminPaging.rowAmountPerPage == 10) ? "selected" : "" }>10개</option>
 								<option value="20" ${(adminPagingCreator.adminPaging.rowAmountPerPage == 20) ? "selected" : "" }>20개</option>
 								<option value="50" ${(adminPagingCreator.adminPaging.rowAmountPerPage == 50) ? "selected" : "" }>50개</option>
 								<option value="100" ${(adminPagingCreator.adminPaging.rowAmountPerPage == 100) ? "selected" : "" }>100개</option>
 							</select>
 							
-							<select id="selectScope" name="scope">
+							<select id="selectScope" name="scope" style="margin-right:5px;">
 								<option value="" ${(adminPagingCreator.adminPaging.scope == null ) ? "selected" : "" }>선택</option>
 								<option value="I" ${(adminPagingCreator.adminPaging.scope == "I" ) ? "selected" : "" }>아이디</option>
 								<option value="N" ${(adminPagingCreator.adminPaging.scope == "N" ) ? "selected" : "" }>이름</option>
 								<option value="A" ${(adminPagingCreator.adminPaging.scope == "A" ) ? "selected" : "" }>주소</option>
 								<option value="U" ${(adminPagingCreator.adminPaging.scope == "U" ) ? "selected" : "" }>권한</option>
-								<option value="IN" ${(adminPagingCreator.adminPaging.scope == "IN" ) ? "selected" : "" }>아이디+이름</option>
-								<option value="INA" ${(adminPagingCreator.adminPaging.scope == "INA" ) ? "selected" : "" }>아이디+이름+주소</option>
 							</select>
-							<div class="input-group-btn">
-								<input class="form-control " id="keyword" name="keyword" type="text" 
-									placeholder="검색어를 입력하세요" value='<c:out value="${adminPagingCreator.adminPaging.keyword}" />' >
-				                	<button type="button" id="btnSearchGo" ><i class="bi bi-search"></i></button>
+							
+							<div class="input-group-btn" style="width:100%;">
+								<input class="form-control " id="keyword" name="keyword" type="text" placeholder="검색어를 입력하세요" value='<c:out value="${adminPagingCreator.adminPaging.keyword}"/>' style="border: 1px solid #007bff;" >
+				                <button type="button" id="btnSearchGo" ><i class="bi bi-search"></i></button>
 							</div>
 		
 							<input type="hidden" name="pageNum" value="${adminPagingCreator.adminPaging.pageNum }" >
@@ -306,29 +266,31 @@
 	            </div><!-- End Blog Sidebar -->
 	            
 	            <div class="input-group input-group-text"> <!-- 권한 수정 영역 시작 -->
-	            <form id="frmAuthValue" name="frmAuthValue" action="${contextPath }/admin/modify" method="get" >
-	            	<input type="text" id="authId" name="user_id">
-	            	<select id="selectAuth" name="user_authority">
-	            		<option value="" selected >선택</option>
-	            		<option value="generaluser">유저</option>
-	            		<option value="reporter">기자</option>
-	            		<option value="admin">운영자</option>
-	            		<option value="suspended">정지</option>
-	            	</select>
-	            	<button type="button" class="btn btn-primary" id="authButton">적용</button>
-	            	<!-- 
-	            	<select id="selectAuth" name="user_authority">
-	            		<option value="" ($("#selectAuth").val() == null ) ? "selected" : ""  >선택</option>
-	            		<option value="generaluser" ($("#selectAuth").val() == generaluser ) ? "selected" : "" >유저</option>
-	            		<option value="reporter" ($("#selectAuth").val() == reporter ) ? "selected" : "" >기자</option>
-	            		<option value="admin" ($("#selectAuth").val() == admin ) ? "selected" : "" >운영자</option>
-	            		<option value="suspended" ($("#selectAuth").val() == suspended ) ? "selected" : "" >정지</option>
-	            	</select> -->
-	            	
-<!-- 	            	
-	            <input type="hidden" name="user_id" value="$(#authId).val()" >
-				<input type="hidden" name="user_authority" value="$(#authId).val()" > -->
-	            </form>
+		            <form id="frmAuthValue" name="frmAuthValue" action="${contextPath }/admin/modify" method="get" style="width:100%;" >
+		            	<div>
+			            	<input type="text" id="authId" name="user_id">
+			            	<select id="selectAuth" name="user_authority">
+			            		<option value="" selected >선택</option>
+			            		<option value="generaluser">유저</option>
+			            		<option value="reporter">기자</option>
+			            		<option value="admin">운영자</option>
+			            		<option value="suspended">정지</option>
+			            	</select>
+			            	<button type="button" class="btn btn-primary" id="authButton">적용</button>
+		            	</div>
+		            	<!-- 
+		            	<select id="selectAuth" name="user_authority">
+		            		<option value="" ($("#selectAuth").val() == null ) ? "selected" : ""  >선택</option>
+		            		<option value="generaluser" ($("#selectAuth").val() == generaluser ) ? "selected" : "" >유저</option>
+		            		<option value="reporter" ($("#selectAuth").val() == reporter ) ? "selected" : "" >기자</option>
+		            		<option value="admin" ($("#selectAuth").val() == admin ) ? "selected" : "" >운영자</option>
+		            		<option value="suspended" ($("#selectAuth").val() == suspended ) ? "selected" : "" >정지</option>
+		            	</select> -->
+		            	
+					<!-- 	            	
+		            <input type="hidden" name="user_id" value="$(#authId).val()" >
+					<input type="hidden" name="user_authority" value="$(#authId).val()" > -->
+		            </form>
 	            </div> <!-- 권한 수정 영역 끝 -->
 	
 	          </div> 
@@ -355,121 +317,205 @@
    </div><%-- /.modal-dialog --%>
 </div><%-- /.modal --%>
 
+<style>
+	table {
+	  border: 1px #a39485 solid;
+	  font-size: .9em;
+	  box-shadow: 0 2px 5px rgba(0,0,0,.25);
+	  width: 100%;
+	  border-collapse: collapse;
+	  border-radius: 5px;
+	  overflow: hidden;
+	}
+
+	th {
+	  text-align: center;
+	}
+	  
+	thead {
+	  font-weight: bold;
+	  color: #fff;
+	  background: #73685d;
+	}
+	  
+	 td, th {
+	  padding: 1em .5em;
+	  vertical-align: middle;
+	}
+	  
+	 td {
+	  border-bottom: 1px solid rgba(0,0,0,.1);
+	  background: #fff;
+	}
+
+	a {
+	  color: #73685d;
+	}
+  
+	@media all and (max-width: 768px) {
+	   
+		table, thead, tbody, th, td, tr {
+			display: block;
+		}
+		 
+		th {
+		  	text-align: center;
+		}
+		 
+		table {
+			position: relative; 
+			padding-bottom: 0;
+			border: none;
+			box-shadow: 0 0 10px rgba(0,0,0,.2);
+		}
+		 
+		thead {
+			float: left;
+			white-space: nowrap;
+		}
+		 
+		tbody {
+			overflow-x: auto;
+			overflow-y: hidden;
+			position: relative;
+			white-space: nowrap;
+		}
+		 
+		tr {
+			display: inline-block;
+			vertical-align: top;
+		}
+	
+		th {
+			border-bottom: 1px solid #a39485;
+		}
+		 
+		td {
+		    border-bottom: 1px solid #e5e5e5;
+		}
+	}
+</style>
+
+
 <script>
-var frmSendValue = $("#frmSendValue") ;
-var result = '<c:out value="${result}" />' ;
-
-var frmAuthValue = $("#frmAuthValue") ;
-
-
-//모달 호출 함수
-function runModal(result) {
+	var frmSendValue = $("#frmSendValue") ;
+	var result = '<c:out value="${result}" />' ;
 	
-	if(result.length == 0) {
-		return ;
+	var frmAuthValue = $("#frmAuthValue") ;
+	
+	
+	//모달 호출 함수
+	function runModal(result) {
 		
-	} else if( result == "successRemove") {
-		var myMsg = "게시물이 삭제되었습니다. " ;
- 		
-	} else if(parseInt(result) > 0) {
-		var myMsg = result + "번 게시물이 등록되었습니다."
+		if(result.length == 0) {
+			return ;
+			
+		} else if( result == "successRemove") {
+			var myMsg = "게시물이 삭제되었습니다. " ;
+	 		
+		} else if(parseInt(result) > 0) {
+			var myMsg = result + "번 게시물이 등록되었습니다."
+			
+		}
 		
+	
+		$("#yourModal-body").html(myMsg) ;
+		
+		$("#yourModal").modal("show") ;
+		
+		myMsg = "" ;
 	}
 	
-
-	$("#yourModal-body").html(myMsg) ;
-	
-	$("#yourModal").modal("show") ;
-	
-	myMsg = "" ;
-}
-
-<%-- 페이징 처리: 검색 목록 페이지 이동 --%>
-$("li.pagination-button a").on("click", function(e){
-	e.preventDefault() ;
-	frmSendValue.find("input[name='pageNum']").val($(this).attr("href"));
-	console.log(frmSendValue.find("input[name='pageNum']").val());
-	frmSendValue.attr("action", "${contextPath}/admin") ;
-	frmSendValue.attr("method", "get") ;
-	
-	frmSendValue.submit();
-	
-});
-
-<%--검색 관련 요소의 이벤트 처리--%>
-<%--표시행수 변경 이벤트 처리--%>
-$("#selectAmount").on("change", function(){
-	frmSendValue.find("input[name='pageNum']").val(1) ;
-	frmSendValue.submit() ;
-	
-});
-
-<%--검색범위 클릭 이벤트 처리 --%>
-$("#selectScope").on("change", function(){
-	$("#pageNum").val(1) ;
-	frmSendValue.submit() ;
-});
-
-<%--검색버튼 클릭 이벤트 처리 --%>
-$("#btnSearchGo").on("click", function(){
-	
-	var scope = $("#selectScope").find("option:selected").val() ;
-	
-
-	if(!scope || scope == "") {
-		alert("검색범위를 선택하세요.") ;
-		return false;
-	}
-	
-	var keyword = $("#keyword").val() ;
-	
-	if(!keyword || keyword.length == 0) {
-		alert("검색어를 입력하세요.") ;
-		return ;
-	}
-	
-	frmSendValue.find("input[name='pageNum']").val(1) ;
-	frmSendValue.submit() ;
-	
-});	
-<%--권한수정버튼 클릭 이벤트 처리 --%>
-$("#authButton").on("click", function(){
-
-	var selectAuth = $("#selectAuth").find("option:selected").val() ;
-	var authId = $("#authId").val() ;
-
-	if(!authId || authId == "") {
-		alert("아이디를 입력하세요.") ;
-		return false;
-	}
-	
-//	frmAuthValue.find("input[name='user_id']").val(authId);
-//	frmAuthValue.find("input[name='user_authority']").val(selectAuth);
-	console.log(authId);
-	console.log(selectAuth);
-
-
-	frmAuthValue.attr("action", "${contextPath}/admin/modify") ;
-	frmAuthValue.attr("method", "get") ;
-	
-	frmAuthValue.submit() ;
-
-});	
-
-
-
-$(document).ready(function(){
-	runModal(result) ;
-	
-	window.addEventListener("popstate", function(event){
-		history.pushState(null, null, location.href) ;
+	<%-- 페이징 처리: 검색 목록 페이지 이동 --%>
+	$("li.pagination-button a").on("click", function(e){
+		e.preventDefault() ;
+		frmSendValue.find("input[name='pageNum']").val($(this).attr("href"));
+		console.log(frmSendValue.find("input[name='pageNum']").val());
+		frmSendValue.attr("action", "${contextPath}/admin") ;
+		frmSendValue.attr("method", "get") ;
+		
+		frmSendValue.submit();
 		
 	});
 	
-	history.pushState(null, null, location.href) ;
+	<%--검색 관련 요소의 이벤트 처리--%>
+	<%--표시행수 변경 이벤트 처리--%>
+	$("#selectAmount").on("change", function(){
+		frmSendValue.find("input[name='pageNum']").val(1) ;
+		frmSendValue.submit() ;
+		
+	});
 	
-}) ;
+	<%--검색범위 클릭 이벤트 처리 --%>
+	$("#selectScope").on("change", function(){
+		$("#pageNum").val(1) ;
+		frmSendValue.submit() ;
+	});
+	
+	<%--검색버튼 클릭 이벤트 처리 --%>
+	$("#btnSearchGo").on("click", function(){
+		
+		var scope = $("#selectScope").find("option:selected").val() ;
+		
+	
+		if(!scope || scope == "") {
+			alert("검색범위를 선택하세요.") ;
+			return false;
+		}
+		
+		var keyword = $("#keyword").val() ;
+		
+		if(!keyword || keyword.length == 0) {
+			alert("검색어를 입력하세요.") ;
+			return ;
+		}
+		
+		frmSendValue.find("input[name='pageNum']").val(1) ;
+		frmSendValue.submit() ;
+		
+	});	
+	<%--권한수정버튼 클릭 이벤트 처리 --%>
+	$("#authButton").on("click", function(){
+	
+		var selectAuth = $("#selectAuth").find("option:selected").val() ;
+		var authId = $("#authId").val() ;
+	
+		if(!authId || authId == "") {
+			alert("아이디를 입력하세요.") ;
+			return false;
+		}
+		
+	//	frmAuthValue.find("input[name='user_id']").val(authId);
+	//	frmAuthValue.find("input[name='user_authority']").val(selectAuth);
+		console.log(authId);
+		console.log(selectAuth);
+	
+	
+		frmAuthValue.attr("action", "${contextPath}/admin/modify") ;
+		frmAuthValue.attr("method", "get") ;
+		
+		frmAuthValue.submit() ;
+	
+	});	
+	
+	
+	
+	$(document).ready(function(){
+		runModal(result) ;
+		
+		window.addEventListener("popstate", function(event){
+			history.pushState(null, null, location.href) ;
+			
+		});
+		
+		history.pushState(null, null, location.href) ;
+	}) ;
 
+	
+	$("#mypagebtn").on("click",function(){
+		var user_id= document.getElementById("user_id").value;
+		window.location.href="/rc_pro/myinfo?user_id="+user_id +"&sortmenu=post_id";
+	});
 </script>
 
 <%@ include file="../myinclude/myfooter.jsp" %>

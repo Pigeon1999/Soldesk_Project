@@ -1,4 +1,4 @@
--- ?ï¿½ï¿½?? rc_pro ?ï¿½ï¿½?ï¿½ï¿½ ï¿½? ê¶Œí•œ ?ï¿½ï¿½?ï¿½ï¿½
+-- ?ï¿½ï¿½?? rc_pro ?ï¿½ï¿½?ï¿½ï¿½ ï¿?? ê¶Œí•œ ?ï¿½ï¿½?ï¿½ï¿½
 CREATE USER rc_pro 
 IDENTIFIED BY rc_pro 
 DEFAULT TABLESPACE users 
@@ -9,7 +9,7 @@ GRANT CREATE SESSION, CREATE TABLE, CREATE SEQUENCE, CREATE PROCEDURE,
  CREATE TRIGGER, CREATE VIEW, CREATE SYNONYM, ALTER SESSION
 TO rc_pro;
 
--- ?ï¿½ï¿½???ï¿½ï¿½ ?ï¿½ï¿½?ï¿½ï¿½ : PK ë²ˆí˜¸ï¿½? ?ï¿½ï¿½?ï¿½ï¿½??ï¿½? ì£¼ê²Œ ?ï¿½ï¿½ï¿½? ?ï¿½ï¿½?ï¿½ï¿½
+-- ?ï¿½ï¿½???ï¿½ï¿½ ?ï¿½ï¿½?ï¿½ï¿½ : PK ë²ˆí˜¸ï¿?? ?ï¿½ï¿½?ï¿½ï¿½??ï¿?? ì£¼ê²Œ ?ï¿½ï¿½ï¿?? ?ï¿½ï¿½?ï¿½ï¿½
 CREATE SEQUENCE rc_pro.seq_userno;
 CREATE SEQUENCE rc_pro.seq_postid;
 CREATE SEQUENCE rc_pro.seq_replyid;
@@ -17,7 +17,7 @@ CREATE SEQUENCE rc_pro.seq_replyid;
 DROP SEQUENCE rc_pro.seq_userno;
 DROP SEQUENCE rc_pro.seq_postid;
 DROP SEQUENCE rc_pro.seq_replyid;
--- ?ï¿½ï¿½?ï¿½ï¿½ï¿½? ?ï¿½ï¿½?ï¿½ï¿½ 
+-- ?ï¿½ï¿½?ï¿½ï¿½ï¿?? ?ï¿½ï¿½?ï¿½ï¿½ 
 
 -- 1. user_info
 CREATE TABLE rc_pro.user_info(
@@ -168,26 +168,6 @@ ALTER TABLE rc_pro.reply_info
 ADD CONSTRAINT fk_parent_reply2 FOREIGN KEY(reply_group)
     REFERENCES rc_pro.reply_info(reply_id);
 
--- 9. reply_like_info
-CREATE TABLE rc_pro.reply_like_info(
-reply_id NUMBER(10,0),
-user_num NUMBER(10,0)
-)TABLESPACE users;
-
-CREATE INDEX rc_pro.idx_reply_like_info ON rc_pro.reply_like_info(reply_id,user_num);
-
-ALTER TABLE rc_pro.reply_like_info
-ADD CONSTRAINT pk_myuser_reply_like PRIMARY KEY (reply_id,user_num)
-USING INDEX rc_pro.idx_reply_like_info;
-
-ALTER TABLE rc_pro.reply_like_info
-ADD CONSTRAINT fk_reply_id_tolike FOREIGN KEY(reply_id)
-    REFERENCES rc_pro.reply_info(reply_id) ON DELETE CASCADE;
-
-ALTER TABLE rc_pro.reply_like_info
-ADD CONSTRAINT fk_user_num_tolike FOREIGN KEY(user_num)
-    REFERENCES rc_pro.user_info(user_num) ON DELETE CASCADE;
-
 -- 10. persistent_logins
 CREATE TABLE rc_pro.persistent_logins ( 
 username VARCHAR2(64) NOT NULL,
@@ -196,7 +176,7 @@ token VARCHAR2(64) NOT NULL,
 last_used TIMESTAMP(0) NOT NULL
 ) TABLESPACE users;
 
--- ?ï¿½ï¿½?ï¿½ï¿½ï¿½? ï¿½? ?ï¿½ï¿½?ï¿½ï¿½ 
+-- ?ï¿½ï¿½?ï¿½ï¿½ï¿?? ï¿?? ?ï¿½ï¿½?ï¿½ï¿½ 
 
 -- region_info
 INSERT INTO rc_pro.region_info 
@@ -233,7 +213,7 @@ VALUES(2, ' È«ï¿½ï¿½ï¿½Ô½ï¿½ï¿½ï¿½', 'generaluser');
 INSERT INTO rc_pro.category_info
 VALUES(3, 'ï¿½ï¿½ï¿½ï¿½', 'reporter');
 
--- ?ï¿½ï¿½?ï¿½ï¿½ï¿½? ?ï¿½ï¿½ï¿½? 
+-- ?ï¿½ï¿½?ï¿½ï¿½ï¿?? ?ï¿½ï¿½ï¿?? 
 DROP TABLE user_info CASCADE CONSTRAINTS;
 DROP TABLE authority_info CASCADE CONSTRAINTS;
 DROP TABLE category_info CASCADE CONSTRAINTS;
@@ -242,7 +222,6 @@ DROP TABLE post_info CASCADE CONSTRAINTS;
 DROP TABLE scrape_info CASCADE CONSTRAINTS;
 DROP TABLE reply_info CASCADE CONSTRAINTS;
 DROP TABLE like_info CASCADE CONSTRAINTS;
-DROP TABLE reply_like_info CASCADE CONSTRAINTS;
 DROP TABLE persistent_logins CASCADE CONSTRAINTS;
 
 SELECT * FROM user_info;
@@ -254,5 +233,10 @@ DELETE FROM post_info;
 SELECT * FROM reply_info;
 SELECT * FROM like_info;
 SELECT * FROM scrape_info;
+
+SELECT * FROM authority_info;
+UPDATE authority_info
+SET user_authority = 'admin'
+WHERE user_id = 'admin9999';
 
 COMMIT;
