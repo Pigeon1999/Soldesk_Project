@@ -91,15 +91,6 @@
 	<c:choose>                         
 	<c:when test="${not empty pagingCreator.boardList }">                               
 		<c:forEach var="board" items="${pagingCreator.boardList}">
-			<c:choose>
-
-				<c:when test="${board.post_hide == 1 }">
-				<tr style="background-color: Moccasin; text-align: center">
-             		<td colspan="6"><em>작성자에 의해서 삭제된 게시글입니다.</em></td>
-         		</tr>
-				</c:when>
-				<c:otherwise>
-				
 				<tr class="moveDetail" data-post_id="${board.post_id }">
 				    <td style="text-align: left"><c:out value="${board.post_title }"/></td>
 				<c:forEach var="userInfo" items="${userInfo}">
@@ -114,8 +105,6 @@
 				    <td class="center"><c:out value="${board.post_view }"/></td>
 				    <td class="center"><c:out value="${board.post_like }"/></td>
 				</tr>
-				</c:otherwise>
-			</c:choose>
 		</c:forEach>
 	</c:when>
 	<c:otherwise>

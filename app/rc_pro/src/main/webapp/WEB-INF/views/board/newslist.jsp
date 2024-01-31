@@ -82,42 +82,7 @@
 <c:choose>                         
 <c:when test="${not empty pagingCreator.boardList }">                               
 	<c:forEach var="board" items="${pagingCreator.boardList}">
-		<c:choose>
-			<c:when test="${board.post_hide == 1 }">
-			<div class="col-lg-6"><!-- Start post list item -->
-                <article class="d-flex flex-column">
-                
-                  <div class="post-img">
-                    <img src="" alt="이미지가 없습니다" class="img-fluid">
-                  </div>
-                  
-                  <h2 class="title">
-                    <a href="#main">삭제된 기사입니다.</a>
-                  </h2>
 
-                  <div class="meta-top">
-                    <ul>
-                      <li class="d-flex align-items-center"><i class="bi bi-person"></i></li>
-                      <li class="d-flex align-items-center"><i class="bi bi-clock"></i></li>
-                      <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i></li>
-                    </ul>
-                  </div>
-
-                  <div class="content">
-                    <p>
-                      삭제된 기사입니다.
-                    </p>
-                  </div>
-
-                  <div class="read-more mt-auto align-self-end">
-                    <a href="#me">Read More</a>
-                  </div>
-
-                </article>
-              </div><!-- End post list item -->	
-			</c:when>
-			
-			<c:otherwise>
 				<div class="col-lg-6"><!-- Start post list item -->
                 <article class="d-flex flex-column">
 
@@ -149,8 +114,6 @@
 
                 </article>
               </div><!-- End post list item -->
-			</c:otherwise>
-		</c:choose>
 	</c:forEach>
 </c:when>
 <c:otherwise>
@@ -158,18 +121,18 @@
                 <article class="d-flex flex-column">
 
                   <div class="post-img">
-                    <img src="${contextPath}/assets/img/${board.post_file}" alt="이미지가 없습니다" class="img-fluid">
+                    <img src="#main" alt="이미지가 없습니다" class="img-fluid">
                   </div>
 
                   <h2 class="title">
-                    <a href="/rc_pro/board/detail?category_id=3&region_id=${region_id}&post_id=${board.post_id}">기사가 없습니다</a>
+                    <a href="#main">기사가 없습니다</a>
                   </h2>
 
                   <div class="meta-top">
                     <ul>
-                      <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="#me"></a></li>
-                      <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a href="#me"></a></li>
-                      <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a href="#me"></a></li>
+                      <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="#main"></a></li>
+                      <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a href="#main"></a></li>
+                      <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a href="#main"></a></li>
                     </ul>
                   </div>
 
@@ -180,7 +143,7 @@
                   </div>
 
                   <div class="read-more mt-auto align-self-end">
-                    <a href="#me">Read More</a>
+                    <a href="#main">Read More</a>
                   </div>
 
                 </article>
@@ -188,7 +151,6 @@
 </c:otherwise>
 </c:choose>
 
-	        
 	      	<div class="blog-pagination"> <!-- 페이지 버튼 영역 시작 -->
 				<ul class="justify-content-center" >
 			  		<c:if test="${pagingCreator.prev }">
@@ -257,11 +219,8 @@
 						
 						<select id="selectScope" name="scope">
 							<option value="" ${(pagingCreator.boardPaging.scope == null ) ? "selected" : "" }>선택</option>
-							<option value="T" ${(pagingCreator.boardPaging.scope == "T" ) ? "selected" : "" }>제목</option>
-							<option value="C" ${(pagingCreator.boardPaging.scope == "C" ) ? "selected" : "" }>내용</option>
-							<option value="W" ${(pagingCreator.boardPaging.scope == "W" ) ? "selected" : "" }>작성자</option>
 							<option value="TC" ${(pagingCreator.boardPaging.scope == "TC" ) ? "selected" : "" }>제목+내용</option>
-							<option value="TCW" ${(pagingCreator.boardPaging.scope == "TCW" ) ? "selected" : "" }>제목+내용+작성자</option>
+							<option value="W" ${(pagingCreator.boardPaging.scope == "W" ) ? "selected" : "" }>작성자</option>
 						</select>
 						<div class="input-group">
 							<input class="form-control" id="keyword" name="keyword" type="text" 
