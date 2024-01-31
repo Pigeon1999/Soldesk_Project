@@ -83,7 +83,14 @@ body {
   right: 50px;  
   border-radius: 60px;
 }
-
+.myinfo__inputconten {
+  font-weight: 700;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 300px;
+  height: 20px;
+}
 .myinfo__inputcontent {
   font-weight: 700;
 }
@@ -182,5 +189,7 @@ body {
   margin-left: auto;
   color: #7875B5;
 }
+
+
 
 .s

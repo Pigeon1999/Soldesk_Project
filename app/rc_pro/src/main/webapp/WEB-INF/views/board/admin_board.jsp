@@ -13,7 +13,7 @@
 
 <c:set var="region" value="${region}"/>
 
-
+<c:set var="userInfo" value="${userInfo}"/>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -58,6 +58,8 @@
   <!-- jQuery -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
+  <link href="${contextPath}/assets/css/list.css" rel="stylesheet">
+  
   <!-- =======================================================
   * Template Name: HeroBiz
   * Updated: Sep 18 2023 with Bootstrap v5.3.2
@@ -66,9 +68,7 @@
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
   
-	<style>
-	 	th {text-align: center;}
-	 </style>  
+
 </head>
 
 
@@ -81,38 +81,6 @@
       
       <a href="${contextPath}/main" class="logo d-flex align-items-center scrollto me-auto me-lg-0">
         <h1>RC<span>.</span></h1>
-      </a>
-      
-     <a class="logo d-flex align-items-center scrollto me-auto me-lg-0">
-		<c:choose>
-			<c:when test="${pagingCreator.boardPaging.region_id == '1'}" >
-			  <h1>관철동</h1>
-			</c:when>
-			<c:when test="${pagingCreator.boardPaging.region_id == '2'}" >
-			  <h1>청진동</h1>
-			</c:when>
-			<c:when test="${pagingCreator.boardPaging.region_id == '3'}" >
-			  <h1>공평동</h1>
-			</c:when>
-			<c:when test="${pagingCreator.boardPaging.region_id == '4'}" >
-			  <h1>관수동</h1>
-			</c:when>
-			<c:when test="${pagingCreator.boardPaging.region_id == '5'}" >
-			  <h1>인사동</h1>
-			</c:when>
-			<c:when test="${pagingCreator.boardPaging.region_id == '6'}" >
-			  <h1>종로2가</h1>
-			</c:when>
-			<c:when test="${pagingCreator.boardPaging.region_id == '7'}" >
-			  <h1>삼각동</h1>
-			</c:when>
-			<c:when test="${pagingCreator.boardPaging.region_id == '8'}" >
-			  <h1>서린동</h1>
-			</c:when>
-			<c:otherwise>
-			  <h1>관철동</h1>
-			</c:otherwise>
-		</c:choose>
       </a>
       
       <nav id="navbar" class="navbar">
@@ -133,11 +101,7 @@
 			        </fieldset>
 			    </form>
 			    <a class="btn-getstarted scrollto" href="">MyPage</a>
-			    
-			   	<sec:authorize access="hasAuthority('admin')"> 
-			    <a class="btn-getstarted scrollto" href="/rc_pro/admin">AdminPage</a>
-			    </sec:authorize>
-			    
+
 			</div>
 		</sec:authorize>
 			
@@ -162,7 +126,7 @@
 			<h2>관리자 페이지</h2>
 		
 				<ol>
-					<li><a href="index.html">Home</a></li>
+					<li><a href="${contextPath }/main">Home</a></li>
 					<li>관리자 페이지</li>
 				</ol>
 		</div> <!-- 상단 제목 끝 -->
@@ -179,8 +143,7 @@
 			<h2>게시판 목록</h2>
 	      	</div> <!-- 섹션 헤더 끝 -->
 	      	
-			<table class="table table-striped table-bordered table-hover" 
-	        	style="width:100%;text-align:center;" > <!-- 테이블 영역 시작 -->
+			<table > <!-- 테이블 영역 시작 -->
 				<thead>
 					<tr>
 						<th>선택</th>
@@ -188,8 +151,8 @@
 					    <th>카테고리번호</th>
 					    <th>지역번호</th>
 					    <th>제목</th>
-					    <th>댓글수</th>
 					    <th>작성자</th>
+					    <th>댓글수</th>
 					    <th>작성일</th>
 					    <th>조회수</th>
 					    <th>추천수</th>
@@ -213,10 +176,16 @@
 					    <td><c:out value="${board.post_id }"/></td>
 					    <td><c:out value="${board.category_id }"/></td>
 					    <td><c:out value="${board.region_id }"/></td>
-					    <td style="text-align: left"><c:out value="${board.post_title }"/></td>
+					    <td ><c:out value="${board.post_title }"/></td>
+						<c:forEach var="userInfo" items="${userInfo}">
+							<c:choose>
+								<c:when test="${userInfo.user_num == board.user_num}">
+								<td class="center">${userInfo.user_name}</td>
+								</c:when>
+							</c:choose>
+						</c:forEach>
 					    <td class="center">${board.post_reply }</td>
-					    <td class="center">${board.user_num }</td>
-					    <td class="center"><fmt:formatDate value="${board.post_date }" pattern="yyyy/MM/dd HH:mm:ss"/></td>
+					    <td class="center"><fmt:formatDate value="${board.post_date }" pattern="MM/dd HH:mm"/></td>
 					    <td class="center"><c:out value="${board.post_view }"/></td>
 					    <td class="center"><c:out value="${board.post_like }"/></td>
 					</tr>
@@ -296,15 +265,12 @@
 							
 							<select id="selectScope" name="scope">
 								<option value="" ${(adminboardpagingCreator.adminboardPaging.scope == null ) ? "selected" : "" }>선택</option>
-								<option value="T" ${(adminboardpagingCreator.adminboardPaging.scope == "T" ) ? "selected" : "" }>제목</option>
-								<option value="C" ${(adminboardpagingCreator.adminboardPaging.scope == "C" ) ? "selected" : "" }>내용</option>
-								<option value="W" ${(adminboardpagingCreator.adminboardPaging.scope == "W" ) ? "selected" : "" }>작성자</option>
 								<option value="TC" ${(adminboardpagingCreator.adminboardPaging.scope == "TC" ) ? "selected" : "" }>제목+내용</option>
-								<option value="TCW" ${(adminboardpagingCreator.adminboardPaging.scope == "TCW" ) ? "selected" : "" }>제목+내용+작성자</option>
+								<option value="W" ${(adminboardpagingCreator.adminboardPaging.scope == "W" ) ? "selected" : "" }>작성자</option>
 							</select>
 							<div class="input-group-btn">
 								<input class="form-control " id="keyword" name="keyword" type="text" 
-									placeholder="검색어를 입력하세요" value='<c:out value="${adminPagingCreator.adminboardPaging.keyword}" />' >
+									placeholder="검색어를 입력하세요" value='<c:out value="${adminboardpagingCreator.adminboardPaging.keyword}" />' >
 				                	<button type="button" id="btnSearchGo" ><i class="bi bi-search"></i></button>
 							</div>
 		
@@ -328,7 +294,7 @@
 	            </div><!-- End Blog Sidebar -->
 	            
 	            <div class="input-group input-group-text"> <!-- 카테고리 및 지역 조회 영역 시작 -->
-	            <form id="frmboardValue" name="frmboardValue" action="${contextPath }/admin_board/modify" method="get" >
+	            <form id="frmboardValue" name="frmboardValue" action="${contextPath }/admin_board" method="get" >
 	            	<select id="selectCategory" name="category_id">
 	            		<option value="" ${(adminboardpagingCreator.adminboardPaging.category_id  == 0) ? "selected" : "" }>선택</option>
 	            		<option value="1" ${(adminboardpagingCreator.adminboardPaging.category_id  == 1) ? "selected" : "" }>>자유게시판</option>
@@ -347,38 +313,8 @@
 	            		<option value="8" ${(adminboardpagingCreator.adminboardPaging.region_id  == 8) ? "selected" : "" }>서린동</option>
 	            	</select>
 	            </form>
-	            </div> <!-- 카테고리 및 지역 조회 영역 시작 -->
+	            </div> <!-- 카테고리 및 지역 조회 영역 끝 -->
 	            
-	            <div class="input-group input-group-text"> <!-- 카테고리 및 지역 수정 영역 시작 -->
-	            <form id="frmboardmodify" name="frmboardmodify" action="${contextPath }/admin_board/modify" method="get" >
-	            	<select id="modifyCategory" name="category_id">
-	            		<option value="" selected >선택</option>
-	            		<option value="1">자유게시판</option>
-	            		<option value="2">홍보게시판</option>
-	            		<option value="3">뉴스</option>
-	            	</select>
-	            	<select id="modifyRegion" name="region_id">
-	            		<option value="" selected>선택</option>
-	            		<option value="1">관철동</option>
-	            		<option value="2">청진동</option>
-	            		<option value="3">공평동</option>
-	            		<option value="4">관수동</option>
-	            		<option value="5">인사동</option>
-	            		<option value="6">종로2가</option>
-	            		<option value="7">삼각동</option>
-	            		<option value="8">서린동</option>
-	            	</select>
-	            	<button type="button" class="btn btn-primary" id="boardModifyButton">수정</button>
-	            	<button type="button" class="btn btn-primary" id="boardRemoveButton">삭제</button>
-	            	
-           			<input type="hidden" name="pageNum" value="${adminboardpagingCreator.adminboardPaging.pageNum }" >
-					<input type="hidden" name="rowAmountPerPage" value="${adminboardpagingCreator.adminboardPaging.rowAmountPerPage }" >
-					<input type="hidden" name="lastPageNum" value="${adminboardpagingCreator.lastPageNum }" >
-					<input type="hidden" name="category_id" value="${adminboardpagingCreator.adminboardPaging.category_id }" >
-					<input type="hidden" name="region_id" value="${adminboardpagingCreator.adminboardPaging.region_id }" >
-					<input type="hidden" name="post_id" value="" >
-	            </form>
-	            </div> <!-- 권한 수정 영역 끝 -->
 	
 	          </div> 
           </div> <!-- 하단 검색 부분 영역 끝 -->
@@ -414,24 +350,19 @@ var category_id = $("#selectCategory").find("option:selected").val() ;
 var region_id = $("#selectRegion").find("option:selected").val()  ;
 
 
-
-var frmboardmodify = $("#frmboardmodify") ;
-
-
 //모달 호출 함수
 function runModal(result) {
 	
 	if(result.length == 0) {
 		return ;
 		
-	} else if( result == "successRemove") {
+	} else if(result == "successRemove") {
 		var myMsg = "게시물이 삭제되었습니다. " ;
  		
-	} else if result == "successModify") {
+	} else if(result == "successModify") {
 		var myMsg = "게시물이 수정되었습니다. "
 		
 	}
-	
 
 	$("#yourModal-body").html(myMsg) ;
 	
@@ -480,7 +411,6 @@ $("#selectCategory").on("change", function(){
 <%--지역범위 변경 이벤트 처리 --%>
 $("#selectRegion").on("change", function(){
 
-
 	frmboardValue.find("input[name='category_id']").val(Number(region_id)) ;
 	
 	$("#pageNum").val(1) ;
@@ -510,44 +440,6 @@ $("#btnSearchGo").on("click", function(){
 	
 });	
 
-<%--게시글수정버튼 클릭 이벤트 처리 --%>
-$("#boardModifyButton").on("click", function(){
-	
-	
-//	var modifyCategory = $("#modifyCategory").find("option:selected").val() ;
-//	var modifyRegion = $("#modifyRegion").find("option:selected").val() ;
-
-	var modifyCategory = $("#modifyCategory option:selected").val();
-	var modifyRegion = $("#modifyRegion option:selected").val();
-	var selectPost = document.querySelector('input[name="radioPostid"]:checked').value;
-	
-//	var selectPost = $(":input:radio[name='radioPostid']:checked").val() ;
-	
-	if((!modifyCategory || modifyCategory == "") && (!modifyRegion || modifyRegion == "")) {
-		alert("카테고리나 지역을 선택하세요") ;
-		return ;
-	} 
-	
-	frmboardmodify.find("input[name='post_id']").val(Number(selectPost)) ;
-	
-	if(modifyCategory != null && modifyCategory != "" && modifyCategory != 0) {
-		frmboardmodify.find("input[name='category_id']").val(Number(modifyCategory)) ;
-		alert(modifyCategory) ;	
-
-	}
-	if(modifyRegion != null && modifyRegion != "" && modifyRegion != 0) {
-		frmboardmodify.find("input[name='region_id']").val(Number(modifyRegion)) ;
-		alert(modifyRegion) ;	
-	}
-	
-	
-	
-	frmboardmodify.attr("action", "${contextPath}/admin_board/modify") ;
-	frmboardmodify.attr("method", "get") ;
-	
-	frmboardmodify.submit() ;
-
-});	
 
 <%--게시글삭제버튼 클릭 이벤트 처리 --%>
 $("#boardRemoveButton").on("click", function(){

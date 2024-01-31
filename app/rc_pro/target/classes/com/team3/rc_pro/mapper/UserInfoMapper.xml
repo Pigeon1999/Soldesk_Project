@@ -126,7 +126,7 @@
 			parameterType="com.team3.rc_pro.common.paging.domain.AdminPagingDTO">
 		<![CDATA[
 		SELECT us.user_num, us.user_name, us.user_birth, us.user_pn, us.user_address, us.user_email, us.user_id, us.user_passwd, us.user_regdate, auth.user_authority 
-		FROM ( SELECT /*+ INDEX_DESC (us PK_USER_INFO) */ ROWNUM rn, us.* 
+		FROM ( SELECT /*+ INDEX_DESC (us PK_MYUSER_NUM) */ ROWNUM rn, us.* 
 			FROM rc_pro.user_info us 
 			WHERE ROWNUM <= (#{pageNum} * #{rowAmountPerPage})
 		]]>

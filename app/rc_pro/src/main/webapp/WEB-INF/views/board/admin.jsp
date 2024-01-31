@@ -7,10 +7,7 @@
 
 <c:set var="contextPath" value="${pageContext.request.contextPath }" />
 
-<%-- 
-<c:set var="region_id" value="${pagingCreator.boardPaging.region_id }" />
-<c:set var="category_id" value="${pagingCreator.boardPaging.category_id }" />
- --%>
+
 <c:set var="region" value="${region}"/>
 
 
@@ -58,6 +55,8 @@
   <!-- jQuery -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
+  <link href="${contextPath}/assets/css/list.css" rel="stylesheet">
+
   <!-- =======================================================
   * Template Name: HeroBiz
   * Updated: Sep 18 2023 with Bootstrap v5.3.2
@@ -66,9 +65,7 @@
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
   
-	<style>
-	 	th {text-align: center;}
-	 </style>  
+ 
 </head>
 
 
@@ -83,37 +80,6 @@
         <h1>RC<span>.</span></h1>
       </a>
       
-     <a class="logo d-flex align-items-center scrollto me-auto me-lg-0">
-		<c:choose>
-			<c:when test="${pagingCreator.boardPaging.region_id == '1'}" >
-			  <h1>관철동</h1>
-			</c:when>
-			<c:when test="${pagingCreator.boardPaging.region_id == '2'}" >
-			  <h1>청진동</h1>
-			</c:when>
-			<c:when test="${pagingCreator.boardPaging.region_id == '3'}" >
-			  <h1>공평동</h1>
-			</c:when>
-			<c:when test="${pagingCreator.boardPaging.region_id == '4'}" >
-			  <h1>관수동</h1>
-			</c:when>
-			<c:when test="${pagingCreator.boardPaging.region_id == '5'}" >
-			  <h1>인사동</h1>
-			</c:when>
-			<c:when test="${pagingCreator.boardPaging.region_id == '6'}" >
-			  <h1>종로2가</h1>
-			</c:when>
-			<c:when test="${pagingCreator.boardPaging.region_id == '7'}" >
-			  <h1>삼각동</h1>
-			</c:when>
-			<c:when test="${pagingCreator.boardPaging.region_id == '8'}" >
-			  <h1>서린동</h1>
-			</c:when>
-			<c:otherwise>
-			  <h1>관철동</h1>
-			</c:otherwise>
-		</c:choose>
-      </a>
       
       <nav id="navbar" class="navbar">
         <ul>
@@ -159,7 +125,7 @@
 			<h2>관리자 페이지</h2>
 		
 				<ol>
-					<li><a href="index.html">Home</a></li>
+					<li><a href="${contextPath }/main">Home</a></li>
 					<li>관리자 페이지</li>
 				</ol>
 		</div> <!-- 상단 제목 끝 -->
@@ -176,11 +142,9 @@
 			<h2>멤버 목록</h2>
 	      	</div> <!-- 섹션 헤더 끝 -->
 	      	
-			<table class="table table-striped table-bordered table-hover" 
-	        	style="width:100%;text-align:center;" > <!-- 테이블 영역 시작 -->
+			<table> <!-- 테이블 영역 시작 -->
 				<thead>
 					<tr>
-						<th>선택</th>
 					    <th>유저번호</th>
 					    <th>유저이름</th>
 					    <th>유저생일</th>
@@ -197,7 +161,6 @@
 	<c:when test="${not empty adminPagingCreator.userList }">                               
 		<c:forEach var="userinfo" items="${adminPagingCreator.userList}">
 					<tr class="userinfos" data-user_num="${userinfo.user_num }">
-						<td><input type="checkbox"></td>
 						<td><c:out value="${userinfo.user_num }"/></td>
 					    <td><c:out value="${userinfo.user_name }"/></td>
 					    <td class="center"><c:out value="${userinfo.user_birth }"/></td>
@@ -212,7 +175,7 @@
 	</c:when>
 	<c:otherwise>
 		<tr class="odd gradeX">
-			<td colspan="9">등록된 게시물이 없습니다.</td>
+			<td colspan="8">등록된 게시물이 없습니다.</td>
 		</tr>
 	</c:otherwise>
 	</c:choose>                        

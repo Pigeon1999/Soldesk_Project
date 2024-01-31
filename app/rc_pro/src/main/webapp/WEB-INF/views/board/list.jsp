@@ -6,16 +6,10 @@
 
 <c:set var="contextPath" value="${pageContext.request.contextPath }" />
 
-<c:set var="user_num" value="${user_num}"/>
 <c:set var="userInfo" value="${userInfo}"/>
 
 <%@ include file="../myinclude/myheader.jsp" %>
 
-
-
-<style>
- th {text-align: center;}
-</style>  
 
   <main>
 
@@ -116,7 +110,7 @@
 					</c:choose>
 				</c:forEach>
 				    <td class="center">${board.post_reply }</td>
-				    <td class="center"><fmt:formatDate value="${board.post_date }" pattern="MM/dd HH:mm:ss"/></td>
+				    <td class="center"><fmt:formatDate value="${board.post_date }" pattern="MM/dd HH:mm"/></td>
 				    <td class="center"><c:out value="${board.post_view }"/></td>
 				    <td class="center"><c:out value="${board.post_like }"/></td>
 				</tr>
@@ -185,26 +179,32 @@
 		</div>
 		    
 		<div class="row justify-content-lg-center">  <!-- 하단 검색 부분 영역 시작 -->
+		
 	    	<div class="col-lg-4"> 
 
-	            <div class="sidebar" >
-				  <div class="sidebar-item search-form">
-	                <h3 class="sidebar-title">Search</h3>
-	                <form class="form-inline mt-3" id="frmSendValue" name="frmSendValue" action="${contextPath }/board/list" method="get" >
-						<div class="from-group">
-	
+	            <div class="sidebar " >
+				  <div class="sidebar-item search-form ">
+	                <h3 class="sidebar-title ">Search</h3>
+	                <form class="row g-3" id="frmSendValue" name="frmSendValue" action="${contextPath }/board/list" method="get" >
+						
+						<div class="col">
 							<select id="selectAmount" name="rowAmountPerPage">
 								<option value="10" ${(pagingCreator.boardPaging.rowAmountPerPage == 10) ? "selected" : "" }>10개</option>
 								<option value="20" ${(pagingCreator.boardPaging.rowAmountPerPage == 20) ? "selected" : "" }>20개</option>
 								<option value="50" ${(pagingCreator.boardPaging.rowAmountPerPage == 50) ? "selected" : "" }>50개</option>
 								<option value="100" ${(pagingCreator.boardPaging.rowAmountPerPage == 100) ? "selected" : "" }>100개</option>
 							</select>
-							
+						</div>	
+						
+						<div class="col">
 							<select id="selectScope" name="scope">
 								<option value="" ${(pagingCreator.boardPaging.scope == null ) ? "selected" : "" }>선택</option>
 								<option value="TC" ${(pagingCreator.boardPaging.scope == "TC" ) ? "selected" : "" }>제목+내용</option>
 								<option value="W" ${(pagingCreator.boardPaging.scope == "W" ) ? "selected" : "" }>작성자</option>
 							</select>
+						</div>
+						
+						<div class="col">
 							<div class="input-group">
 								<input class="form-control" id="keyword" name="keyword" type="text" 
 									placeholder="검색어를 입력하세요" value='<c:out value="${pagingCreator.boardPaging.keyword}" />' >
@@ -212,15 +212,15 @@
 				                	<button type="button" id="btnSearchGo"><i class="bi bi-search"></i></button>
 				                </span>
 							</div>
-		
+						</div>
 							<input type="hidden" name="category_id" value="${pagingCreator.boardPaging.category_id }" >
 							<input type="hidden" name="region_id" value="${pagingCreator.boardPaging.region_id }" >
 							<input type="hidden" name="pageNum" value="${pagingCreator.boardPaging.pageNum }" >
 							<input type="hidden" name="rowAmountPerPage" value="${pagingCreator.boardPaging.rowAmountPerPage }" >
 							<input type="hidden" name="lastPageNum" value="${pagingCreator.lastPageNum }" >
-						</div>
 						
-						<div class="form-group"><!-- 검색어 입력 -->
+						
+						<div class="col"><!-- 검색어 입력 -->
 							<input class="form-control" id="beginDate" name="beginDate" type="date"
 								value="${pagingCreator.boardPaging.beginDate}"  >
 							<input class="form-control" id="endDate" name="endDate" type="date"
@@ -294,7 +294,6 @@ function runModal(result) {
  		
 	} else if(parseInt(result) > 0) {
 		var myMsg = result + "번 게시물이 등록되었습니다."
-		
 	}
 	
 
