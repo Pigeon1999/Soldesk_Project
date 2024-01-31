@@ -135,20 +135,17 @@
 				    <form id="logoutForm" role="form" action="${contextPath}/logout" method="post" style="padding-right: 10px;">
 				    	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" >
 				    	<fieldset>
-				        	<a onclick="document.getElementById('logoutForm').submit(); return false;" class="btn-getstarted scrollto">Logout</a>
+				        	<button onclick="document.getElementById('logoutForm').submit(); return false;" class="btn-getstarted scrollto">Logout</button>
 				        </fieldset>
 				    </form>
 					<input type="hidden" id="user_id" value='<sec:authentication property="principal.username"/>'/>
 				    <button class="btn-getstarted scrollto" type="button" id="mypagebtn">MyPage</button>
-				 </div><%-- 
-				   	<sec:authorize access="hasAuthority('admin')"> 
-				    <a class="btn-getstarted scrollto" href="/rc_pro/admin">AdminPage</a>
-				    </sec:authorize> --%>
+				 </div>
 			</sec:authorize>
 			
 			<sec:authorize access="isAnonymous()">
-		      	<a class="btn-getstarted scrollto" href="/rc_pro/login">Login</a>
-		      	<a class="btn-getstarted scrollto" href="/rc_pro/signin">Sign In</a>
+		      	<button class="btn-getstarted scrollto" href="/rc_pro/login">Login</button>
+		      	<button class="btn-getstarted scrollto" href="/rc_pro/signin">Sign In</button>
 		    </sec:authorize>
 		</div>
     </div>

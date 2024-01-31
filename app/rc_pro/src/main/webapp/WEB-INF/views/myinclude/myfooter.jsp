@@ -45,7 +45,7 @@
 
           <div class="col-lg-4 col-md-6 footer-newsletter">
             <h4>솔데스크 7회차 3팀</h4>
-            <p>개발자: 박현준, 김동현, 임성오, 임성혁</p>
+            <p>개발자: 박현준, 김동현, 임성오</p>
           </div>
 
         </div>

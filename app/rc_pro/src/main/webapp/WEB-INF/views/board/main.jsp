@@ -116,7 +116,7 @@
 				    <form id="logoutForm" role="form" action="${contextPath}/logout" method="post" style="padding-right: 10px;">
 				        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 				        <fieldset>
-				            <a onclick="document.getElementById('logoutForm').submit(); return false;" class="btn-getstarted scrollto">Logout</a>
+				            <button onclick="document.getElementById('logoutForm').submit(); return false;" class="btn-getstarted scrollto">Logout</button>
 				        </fieldset>
 				    </form>
 				    <input type="hidden" id="user_id" value='<sec:authentication property="principal.username"/>'/>

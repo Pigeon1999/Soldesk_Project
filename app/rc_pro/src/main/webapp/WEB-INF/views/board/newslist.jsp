@@ -6,13 +6,11 @@
 
 <c:set var="contextPath" value="${pageContext.request.contextPath }" />
 
+<c:set var="userInfo" value="${userInfo}"/>
+
 <%@ include file="../myinclude/myheader.jsp" %>
 
 
-
-<style>
- th {text-align: center;}
-</style>  
 
   <main>
 
@@ -96,8 +94,18 @@
 
                   <div class="meta-top">
                     <ul>
-					  <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="/rc_pro/board/detail?category_id=3&region_id=${region_id}&post_id=${board.post_id}"><c:out value="${board.user_num }"/></a></li>
-                      <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a href="/rc_pro/board/detail?category_id=3&region_id=${region_id}&post_id=${board.post_id}"><fmt:formatDate value="${board.post_date }" pattern="yyyy/MM/dd HH:mm:ss"/></a></li>
+                   	<c:forEach var="userInfo" items="${userInfo}">
+					  <c:choose>
+					    <c:when test="${userInfo.user_num == board.user_num}">
+					  <li class="d-flex align-items-center"><i class="bi bi-person"></i>
+					  	<a href="/rc_pro/board/detail?category_id=3&region_id=${region_id}&post_id=${board.post_id}">
+						<c:out value="${userInfo.user_name }"/>
+						</a>
+					  </li>
+						</c:when>
+					  </c:choose>
+					</c:forEach>
+                      <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a href="/rc_pro/board/detail?category_id=3&region_id=${region_id}&post_id=${board.post_id}"><fmt:formatDate value="${board.post_date }" pattern="MM/dd HH:mm"/></a></li>
                       <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a href="/rc_pro/board/detail?category_id=3&region_id=${region_id}&post_id=${board.post_id}"><c:out value="${board.post_reply }"/></a></li>
                     </ul>
                   </div>

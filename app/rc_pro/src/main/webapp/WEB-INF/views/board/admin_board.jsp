@@ -1,5 +1,6 @@
 <%@ page session="false" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
@@ -95,7 +96,8 @@
 			        	<a onclick="document.getElementById('logoutForm').submit(); return false;" class="btn-getstarted scrollto">Logout</a>
 			        </fieldset>
 			    </form>
-			    <button class="btn-getstarted scrollto" type="button" id="mypagebtn">MyPage</button>
+			    <input type="hidden" id="user_id" value='<sec:authentication property="principal.username"/>'/>
+				<button class="btn-getstarted scrollto" type="button" id="mypagebtn">MyPage</button>
 
 			</div>
 		</sec:authorize>
@@ -117,7 +119,9 @@
 		<div class="container"> <!-- container 시작 -->
 
 		<div class="d-flex justify-content-between align-items-center"> <!-- 상단 제목 시작 -->
+		
 			<h2>관리자 페이지</h2>
+		
 				<ol>
 					<li><a href="${contextPath }/main">Home</a></li>
 					<li>관리자 페이지</li>
@@ -327,136 +331,136 @@
 </div><%-- /.modal --%>
 
 <script>
-	var frmSendValue = $("#frmSendValue") ;
-	var result = '<c:out value="${result}" />' ;
+var frmSendValue = $("#frmSendValue") ;
+var result = '<c:out value="${result}" />' ;
+
+var frmboardValue = $("#frmboardValue") ;
+
+var category_id = $("#selectCategory").find("option:selected").val() ;
+var region_id = $("#selectRegion").find("option:selected").val()  ;
+
+
+//모달 호출 함수
+function runModal(result) {
 	
-	var frmboardValue = $("#frmboardValue") ;
-	
-	var category_id = $("#selectCategory").find("option:selected").val() ;
-	var region_id = $("#selectRegion").find("option:selected").val()  ;
-	
-	
-	//모달 호출 함수
-	function runModal(result) {
+	if(result.length == 0) {
+		return ;
 		
-		if(result.length == 0) {
-			return ;
-			
-		} else if(result == "successRemove") {
-			var myMsg = "게시물이 삭제되었습니다. " ;
-	 		
-		} else if(result == "successModify") {
-			var myMsg = "게시물이 수정되었습니다. "
-			
-		}
+	} else if(result == "successRemove") {
+		var myMsg = "게시물이 삭제되었습니다. " ;
+ 		
+	} else if(result == "successModify") {
+		var myMsg = "게시물이 수정되었습니다. "
+		
+	}
+
+	$("#yourModal-body").html(myMsg) ;
 	
-		$("#yourModal-body").html(myMsg) ;
-		
-		$("#yourModal").modal("show") ;
-		
-		myMsg = "" ;
+	$("#yourModal").modal("show") ;
+	
+	myMsg = "" ;
+}
+
+<%-- 페이징 처리: 검색 목록 페이지 이동 --%>
+$("li.pagination-button a").on("click", function(e){
+	e.preventDefault() ;
+	frmSendValue.find("input[name='pageNum']").val($(this).attr("href"));
+	console.log(frmSendValue.find("input[name='pageNum']").val());
+	frmSendValue.attr("action", "${contextPath}/admin_board") ;
+	frmSendValue.attr("method", "get") ;
+	
+	frmSendValue.submit();
+	
+});
+
+<%--검색 관련 요소의 이벤트 처리--%>
+<%--표시행수 변경 이벤트 처리--%>
+$("#selectAmount").on("change", function(){
+	frmSendValue.find("input[name='pageNum']").val(1) ;
+	frmSendValue.submit() ;
+	
+});
+
+<%--검색범위 변경 이벤트 처리 --%>
+$("#selectScope").on("change", function(){
+	$("#pageNum").val(1) ;
+	frmSendValue.submit() ;
+});
+
+
+<%--카테고리 변경 이벤트 처리 --%>
+$("#selectCategory").on("change", function(){
+
+
+	frmboardValue.find("input[name='category_id']").val(Number(category_id)) ;
+
+	$("#pageNum").val(1) ;
+	frmboardValue.submit() ;
+});
+
+<%--지역범위 변경 이벤트 처리 --%>
+$("#selectRegion").on("change", function(){
+
+	frmboardValue.find("input[name='category_id']").val(Number(region_id)) ;
+	
+	$("#pageNum").val(1) ;
+	frmboardValue.submit() ;
+});
+
+<%--검색버튼 클릭 이벤트 처리 --%>
+$("#btnSearchGo").on("click", function(){
+	
+	var scope = $("#selectScope").find("option:selected").val() ;
+	
+
+	if(!scope || scope == "") {
+		alert("검색범위를 선택하세요.") ;
+		return false;
 	}
 	
-	<%-- 페이징 처리: 검색 목록 페이지 이동 --%>
-	$("li.pagination-button a").on("click", function(e){
-		e.preventDefault() ;
-		frmSendValue.find("input[name='pageNum']").val($(this).attr("href"));
-		console.log(frmSendValue.find("input[name='pageNum']").val());
-		frmSendValue.attr("action", "${contextPath}/admin_board") ;
-		frmSendValue.attr("method", "get") ;
-		
-		frmSendValue.submit();
-		
-	});
+	var keyword = $("#keyword").val() ;
 	
-	<%--검색 관련 요소의 이벤트 처리--%>
-	<%--표시행수 변경 이벤트 처리--%>
-	$("#selectAmount").on("change", function(){
-		frmSendValue.find("input[name='pageNum']").val(1) ;
-		frmSendValue.submit() ;
-		
-	});
+	if(!keyword || keyword.length == 0) {
+		alert("검색어를 입력하세요.") ;
+		return ;
+	}
 	
-	<%--검색범위 변경 이벤트 처리 --%>
-	$("#selectScope").on("change", function(){
-		$("#pageNum").val(1) ;
-		frmSendValue.submit() ;
-	});
+	frmSendValue.find("input[name='pageNum']").val(1) ;
+	frmSendValue.submit() ;
 	
+});	
+
+
+<%--게시글삭제버튼 클릭 이벤트 처리 --%>
+$("#boardRemoveButton").on("click", function(){
+	var selectPost = document.querySelector('input[name="radioPostid"]:checked').value;
 	
-	<%--카테고리 변경 이벤트 처리 --%>
-	$("#selectCategory").on("change", function(){
+	frmboardmodify.find("input[name='post_id']").val(Number(selectPost)) ;
 	
+	frmboardmodify.attr("action", "${contextPath}/admin_board/remove") ;
+	frmboardmodify.attr("method", "get") ;
 	
-		frmboardValue.find("input[name='category_id']").val(Number(category_id)) ;
+	frmboardmodify.submit() ;
+
+});	
+
+$(document).ready(function(){
+
+	runModal(result) ;
 	
-		$("#pageNum").val(1) ;
-		frmboardValue.submit() ;
-	});
-	
-	<%--지역범위 변경 이벤트 처리 --%>
-	$("#selectRegion").on("change", function(){
-	
-		frmboardValue.find("input[name='category_id']").val(Number(region_id)) ;
-		
-		$("#pageNum").val(1) ;
-		frmboardValue.submit() ;
-	});
-	
-	<%--검색버튼 클릭 이벤트 처리 --%>
-	$("#btnSearchGo").on("click", function(){
-		
-		var scope = $("#selectScope").find("option:selected").val() ;
-		
-	
-		if(!scope || scope == "") {
-			alert("검색범위를 선택하세요.") ;
-			return false;
-		}
-		
-		var keyword = $("#keyword").val() ;
-		
-		if(!keyword || keyword.length == 0) {
-			alert("검색어를 입력하세요.") ;
-			return ;
-		}
-		
-		frmSendValue.find("input[name='pageNum']").val(1) ;
-		frmSendValue.submit() ;
-		
-	});	
-	
-	
-	<%--게시글삭제버튼 클릭 이벤트 처리 --%>
-	$("#boardRemoveButton").on("click", function(){
-		var selectPost = document.querySelector('input[name="radioPostid"]:checked').value;
-		
-		frmboardmodify.find("input[name='post_id']").val(Number(selectPost)) ;
-		
-		frmboardmodify.attr("action", "${contextPath}/admin_board/remove") ;
-		frmboardmodify.attr("method", "get") ;
-		
-		frmboardmodify.submit() ;
-	
-	});	
-	
-	$(document).ready(function(){
-	
-		runModal(result) ;
-		
-		window.addEventListener("popstate", function(event){
-			history.pushState(null, null, location.href) ;
-			
-		});
-		
+	window.addEventListener("popstate", function(event){
 		history.pushState(null, null, location.href) ;
 		
-	}) ;
-	
-	$("#mypagebtn").on("click",function(){
-		var user_id= document.getElementById("user_id").value;
-		window.location.href="/rc_pro/myinfo?user_id="+user_id +"&sortmenu=post_id";
 	});
+	
+	history.pushState(null, null, location.href) ;
+	
+}) ;
+
+$("#mypagebtn").on("click",function(){
+	var user_id= document.getElementById("user_id").value;
+	window.location.href="/rc_pro/myinfo?user_id="+user_id +"&sortmenu=post_id";
+});
 
 </script>
 

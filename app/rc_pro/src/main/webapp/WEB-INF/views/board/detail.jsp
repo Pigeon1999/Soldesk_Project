@@ -77,16 +77,16 @@
 			</c:forEach>
 			<div style="border-bottom: 2px solid #0EA2BD; display:flex; float:right; width:100%; text-align:right;">
 				<div style="margin-right:10px;">
-					<a class="btn-getstarted" id="like">추천</a>
+					<a class="btn-getstarted" id="like" style="cursor: pointer;">추천</a>
 				</div>
 				<div>
-					<a class="btn-getstarted" id="scrape">스크랩</a>
+					<a class="btn-getstarted" id="scrape" style="cursor: pointer;">스크랩</a>
 				</div>
 			</div>
 			<div id="comment_box"> <!-- 댓글 -->
 				<div class="form-group" style="margin-top:10px;margin-bottom:10px;"> <!-- 댓글 쓰는 곳 -->
 					<label>댓글 쓰기</label> <textarea id="replyContent" class="form-control" rows="3" name="bcontent" style="height:100px; width:100%; resize:none;"></textarea>
-					<a class="btn-getstarted" id="replyRegister">댓글 작성</a>
+					<a class="btn-getstarted" id="replyRegister" style="cursor: pointer;">댓글 작성</a>
 				</div>
 				<div> <!-- 여기에 댓글이 생깁니다! -->
 					<c:forEach items="${ReplyInfo}" var="reply">
@@ -100,7 +100,7 @@
 												<div id="replyContent" onclick="toggleReplyGroup_${reply.reply_id}()"><c:out value="${reply.reply_content}"/></div>
 												<div id="replyDate"><fmt:formatDate pattern="YYYY/MM/dd hh:mm" value="${reply.reply_regdate}"/></div>
 												<c:if test="${reply.user_num == user_num}">
-													<a class="btn-getstarted" id="hideReply" onclick="hideReply(${reply.reply_id})">삭제</a>
+													<a class="btn-getstarted" id="hideReply" onclick="hideReply(${reply.reply_id})" style="cursor: pointer;">삭제</a>
 												</c:if>
 											</c:when>
 											<c:when test="${userInfo.user_num == reply.user_num and reply.reply_hide == 1}">
@@ -112,7 +112,7 @@
 								<div id="replyGroup_${reply.reply_id}" style="display : none; margin : 10px;">
 									<textarea id="replyGroupContent_${reply.reply_id}" style="width:100%; resize:none;"></textarea>
 									<div id="replyGroupReg_${reply.reply_id}" style="width:100%; text-align:right;">
-										<a class="btn-getstarted" id="replyGroupRegister" onclick=insertReplygroup(${reply.reply_id})>댓글 작성</a>
+										<a class="btn-getstarted" id="replyGroupRegister" onclick=insertReplygroup(${reply.reply_id}) style="cursor: pointer;">댓글 작성</a>
 									</div>
 								</div>
 								<script>
@@ -160,9 +160,9 @@
 				<c:choose>
 					<c:when test="${postInfo.post_id == postIdParameter and postInfo.user_num == user_num}">
 						<div id="btn_box" style="border-bottom: 1px solid #ccc; border-top: 1px solid #ccc; text-align:right; width:100%;">
-							<a class="btn-getstarted scrollto" id="modifyPost" href="/rc_pro/board/modify?category_id=${postInfo.category_id}&region_id=${postInfo.region_id}&post_id=${postInfo.post_id}">수정</a>
+							<a class="btn-getstarted scrollto" id="modifyPost" href="/rc_pro/board/modify?category_id=${postInfo.category_id}&region_id=${postInfo.region_id}&post_id=${postInfo.post_id}" style="cursor: pointer;">수정</a>
 							<a>|</a>
-							<a class="btn-getstarted scrollto" id="deletePost">삭제</a>
+							<a class="btn-getstarted scrollto" id="deletePost" style="cursor: pointer;">삭제</a>
 						</div>
 					</c:when>
 					<c:otherwise>
