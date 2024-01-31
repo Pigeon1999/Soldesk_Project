@@ -85,7 +85,7 @@
                 <article class="d-flex flex-column">
 
                   <div class="post-img">
-                  	<img src="${contextPath}/assets/img/${board.post_file}" alt="이미지가 없습니다" class="img-fluid">
+                  	<img src="/rc_pro/upload/${board.post_file}" alt="이미지가 없습니다" class="img-fluid">
                   </div>
 
                   <h2 class="title">
