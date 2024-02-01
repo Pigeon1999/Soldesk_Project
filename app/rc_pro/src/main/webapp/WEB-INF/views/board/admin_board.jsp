@@ -163,6 +163,7 @@
 			<table > <!-- 테이블 영역 시작 -->
 				<thead>
 					<tr>
+						<th>선택</th>
 					    <th>게시글번호</th>
 					    <th>카테고리번호</th>
 					    <th>지역번호</th>
@@ -188,6 +189,7 @@
 									</c:when>
 									<c:otherwise>
 										<tr class="moveDetail" data-post_id="${board.post_id }">
+											<td><input type="radio" name="radioPostid" value="${board.post_id }"></td>
 										    <td><c:out value="${board.post_id }"/></td>
 										    <td><c:out value="${board.category_id }"/></td>
 										    <td><c:out value="${board.region_id }"/></td>
@@ -217,7 +219,20 @@
 				</tbody>
 			</table> <%-- 테이블 영역 끝 --%>
 			
-	        
+        	<div class="row justify-content-md-center "> <!-- 게시물 삭제 영역 시작 -->
+				<form class="col" id="frmboardmodify" name="frmboardmodify" action="${contextPath }/admin_board/remove" method="get" >
+					<div class="d-grid gap-2 d-md-flex justify-content-md-end" >
+						<button type="button" class="btn btn-primary justify-content-md-end" id="boardRemoveButton" style="border : none; background-color : #0ea2bd;">삭제</button>
+					</div>
+					<input type="hidden" name="pageNum" value="${adminboardpagingCreator.adminboardPaging.pageNum }" >
+					<input type="hidden" name="rowAmountPerPage" value="${adminboardpagingCreator.adminboardPaging.rowAmountPerPage }" >
+					<input type="hidden" name="lastPageNum" value="${adminboardpagingCreator.lastPageNum }" >
+					<input type="hidden" name="category_id" value="${adminboardpagingCreator.adminboardPaging.category_id }" >
+					<input type="hidden" name="region_id" value="${adminboardpagingCreator.adminboardPaging.region_id }" >
+					<input type="hidden" name="post_id" value="" >
+				</form>
+			</div> <!-- 게시물 삭제 영역 끝 -->
+				
 	      	<div class="blog-pagination"> <!-- 페이지 버튼 영역 시작 -->
 				<ul class="justify-content-center" >
 			  		<c:if test="${adminboardpagingCreator.prev }">
@@ -300,12 +315,14 @@
 				                <button type="button" id="btnSearchGo" ><i class="bi bi-search"></i></button>
 							</div>
 						</div> <!-- 검색어 폼 그룹 영역 끝 -->
-						
+
 	                </form> <!-- 폼 영역 끝 -->
+	                
+	              
 	              </div><!-- End sidebar search formn-->
 	
 	            </div><!-- End Blog Sidebar -->
-	
+
 	          </div> 
           </div> <!-- 하단 검색 부분 영역 끝 -->
 	</div>
@@ -339,6 +356,7 @@ var frmboardValue = $("#frmboardValue") ;
 var category_id = $("#selectCategory").find("option:selected").val() ;
 var region_id = $("#selectRegion").find("option:selected").val()  ;
 
+var frmboardmodify = $("#frmboardmodify") ;
 
 //모달 호출 함수
 function runModal(result) {
@@ -441,11 +459,18 @@ $("#boardRemoveButton").on("click", function(){
 	frmboardmodify.attr("method", "get") ;
 	
 	frmboardmodify.submit() ;
-
+	
+	alert("삭제 완료") ;
 });	
 
-$(document).ready(function(){
 
+$("#mypagebtn").on("click",function(){
+	var user_id= document.getElementById("user_id").value;
+	window.location.href="/rc_pro/myinfo?user_id="+user_id +"&sortmenu=post_date";
+});
+
+
+$(document).ready(function(){
 	runModal(result) ;
 	
 	window.addEventListener("popstate", function(event){
@@ -455,12 +480,7 @@ $(document).ready(function(){
 	
 	history.pushState(null, null, location.href) ;
 	
-}) ;
-
-$("#mypagebtn").on("click",function(){
-	var user_id= document.getElementById("user_id").value;
-	window.location.href="/rc_pro/myinfo?user_id="+user_id +"&sortmenu=post_id";
-});
+}); 
 
 </script>
 
