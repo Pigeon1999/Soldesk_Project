@@ -252,6 +252,18 @@ FROM (
 )
 WHERE ROWNUM <= 5;
 
+SELECT *
+FROM (
+  SELECT 
+    pi.*,
+    ROW_NUMBER() OVER (PARTITION BY pi.region_id ORDER BY pi.post_view DESC) as row_num
+  FROM rc_pro.post_info pi
+  WHERE pi.category_id = 2
+    AND pi.post_date BETWEEN SYSDATE - 7 AND SYSDATE
+    AND pi.post_hide = 0
+)
+WHERE row_num <= 5;
+
 
 SELECT * 
 FROM rc_pro.post_info

@@ -513,7 +513,7 @@
 	
 	$("#mypagebtn").on("click",function(){
 		var user_id= document.getElementById("user_id").value;
-		window.location.href="/rc_pro/myinfo?user_id="+user_id +"&sortmenu=post_id";
+		window.location.href="/rc_pro/myinfo?user_id="+user_id +"&sortmenu=post_date";
 	});
 </script>
 

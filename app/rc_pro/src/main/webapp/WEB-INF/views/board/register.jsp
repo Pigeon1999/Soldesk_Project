@@ -21,11 +21,11 @@
 		</header>
 		<article style="margin-top: 10px;">
 			<div class="form-group">
-				<label>제목</label> <input class="form-control" name="btitle" id="btitle">
+				<label>제목</label> <input class="form-control" name="btitle" id="btitle" style="border: 1px solid #007bff;">
 			</div>
 			
 			<div class="form-group" style="margin-top:10px;">
-				<label>내용</label> <textarea class="form-control" rows="3" name="bcontent" id="bcontent" style="height:500px;resize:none;"></textarea>
+				<label>내용</label> <textarea class="form-control" rows="3" name="bcontent" id="bcontent" style="height:500px;resize:none; border: 1px solid #007bff;"></textarea>
 			</div>
 			
 			<c:choose>
