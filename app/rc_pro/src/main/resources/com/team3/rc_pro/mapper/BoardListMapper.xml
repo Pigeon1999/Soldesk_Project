@@ -35,6 +35,7 @@
 			    )
 			WHERE rn >= ((#{pageNum} * #{rowAmountPerPage}) - (#{rowAmountPerPage} - 1)) 
 		]]>	
+		ORDER BY post_date DESC
 	</select>
 	
 	<!-- 게시물 총 개수 조회(페이징): -->
@@ -114,6 +115,7 @@
 			    )
 			WHERE rn >= ((#{pageNum} * #{rowAmountPerPage}) - (#{rowAmountPerPage} - 1)) 
 		]]>	
+		ORDER BY post_date DESC
 	</select>
 	
 		<!-- 게시물 총 개수 조회(페이징) 어드민 -->

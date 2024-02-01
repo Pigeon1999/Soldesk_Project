@@ -58,21 +58,6 @@
       
 		<div class="col-lg">
 	        <div class="section-header"> <!-- 섹션 헤더 시작 -->
-			<c:choose>
-				<c:when test="${pagingCreator.boardPaging.category_id == '1'}" >
-					<h2>자유게시판</h2>
-				</c:when>
-				<c:when test="${pagingCreator.boardPaging.category_id == '2'}" >
-					<h2>홍보게시판</h2>
-				</c:when>
-				<c:when test="${pagingCreator.boardPaging.category_id == '3'}" >
-					<h2>뉴스</h2>
-				</c:when>
-				<c:otherwise>
-					<h2>자유게시판</h2>
-				</c:otherwise>
-			</c:choose>
-	      	</div> <!-- 섹션 헤더 끝 -->
 	      
 	      <table > <!-- 테이블 영역 시작 --><!-- 
 			<table class="table table-striped table-bordered table-hover" 
@@ -115,9 +100,10 @@
 	</c:choose>                        
 				</tbody>
 			</table> <!-- 테이블 영역 끝 -->
+	        <button type="button" id="btnToRegister" class="btn btn-primary btn-sm pull-right" style="float:right; margin-top:10px;">새글 등록</button> 
 	        
 	      	<div class="blog-pagination"> <!-- 페이지 버튼 영역 시작 -->
-				<ul class="justify-content-center" >
+				<ul class="justify-content-center" style="margin-top:50px;">
 			  		<c:if test="${pagingCreator.prev }">
 			  			<li class="pagination-button">
 			  				<a href="1" aria-label="Previous">
@@ -157,63 +143,53 @@
 				</ul>
 			</div> <!-- 페이지 버튼 영역 끝 -->
 			<div>
-	         <sec:authorize access="isAnonymous()">
-            	<input type="hidden" id="user_id" value=""/>
-         	</sec:authorize>
-         	<sec:authorize access="isAuthenticated()">
-         		<input type="hidden" id="user_id" value='<sec:authentication property="principal.username"/>'/>
-         	</sec:authorize>
-				<button type="button" id="btnToRegister" class="btn btn-primary btn-sm pull-right">새글 등록</button> 
+		        <sec:authorize access="isAnonymous()">
+	            	<input type="hidden" id="user_id" value=""/>
+	         	</sec:authorize>
+	         	<sec:authorize access="isAuthenticated()">
+	         		<input type="hidden" id="user_id" value='<sec:authentication property="principal.username"/>'/>
+	         	</sec:authorize>
 			</div>
 		</div>
 		    
 		<div class="row justify-content-lg-center">  <!-- 하단 검색 부분 영역 시작 -->
 		
-	    	<div class="col-lg-4"> 
+	    	<div class="col-lg-4" style="width:100%;"> 
 
 	            <div class="sidebar " >
 				  <div class="sidebar-item search-form ">
-	                <h3 class="sidebar-title ">Search</h3>
-	                <form class="row g-3" id="frmSendValue" name="frmSendValue" action="${contextPath }/board/list" method="get" >
-						
-						<div class="col">
-							<select id="selectAmount" name="rowAmountPerPage">
+				  	<h3 class="sidebar-title ">Search</h3>
+	                <form class="search-form" id="frmSendValue" name="frmSendValue" action="${contextPath }/board/list" method="get" >
+						<div class="from-group" style="display:flex;"> 
+							<select id="selectAmount" name="rowAmountPerPage" style="margin-right:5px;">
 								<option value="10" ${(pagingCreator.boardPaging.rowAmountPerPage == 10) ? "selected" : "" }>10개</option>
 								<option value="20" ${(pagingCreator.boardPaging.rowAmountPerPage == 20) ? "selected" : "" }>20개</option>
 								<option value="50" ${(pagingCreator.boardPaging.rowAmountPerPage == 50) ? "selected" : "" }>50개</option>
 								<option value="100" ${(pagingCreator.boardPaging.rowAmountPerPage == 100) ? "selected" : "" }>100개</option>
-							</select>
-						</div>	
-						
-						<div class="col">
-							<select id="selectScope" name="scope">
+							</select>	
+							
+							<select id="selectScope" name="scope" style="margin-right:5px;">
 								<option value="" ${(pagingCreator.boardPaging.scope == null ) ? "selected" : "" }>선택</option>
 								<option value="TC" ${(pagingCreator.boardPaging.scope == "TC" ) ? "selected" : "" }>제목+내용</option>
 								<option value="W" ${(pagingCreator.boardPaging.scope == "W" ) ? "selected" : "" }>작성자</option>
 							</select>
-						</div>
 						
-						<div class="col">
-							<div class="input-group">
-								<input class="form-control" id="keyword" name="keyword" type="text" 
-									placeholder="검색어를 입력하세요" value='<c:out value="${pagingCreator.boardPaging.keyword}" />' >
-								<span class="input-group-btn">
-				                	<button type="button" id="btnSearchGo"><i class="bi bi-search"></i></button>
-				                </span>
-							</div>
-						</div>
 							<input type="hidden" name="category_id" value="${pagingCreator.boardPaging.category_id }" >
 							<input type="hidden" name="region_id" value="${pagingCreator.boardPaging.region_id }" >
 							<input type="hidden" name="pageNum" value="${pagingCreator.boardPaging.pageNum }" >
 							<input type="hidden" name="rowAmountPerPage" value="${pagingCreator.boardPaging.rowAmountPerPage }" >
 							<input type="hidden" name="lastPageNum" value="${pagingCreator.lastPageNum }" >
 						
-						
-						<div class="col"><!-- 검색어 입력 -->
-							<input class="form-control" id="beginDate" name="beginDate" type="date"
-								value="${pagingCreator.boardPaging.beginDate}"  >
-							<input class="form-control" id="endDate" name="endDate" type="date"
-								value="${pagingCreator.boardPaging.endDate}"  >
+							
+							<div class="col" style="display:flex; margin-right:5px;"><!-- 검색어 입력 -->
+								<input class="form-control" id="beginDate" name="beginDate" type="date" value="${pagingCreator.boardPaging.beginDate}"  >
+								<input class="form-control" id="endDate" name="endDate" type="date" value="${pagingCreator.boardPaging.endDate}"  >
+							</div>
+							
+							<div class="input-group" style="width:100%;">
+								<input class="form-control" id="keyword" name="keyword" type="text" placeholder="검색어를 입력하세요" value='<c:out value="${pagingCreator.boardPaging.keyword}" />' >
+				                <button type="button" id="btnSearchGo"><i class="bi bi-search"></i></button>
+							</div>
 						</div>
 	                </form>
 	              </div><!-- End sidebar search formn-->

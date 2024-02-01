@@ -260,7 +260,7 @@
 			</div> <!-- 페이지 버튼 영역 끝 -->
 		</div> <!-- 영역 끝 -->
 		
-		<div class="row justify-content-lg-center" style>   <!-- 하단 검색 부분 영역 시작 -->
+		<div class="row justify-content-lg-center">   <!-- 하단 검색 부분 영역 시작 -->
 	    	<div class="col-lg-4" style="width:100%;"> 
 	    	
 	            <div class="sidebar"> <!-- sidebar 시작 -->

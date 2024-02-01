@@ -265,6 +265,7 @@
 		            console.error("AJAX 요청 실패");
 		            console.log("Status: " + status);
 		            console.log("Error: " + error);
+		            alert("로그인해주시기 바랍니다.")
 		        }
 		    });
 		});
@@ -300,6 +301,7 @@
 		            console.error("AJAX 요청 실패");
 		            console.log("Status: " + status);
 		            console.log("Error: " + error);
+		            alert("로그인해주시기 바랍니다.")
 		        }
 		    });
 		}
