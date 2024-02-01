@@ -135,8 +135,7 @@
 	  
 	  <section id="hero-animated" class="hero-animated d-flex align-items-center">
 	    <div class="container d-flex flex-column justify-content-center align-items-center text-center position-relative" data-aos="zoom-out">
-	      <h2>리컴 메인화면</h2>
-	      <p>hello world!</p>
+	      <img src="img/mainimg.png" width="140%"/>
 	    </div>
 	  </section>
 	  
@@ -364,7 +363,7 @@
 
 	$("#mypagebtn").on("click",function(){
 		var user_id= document.getElementById("user_id").value;
-		window.location.href="/rc_pro/myinfo?user_id="+user_id +"&sortmenu=post_id";
+		window.location.href="/rc_pro/myinfo?user_id="+user_id +"&sortmenu=post_date";
 		
 	});
 </script>

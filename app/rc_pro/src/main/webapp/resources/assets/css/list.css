@@ -27,8 +27,13 @@ thead {
 }
   
  td {
+ 
   border-bottom: 1px solid rgba(0,0,0,.1);
   background: #fff;
+}
+#posthover:hover{
+  color: var(--color-links-hover);
+  text-decoration: none;
 }
 
 a {
@@ -78,4 +83,9 @@ a {
   }
   
   
+}
+
+#btnToRegister{
+	border : none;
+	background-color : #0ea2bd;
 }

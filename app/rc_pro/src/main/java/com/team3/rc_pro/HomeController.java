@@ -7,6 +7,7 @@ import java.util.Locale;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -43,8 +44,17 @@ public class HomeController {
 		if (authentication != null && authentication.isAuthenticated() &&
 	            !(authentication instanceof AnonymousAuthenticationToken)) {
 		    String username = authentication.getName();
-		   
+		    
 		    UserInfoVO userAddress = userinfoMapper.selectUserInfoAddress(username);
+		    String userauthority = authentication.getAuthorities().toString();
+		    log.info("===============================================");
+		    log.info("userauthority:" + userauthority);
+		    
+		    if(userauthority.equals("[suspended]")) {
+		    	System.out.println("********************************************");
+		    	return "redirect:login?result=fail";
+		    }
+		    
 		    log.info(userAddress.getUser_address());
 		    
 		    if (userAddress.getUser_address().equals("관철동")) {

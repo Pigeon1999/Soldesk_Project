@@ -65,6 +65,22 @@
 		</div>
 	</div>
 	<script>
+		var myCsrfHeaderName = "${_csrf.headerName}" ;
+		var myCsrfToken = "${_csrf.token}" ;
+		$(document).ajaxSend(function(e, xhr){
+			xhr.setRequestHeader(myCsrfHeaderName, myCsrfToken) ;
+				
+		});
+	
+		var result = '<c:out value="${param.result}"/>';
+		if(result == ("fail")){
+			alert("정지된 계정입니다.");
+			$.ajax({
+				type : "post",
+				url : "/rc_pro/logout",
+			});		
+		}
+		
 		$("#signupbtn").on("click",function(){
 			window.location.href="/rc_pro/signin";
 		});

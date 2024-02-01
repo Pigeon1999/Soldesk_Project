@@ -97,7 +97,6 @@
 		FROM rc_pro.post_info
 		WHERE (category_id = 1) and (post_date BETWEEN SYSDATE - 7 AND SYSDATE) and post_hide = 0
 		ORDER BY post_view DESC
-		FETCH FIRST 5 ROWS ONLY
 	</select>
 	
 	<select id="selectPromotionPost" resultType="com.team3.rc_pro.domain.PostInfoVO">
@@ -105,7 +104,6 @@
 		FROM rc_pro.post_info
 		WHERE (category_id = 2) and (post_date BETWEEN SYSDATE - 7 AND SYSDATE) and post_hide = 0
 		ORDER BY post_view DESC
-		FETCH FIRST 5 ROWS ONLY
 	</select>
 	
 	<select id="selectNewsPost" resultType="com.team3.rc_pro.domain.PostInfoVO">
@@ -113,7 +111,6 @@
 		FROM rc_pro.post_info
 		WHERE (category_id = 3) and (post_date BETWEEN SYSDATE - 7 AND SYSDATE) and post_hide = 0
 		ORDER BY post_view DESC
-		FETCH FIRST 5 ROWS ONLY
 	</select>
 	
 		<!-- 회원 번호로 즐겨찾기 정보 조회 (추천 순)-->

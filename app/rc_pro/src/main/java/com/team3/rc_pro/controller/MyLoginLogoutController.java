@@ -1,5 +1,6 @@
 package com.team3.rc_pro.controller;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +24,7 @@ public class MyLoginLogoutController {
 		 model.addAttribute("logout", "로그아웃 되었습니다.");
 		 return "common/login";
 	 }
+	 
 	 //정상적인 로그인 페이지 호출
 	 model.addAttribute("normal", "정상적인 로그인 페이지 호출 처리..");
 	 log.info("정상적인 로그인 페이지 호출");

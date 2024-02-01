@@ -91,19 +91,19 @@
 	<c:choose>                         
 	<c:when test="${not empty pagingCreator.boardList }">                               
 		<c:forEach var="board" items="${pagingCreator.boardList}">
-				<tr class="moveDetail" data-post_id="${board.post_id }">
-				    <td style="text-align: left"><c:out value="${board.post_title }"/></td>
+				<tr style="cursor: pointer;" class="moveDetail" id="posthover" data-post_id="${board.post_id }">
+				    <td style="text-align: center; width: 500px;"><c:out value="${board.post_title }"/></td>
 				<c:forEach var="userInfo" items="${userInfo}">
 					<c:choose>
 						<c:when test="${userInfo.user_num == board.user_num}">
-						<td class="center">${userInfo.user_name}</td>
+						<td style="text-align: center;">${userInfo.user_name}</td>
 						</c:when>
 					</c:choose>
 				</c:forEach>
-				    <td class="center">${board.post_reply }</td>
-				    <td class="center"><fmt:formatDate value="${board.post_date }" pattern="MM/dd HH:mm"/></td>
-				    <td class="center"><c:out value="${board.post_view }"/></td>
-				    <td class="center"><c:out value="${board.post_like }"/></td>
+				    <td style="text-align: center;">${board.post_reply }</td>
+				    <td style="text-align: center;"><fmt:formatDate value="${board.post_date }" pattern="MM/dd HH:mm"/></td>
+				    <td style="text-align: center;"><c:out value="${board.post_view }"/></td>
+				    <td style="text-align: center;"><c:out value="${board.post_like }"/></td>
 				</tr>
 		</c:forEach>
 	</c:when>

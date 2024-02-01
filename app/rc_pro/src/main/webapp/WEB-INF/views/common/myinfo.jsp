@@ -106,7 +106,7 @@
 							<select id="myscrapeinfo" aria-label="navigation meun" class="myinfo__inputconten">
 								<option selected value="">즐겨찾기 글 선택</option>
 								<c:forEach var="scrape" items="${scrapelist}">	
-									<option value="${scrape}">글 제목: <c:out value="${post.post_title }"/> / 글 조회수 : <c:out value="${post.post_view }"/> / 추천 수 : <c:out value="${post.post_like }"/></option>
+									<option value="${scrape}">글 제목: <c:out value="${scrape.post_title }"/> / 글 조회수 : <c:out value="${scrape.post_view }"/> / 추천 수 : <c:out value="${scrape.post_like }"/></option>
 								</c:forEach>
 							</select>
 						</div>                      

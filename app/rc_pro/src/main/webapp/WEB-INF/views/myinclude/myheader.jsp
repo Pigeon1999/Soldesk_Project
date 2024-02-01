@@ -144,8 +144,8 @@
 			</sec:authorize>
 			
 			<sec:authorize access="isAnonymous()">
-		      	<button class="btn-getstarted scrollto" href="/rc_pro/login">Login</button>
-		      	<button class="btn-getstarted scrollto" href="/rc_pro/signin">Sign In</button>
+		      	<a class="btn-getstarted scrollto" href="/rc_pro/login">Login</a>
+		      	<a class="btn-getstarted scrollto" href="/rc_pro/signin">Sign In</a>
 		    </sec:authorize>
 		</div>
     </div>
@@ -161,7 +161,7 @@
 
 	$("#mypagebtn").on("click",function(){
 		var user_id= document.getElementById("user_id").value;
-		window.location.href="/rc_pro/myinfo?user_id="+user_id +"&sortmenu=post_id";
+		window.location.href="/rc_pro/myinfo?user_id="+user_id +"&sortmenu=post_date";
 		
 	});
 </script>

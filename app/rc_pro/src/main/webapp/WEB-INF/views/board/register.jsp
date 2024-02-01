@@ -56,6 +56,10 @@
 	        padding: 20px; /* 내부 여백 설정 */
 	        box-sizing: border-box; /* padding이 width에 포함되도록 box-sizing 설정 */
 	    }
+	    #register{
+	    	border : none;
+			background-color : #0ea2bd;
+	    }
 	</style>
 <script>
 	var myCsrfHeaderName = "${_csrf.headerName}";
