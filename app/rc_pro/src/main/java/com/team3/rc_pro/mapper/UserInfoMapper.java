@@ -55,5 +55,8 @@ public interface UserInfoMapper {
 	
 	//권한 변경
 	public int updateUserAuth(AuthorityInfoVO authInfo) ;
+	
+	//권한 조회
+	public String selectUserAuth(String user_id) ;
 }
 

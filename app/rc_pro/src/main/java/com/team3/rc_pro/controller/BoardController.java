@@ -63,10 +63,10 @@ public class BoardController {
 	public String showBoardList(BoardPagingDTO boardPaging, Model model) {
 		BoardPagingCreatorDTO pagingCreator = boardService.getBoardList(boardPaging) ;
 		System.out.println("컨트롤러에 전달된 boardPagingCreator: \n" + pagingCreator);
-		
+	
 		model.addAttribute("pagingCreator", pagingCreator) ;
 		model.addAttribute("userInfo", userinfoMapper.selectUserInfo());
-		
+
 		return "board/list" ;
 	}
 	
@@ -75,9 +75,13 @@ public class BoardController {
 		BoardPagingCreatorDTO pagingCreator = boardService.getBoardList(boardPaging) ;
 		System.out.println("컨트롤러에 전달된 boardPagingCreator: \n" + pagingCreator);
 
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String username = authentication.getName();
+		
 		model.addAttribute("pagingCreator", pagingCreator) ;
 		model.addAttribute("userInfo", userinfoMapper.selectUserInfo());
-
+		model.addAttribute("userAuth2", userinfoMapper.selectUserAuth(username)) ;
+		
 		return "board/newslist" ;
 	}
 	

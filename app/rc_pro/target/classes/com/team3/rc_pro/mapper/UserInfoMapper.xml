@@ -181,4 +181,11 @@
 		WHERE user_id = #{user_id} 
 	</update>
 	
+	<!-- 권한 조회 -->
+	<select id="selectUserAuth" resultType="String" >
+		SELECT user_authority
+		FROM rc_pro.authority_info
+		WHERE user_id = #{user_id} 
+	</select>
+	
 </mapper>

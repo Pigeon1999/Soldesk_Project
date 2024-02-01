@@ -8,6 +8,8 @@
 
 <c:set var="userInfo" value="${userInfo}"/>
 
+<c:set var="userAuth2" value="${userAuth2}"/>
+
 <%@ include file="../myinclude/myheader.jsp" %>
 
 
@@ -55,109 +57,92 @@
 
     <!-- ======= Blog Section ======= -->
     <section id="blog" class="blog">
-      <div class="container" > <!-- container 시작 -->
-      
+      <div class="container" > <!-- container 시작 --> 
 		<div class="col-lg">
-	        <div class="section-header"> <!-- 섹션 헤더 시작 -->
-			<c:choose>
-				<c:when test="${pagingCreator.boardPaging.category_id == '1'}" >
-					<h2>자유게시판</h2>
-				</c:when>
-				<c:when test="${pagingCreator.boardPaging.category_id == '2'}" >
-					<h2>홍보게시판</h2>
-				</c:when>
-				<c:when test="${pagingCreator.boardPaging.category_id == '3'}" >
-					<h2>뉴스</h2>
-				</c:when>
-				<c:otherwise>
-					<h2>자유게시판</h2>
-				</c:otherwise>
-			</c:choose>
-	      	</div> <!-- 섹션 헤더 끝 -->
-	      
 	      	<div class="row gy-4 posts-list">
-				
-<c:choose>                         
-<c:when test="${not empty pagingCreator.boardList }">                               
-	<c:forEach var="board" items="${pagingCreator.boardList}">
-
-				<div class="col-lg-6"><!-- Start post list item -->
-                <article class="d-flex flex-column">
-
-                  <div class="post-img">
-                  	<img src="/rc_pro/upload/${board.post_file}" alt="이미지가 없습니다" class="img-fluid">
-                  </div>
-
-                  <h2 class="title">
-                    <a href="/rc_pro/board/detail?category_id=3&region_id=${region_id}&post_id=${board.post_id}"><c:out value="${board.post_title }"/></a>
-                  </h2>
-
-                  <div class="meta-top">
-                    <ul>
-                   	<c:forEach var="userInfo" items="${userInfo}">
-					  <c:choose>
-					    <c:when test="${userInfo.user_num == board.user_num}">
-					  <li class="d-flex align-items-center"><i class="bi bi-person"></i>
-					  	<a href="/rc_pro/board/detail?category_id=3&region_id=${region_id}&post_id=${board.post_id}">
-						<c:out value="${userInfo.user_name }"/>
-						</a>
-					  </li>
-						</c:when>
-					  </c:choose>
+				<c:choose>                         
+				<c:when test="${not empty pagingCreator.boardList }">                               
+					<c:forEach var="board" items="${pagingCreator.boardList}">			
+						<div class="col-lg-6" style="border: 1px solid #0EA2BD; padding:5px;"><!-- Start post list item -->
+			                <article class="d-flex flex-column">
+			
+			                  <div class="post-img">
+			                  	<img src="/rc_pro/upload/${board.post_file}" alt="이미지가 없습니다" class="img-fluid" style="width:100%;">
+			                  </div>
+			
+			                  <h2 class="title">
+			                    <a href="/rc_pro/board/detail?category_id=3&region_id=${region_id}&post_id=${board.post_id}"><c:out value="${board.post_title }"/></a>
+			                  </h2>
+			
+			                  <div class="meta-top">
+			                    <ul>
+			                   	<c:forEach var="userInfo" items="${userInfo}">
+								  <c:choose>
+								    <c:when test="${userInfo.user_num == board.user_num}">
+								  <li class="d-flex align-items-center"><i class="bi bi-person"></i>
+								  	<a href="/rc_pro/board/detail?category_id=3&region_id=${region_id}&post_id=${board.post_id}">
+									<c:out value="${userInfo.user_name }"/>
+									</a>
+								  </li>
+									</c:when>
+								  </c:choose>
+								</c:forEach>
+			                      <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a href="/rc_pro/board/detail?category_id=3&region_id=${region_id}&post_id=${board.post_id}"><fmt:formatDate value="${board.post_date }" pattern="MM/dd HH:mm"/></a></li>
+			                      <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a href="/rc_pro/board/detail?category_id=3&region_id=${region_id}&post_id=${board.post_id}"><c:out value="${board.post_reply }"/></a></li>
+			                    </ul>
+			                  </div>
+			
+			                  <div class="content">
+			                    <p>
+			                      <c:out value="${board.post_content }"/>
+			                    </p>
+			                  </div>
+			
+			                  <div class="read-more mt-auto align-self-end">
+			                    <a href="/rc_pro/board/detail?category_id=3&region_id=${region_id}&post_id=${board.post_id}">Read More</a>
+			                  </div>
+			
+			                </article>
+			              </div><!-- End post list item -->
 					</c:forEach>
-                      <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a href="/rc_pro/board/detail?category_id=3&region_id=${region_id}&post_id=${board.post_id}"><fmt:formatDate value="${board.post_date }" pattern="MM/dd HH:mm"/></a></li>
-                      <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a href="/rc_pro/board/detail?category_id=3&region_id=${region_id}&post_id=${board.post_id}"><c:out value="${board.post_reply }"/></a></li>
-                    </ul>
-                  </div>
-
-                  <div class="content">
-                    <p>
-                      <c:out value="${board.post_content }"/>
-                    </p>
-                  </div>
-
-                  <div class="read-more mt-auto align-self-end">
-                    <a href="/rc_pro/board/detail?category_id=3&region_id=${region_id}&post_id=${board.post_id}">Read More</a>
-                  </div>
-
-                </article>
-              </div><!-- End post list item -->
-	</c:forEach>
-</c:when>
-<c:otherwise>
-	<div class="col-lg-6"><!-- Start post list item -->
-                <article class="d-flex flex-column">
-
-                  <div class="post-img">
-                    <img src="#main" alt="이미지가 없습니다" class="img-fluid">
-                  </div>
-
-                  <h2 class="title">
-                    <a href="#main">기사가 없습니다</a>
-                  </h2>
-
-                  <div class="meta-top">
-                    <ul>
-                      <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="#main"></a></li>
-                      <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a href="#main"></a></li>
-                      <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a href="#main"></a></li>
-                    </ul>
-                  </div>
-
-                  <div class="content">
-                    <p>
-                      기사가 없습니다
-                    </p>
-                  </div>
-
-                  <div class="read-more mt-auto align-self-end">
-                    <a href="#main">Read More</a>
-                  </div>
-
-                </article>
-              </div><!-- End post list item -->
-</c:otherwise>
-</c:choose>
+				</c:when>
+			<c:otherwise>
+				<div class="col-lg-6"><!-- Start post list item -->
+			                <article class="d-flex flex-column">
+			
+			                  <div class="post-img">
+			                    <img src="#main" alt="이미지가 없습니다" class="img-fluid">
+			                  </div>
+			
+			                  <h2 class="title">
+			                    <a href="#main">기사가 없습니다</a>
+			                  </h2>
+			
+			                  <div class="meta-top">
+			                    <ul>
+			                      <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="#main"></a></li>
+			                      <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a href="#main"></a></li>
+			                      <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a href="#main"></a></li>
+			                    </ul>
+			                  </div>
+			
+			                  <div class="content">
+			                    <p>
+			                      기사가 없습니다
+			                    </p>
+			                  </div>
+			
+			                  <div class="read-more mt-auto align-self-end">
+			                    <a href="#main">Read More</a>
+			                  </div>
+			
+			                </article>
+			              </div><!-- End post list item -->
+			</c:otherwise>
+			</c:choose>
+			<div> <!-- 새글 등록 버튼 영역 시작 -->	
+				<button type="button" id="btnToRegister" class="btn btn-primary btn-sm pull-right" style="float:right; margin-top:10px;">새글 등록</button> 
+			</div> <!-- 새글 등록 버튼 영역 끝 -->
 
 	      	<div class="blog-pagination"> <!-- 페이지 버튼 영역 시작 -->
 				<ul class="justify-content-center" >
@@ -199,43 +184,36 @@
 			  		</c:if>
 				</ul>
 			</div> <!-- 페이지 버튼 영역 끝 -->			
-			<div> <!-- 새글 등록 버튼 영역 시작 -->	
-	         <sec:authorize access="isAnonymous()">
-            	<input type="hidden" id="user_id" value=""/>
-         	</sec:authorize>
-         	<sec:authorize access="isAuthenticated()">
-         		<input type="hidden" id="user_id" value='<sec:authentication property="principal.username"/>'/>
-         	</sec:authorize>
-				<button type="button" id="btnToRegister" class="btn btn-primary btn-sm pull-right">새글 등록</button> 
-			</div> <!-- 새글 등록 버튼 영역 끝 -->
 		</div>
 		    
-    	<div class="col-lg-4">
+    	<div class="col-lg-4" style="width:100%;">
 
             <div class="sidebar" >
 			  <div class="sidebar-item search-form">
                 <h3 class="sidebar-title">Search</h3>
-                <form class="form-inline mt-3" id="frmSendValue" name="frmSendValue" action="${contextPath }/board/newslist" method="get" >
-					<div class="from-group">
-
-						<select id="selectAmount" name="rowAmountPerPage">
+                <form class="search-form" id="frmSendValue" name="frmSendValue" action="${contextPath }/board/newslist" method="get" >
+					<div class="from-group" style="display:flex;">
+						<select id="selectAmount" name="rowAmountPerPage" style="margin-right:5px;">
 							<option value="10" ${(pagingCreator.boardPaging.rowAmountPerPage == 10) ? "selected" : "" }>10개</option>
 							<option value="20" ${(pagingCreator.boardPaging.rowAmountPerPage == 20) ? "selected" : "" }>20개</option>
 							<option value="50" ${(pagingCreator.boardPaging.rowAmountPerPage == 50) ? "selected" : "" }>50개</option>
 							<option value="100" ${(pagingCreator.boardPaging.rowAmountPerPage == 100) ? "selected" : "" }>100개</option>
 						</select>
 						
-						<select id="selectScope" name="scope">
+						<select id="selectScope" name="scope" style="margin-right:5px;">
 							<option value="" ${(pagingCreator.boardPaging.scope == null ) ? "selected" : "" }>선택</option>
 							<option value="TC" ${(pagingCreator.boardPaging.scope == "TC" ) ? "selected" : "" }>제목+내용</option>
 							<option value="W" ${(pagingCreator.boardPaging.scope == "W" ) ? "selected" : "" }>작성자</option>
 						</select>
-						<div class="input-group">
-							<input class="form-control" id="keyword" name="keyword" type="text" 
-								placeholder="검색어를 입력하세요" value='<c:out value="${pagingCreator.boardPaging.keyword}" />' />
-							<span class="input-group-btn">
-			                	<button type="button" id="btnSearchGo"><i class="bi bi-search"></i></button>
-			                </span>
+						
+						<div class="form-group" style="margin-right:5px; display:flex;	"><!-- 검색어 입력 -->
+							<input class="form-control" id="beginDate" name="beginDate" type="date" value="${pagingCreator.boardPaging.beginDate}"  />
+							<input class="form-control" id="endDate" name="endDate" type="date" value="${pagingCreator.boardPaging.endDate}"  />
+						</div>
+						
+						<div class="input-group-btn" style="width:100%;">
+							<input class="form-control" id="keyword" name="keyword" type="text" placeholder="검색어를 입력하세요" value='<c:out value="${pagingCreator.boardPaging.keyword}" />' style="border: 1px solid #007bff;"/>
+			                <button type="button" id="btnSearchGo"><i class="bi bi-search"></i></button>
 						</div>
 	
 						<input type="hidden" name="category_id" value="${pagingCreator.boardPaging.category_id }" >
@@ -245,12 +223,6 @@
 						<input type="hidden" name="lastPageNum" value="${pagingCreator.lastPageNum }" >
 					</div>
 					
-					<div class="form-group"><!-- 검색어 입력 -->
-						<input class="form-control" id="beginDate" name="beginDate" type="date"
-							value="${pagingCreator.boardPaging.beginDate}"  />
-						<input class="form-control" id="endDate" name="endDate" type="date"
-							value="${pagingCreator.boardPaging.endDate}"  />
-					</div>
                 </form>
               </div><!-- End sidebar search formn-->
 
@@ -287,14 +259,19 @@ var result = '<c:out value="${result}" />' ;
 
 //등록페이지 이동
 $("#btnToRegister").on("click", function() {
-	   var user_id = document.getElementById("user_id").value;
-	   var region_id = ${region_id};
+	var userAuth = '<c:out value="${userAuth2}" />';
+	var region_id = ${region_id};
 
-	   if(user_id.length == 0){
-	      alert("글 등록은 로그인 후 가능합니다.");
-	   } else {
-		   window.location.href = "${contextPath}/board/register?category_id=${category_id}&region_id=${region_id}" ;
-	   }
+	console.log(userAuth);
+
+   if(userAuth.length == 0) {
+	   alert("글 등록은 로그인 후 가능합니다.") ;
+   }
+   if(userAuth == "generaluser") {
+	  alert("글 등록 권한이 없습니다.") ;
+   } else if((userAuth == "admin") || (userAuth == "reporter") ) {
+	   window.location.href = "${contextPath}/board/register?category_id=${category_id}&region_id=${region_id}" ;
+   } 
 });
 
 //상세페이지 이동
