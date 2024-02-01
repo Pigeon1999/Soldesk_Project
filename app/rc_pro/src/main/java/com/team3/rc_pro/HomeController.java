@@ -46,13 +46,15 @@ public class HomeController {
 		    String username = authentication.getName();
 		    
 		    UserInfoVO userAddress = userinfoMapper.selectUserInfoAddress(username);
+		    
 		    String userauthority = authentication.getAuthorities().toString();
 		    log.info("===============================================");
 		    log.info("userauthority:" + userauthority);
 		    
 		    if(userauthority.equals("[suspended]")) {
 		    	System.out.println("********************************************");
-		    	return "redirect:login?result=fail";
+		    	model.addAttribute("userauthority", "suspended");
+		    	return "redirect:main?region_id=1";
 		    }
 		    
 		    log.info(userAddress.getUser_address());

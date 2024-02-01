@@ -412,7 +412,7 @@
 		            console.log("AJAX 요청 성공");
 		            console.log(result);
 		            alert("삭제되었습니다.");
-		            window.location.href="/rc_pro/";
+		            window.location.href="/rc_pro/main?region_id=${region_id}";
 		        },
 		        error: function(xhr, status, error) {
 		            // 에러 발생 시 실행할 코드

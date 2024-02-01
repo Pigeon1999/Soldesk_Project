@@ -102,8 +102,8 @@
 	<select id="selectPromotionPost" resultType="com.team3.rc_pro.domain.PostInfoVO">
 		SELECT * 
 		FROM rc_pro.post_info
-		WHERE (category_id = 2) and (post_date BETWEEN SYSDATE - 7 AND SYSDATE) and post_hide = 0
-		ORDER BY post_view DESC
+		WHERE (category_id = 2) and (post_date BETWEEN SYSDATE - 7 AND SYSDATE) and (post_hide = 0)
+		ORDER BY post_view DESC, post_id 
 	</select>
 	
 	<select id="selectNewsPost" resultType="com.team3.rc_pro.domain.PostInfoVO">

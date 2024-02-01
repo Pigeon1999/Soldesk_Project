@@ -1,4 +1,4 @@
--- ?ï¿½ï¿½?? rc_pro ?ï¿½ï¿½?ï¿½ï¿½ ï¿?? ê¶Œí•œ ?ï¿½ï¿½?ï¿½ï¿½
+-- ?ï¿½ï¿½?? rc_pro ?ï¿½ï¿½?ï¿½ï¿½ ï¿½?? ê¶Œí•œ ?ï¿½ï¿½?ï¿½ï¿½
 CREATE USER rc_pro 
 IDENTIFIED BY rc_pro 
 DEFAULT TABLESPACE users 
@@ -9,7 +9,7 @@ GRANT CREATE SESSION, CREATE TABLE, CREATE SEQUENCE, CREATE PROCEDURE,
  CREATE TRIGGER, CREATE VIEW, CREATE SYNONYM, ALTER SESSION
 TO rc_pro;
 
--- ?ï¿½ï¿½???ï¿½ï¿½ ?ï¿½ï¿½?ï¿½ï¿½ : PK ë²ˆí˜¸ï¿?? ?ï¿½ï¿½?ï¿½ï¿½??ï¿?? ì£¼ê²Œ ?ï¿½ï¿½ï¿?? ?ï¿½ï¿½?ï¿½ï¿½
+-- ?ï¿½ï¿½???ï¿½ï¿½ ?ï¿½ï¿½?ï¿½ï¿½ : PK ë²ˆí˜¸ï¿½?? ?ï¿½ï¿½?ï¿½ï¿½??ï¿½?? ì£¼ê²Œ ?ï¿½ï¿½ï¿½?? ?ï¿½ï¿½?ï¿½ï¿½
 CREATE SEQUENCE rc_pro.seq_userno;
 CREATE SEQUENCE rc_pro.seq_postid;
 CREATE SEQUENCE rc_pro.seq_replyid;
@@ -17,7 +17,7 @@ CREATE SEQUENCE rc_pro.seq_replyid;
 DROP SEQUENCE rc_pro.seq_userno;
 DROP SEQUENCE rc_pro.seq_postid;
 DROP SEQUENCE rc_pro.seq_replyid;
--- ?ï¿½ï¿½?ï¿½ï¿½ï¿?? ?ï¿½ï¿½?ï¿½ï¿½ 
+-- ?ï¿½ï¿½?ï¿½ï¿½ï¿½?? ?ï¿½ï¿½?ï¿½ï¿½ 
 
 -- 1. user_info
 CREATE TABLE rc_pro.user_info(
@@ -76,7 +76,7 @@ user_num NUMBER(10,0) NOT NULL,
 post_title VARCHAR2(100) NOT NULL,
 post_content VARCHAR2(500) NOT NULL,
 post_date DATE DEFAULT sysdate, 
-post_view NUMBER(10,0) DEFAULT 0 NOT NULL,  -- ?ï¿½ï¿½?ï¿½ï¿½
+post_view NUMBER(10,0) DEFAULT 1 NOT NULL,  -- ?ï¿½ï¿½?ï¿½ï¿½
 post_like NUMBER(10,0) DEFAULT 0 NOT NULL, -- ?ï¿½ï¿½?ï¿½ï¿½
 post_reply NUMBER(10,0) DEFAULT 0 NOT NULL, -- ?ï¿½ï¿½?ï¿½ï¿½
 post_hide NUMBER(1,0) DEFAULT 0 CHECK(post_hide IN (0, 1)) NOT NULL , -- ?ï¿½ï¿½?ï¿½ï¿½
@@ -176,7 +176,7 @@ token VARCHAR2(64) NOT NULL,
 last_used TIMESTAMP(0) NOT NULL
 ) TABLESPACE users;
 
--- ?ï¿½ï¿½?ï¿½ï¿½ï¿?? ï¿?? ?ï¿½ï¿½?ï¿½ï¿½ 
+-- ?ï¿½ï¿½?ï¿½ï¿½ï¿½?? ï¿½?? ?ï¿½ï¿½?ï¿½ï¿½ 
 
 -- region_info
 INSERT INTO rc_pro.region_info 
@@ -213,7 +213,7 @@ VALUES(2, ' È«ï¿½ï¿½ï¿½Ô½ï¿½ï¿½ï¿½', 'generaluser');
 INSERT INTO rc_pro.category_info
 VALUES(3, 'ï¿½ï¿½ï¿½ï¿½', 'reporter');
 
--- ?ï¿½ï¿½?ï¿½ï¿½ï¿?? ?ï¿½ï¿½ï¿?? 
+-- ?ï¿½ï¿½?ï¿½ï¿½ï¿½?? ?ï¿½ï¿½ï¿½?? 
 DROP TABLE user_info CASCADE CONSTRAINTS;
 DROP TABLE authority_info CASCADE CONSTRAINTS;
 DROP TABLE category_info CASCADE CONSTRAINTS;
@@ -238,5 +238,27 @@ SELECT * FROM authority_info;
 UPDATE authority_info
 SET user_authority = 'admin'
 WHERE user_id = 'admin9999';
+
+SELECT * 
+FROM rc_pro.post_info
+WHERE ROWNUM <= 5;
+
+SELECT *
+FROM (
+  SELECT *
+  FROM rc_pro.post_info
+  WHERE (category_id = 1) and (post_date BETWEEN SYSDATE - 7 AND SYSDATE) and post_hide = 0
+  ORDER BY post_view DESC
+)
+WHERE ROWNUM <= 5;
+
+
+SELECT * 
+FROM rc_pro.post_info
+WHERE (category_id = 3) and (post_date BETWEEN SYSDATE - 7 AND SYSDATE) and post_hide = 1;
+ORDER BY post_view DESC;
+
+ALTER TABLE rc_pro.post_info
+MODIFY (post_view DEFAULT 1);
 
 COMMIT;

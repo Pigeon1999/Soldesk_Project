@@ -180,16 +180,17 @@
 							<input type="hidden" name="rowAmountPerPage" value="${pagingCreator.boardPaging.rowAmountPerPage }" >
 							<input type="hidden" name="lastPageNum" value="${pagingCreator.lastPageNum }" >
 						
-							
 							<div class="col" style="display:flex; margin-right:5px;"><!-- 검색어 입력 -->
 								<input class="form-control" id="beginDate" name="beginDate" type="date" value="${pagingCreator.boardPaging.beginDate}"  >
 								<input class="form-control" id="endDate" name="endDate" type="date" value="${pagingCreator.boardPaging.endDate}"  >
 							</div>
-							
-							<div class="input-group" style="width:100%;">
-								<input class="form-control" id="keyword" name="keyword" type="text" placeholder="검색어를 입력하세요" value='<c:out value="${pagingCreator.boardPaging.keyword}" />' >
+						
+							<div class="input-group-btn" style="width:100%;">
+								<input class="form-control" id="keyword" name="keyword" type="text" placeholder="검색어를 입력하세요" value='<c:out value="${pagingCreator.boardPaging.keyword}" />' style="border: 1px solid #007bff;" >
 				                <button type="button" id="btnSearchGo"><i class="bi bi-search"></i></button>
 							</div>
+					
+						
 						</div>
 	                </form>
 	              </div><!-- End sidebar search formn-->

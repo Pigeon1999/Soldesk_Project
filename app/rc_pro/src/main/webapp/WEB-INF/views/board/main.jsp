@@ -159,20 +159,24 @@
 						</tr>
 					</thead>
  					<tbody>
- 					<c:forEach items="${freePost}" var="FreePost">
- 						<c:if test="${FreePost.post_hide == 0 and FreePost.region_id == region_id and FreePost.category_id == 1}">
- 							<tr>
-								<td style="text-align:left;">
-									<a href="/rc_pro/board/detail?category_id=1&region_id=${region_id}&post_id=${FreePost.post_id}">
-									    <c:out value="${FreePost.post_title}" />
-									    <span style="float:right;">
-									        <fmt:formatDate pattern="MM/dd hh:mm" value="${FreePost.post_date}" />
-									    </span>
-									</a>
-								</td>
- 							</tr>
- 						</c:if>
- 					</c:forEach>
+						<c:set var="count" value="0" />
+						<c:forEach items="${freePost}" var="FreePost">
+						    <c:if test="${FreePost.region_id == region_id}">
+						        <c:if test="${count < 5}">
+						            <tr>
+						                <td style="text-align:left;">
+						                    <a href="/rc_pro/board/detail?category_id=1&region_id=${region_id}&post_id=${FreePost.post_id}">
+						                        <c:out value="${FreePost.post_title}" />
+						                        <span style="float:right;">
+						                            <fmt:formatDate pattern="MM/dd hh:mm" value="${FreePost.post_date}" />
+						                        </span>
+						                    </a>
+						                </td>
+						            </tr>
+						            <c:set var="count" value="${count + 1}" />
+						        </c:if>
+						    </c:if>
+						</c:forEach>
  					</tbody>
 				</table>	  			
 	  		</div>
@@ -193,20 +197,24 @@
 						</tr>
 					</thead>
  					<tbody>
- 					<c:forEach items="${promotionPost}" var="PromotionPost">
- 						<c:if test="${PromotionPost.post_hide == 0 and PromotionPost.region_id == region_id and PromotionPost.category_id == 2}">
- 							<tr>
-								<td style="text-align:left;">
-									<a href="/rc_pro/board/detail?category_id=2&region_id=${region_id}&post_id=${PromotionPost.post_id}">
-									    <c:out value="${PromotionPost.post_title}" />
-									    <span style="float:right;">
-									        <fmt:formatDate pattern="MM/dd hh:mm" value="${PromotionPost.post_date}" />
-									    </span>
-									</a>
-								</td>
- 							</tr>
- 						</c:if>
- 					</c:forEach>
+						<c:set var="count" value="0" />
+						<c:forEach items="${promotionPost}" var="PromotionPost">
+						    <c:if test="${PromotionPost.region_id == region_id}">
+						        <c:if test="${count < 5}">
+						            <tr>
+						                <td style="text-align:left;">
+						                    <a href="/rc_pro/board/detail?category_id=2&region_id=${region_id}&post_id=${PromotionPost.post_id}">
+						                        <c:out value="${PromotionPost.post_title}" />
+						                        <span style="float:right;">
+						                            <fmt:formatDate pattern="MM/dd hh:mm" value="${PromotionPost.post_date}" />
+						                        </span>
+						                    </a>
+						                </td>
+						            </tr>
+						            <c:set var="count" value="${count + 1}" />
+						        </c:if>
+						    </c:if>
+						</c:forEach>
  					</tbody>
 				</table>
 				
@@ -229,26 +237,30 @@
 						</tr>
 					</thead>
  					<tbody>
-	 					<c:forEach items="${newsPost}" var="NewsPost">
-							<c:if test="${NewsPost.post_hide == 0 and NewsPost.region_id == region_id and NewsPost.category_id == 3}">
-							    <tr>
-							        <td style="text-align:left;">
-							            <a href="/rc_pro/board/detail?category_id=3&region_id=${region_id}&post_id=${NewsPost.post_id}">
-							                <img src="/rc_pro/upload/${NewsPost.post_file}" id="img" style="width:15%;">
-							                <span style="display: inline-block; vertical-align: top; margin-left: 10px; width: calc(100% - 120px); width:75%;">
-							                    <span style="font-size: 16px; font-weight: bold;">
-							                        <c:out value="${NewsPost.post_title}" />
-							                    </span><br><br>
-							                    <c:out value="${NewsPost.post_content}" />
-							                </span>
-							                <span style="float:right; text-align: right; width: 10%;">
-							                    <fmt:formatDate pattern="MM/dd hh:mm" value="${NewsPost.post_date}"/>
-							                </span>
-							            </a>
-							        </td>
-							    </tr>	
-							</c:if>
-	 					</c:forEach>
+						<c:set var="count" value="0" />
+						<c:forEach items="${newsPost}" var="NewsPost">
+						    <c:if test="${NewsPost.region_id == region_id}">
+						        <c:if test="${count < 5}">
+						            <tr>
+						                <td style="text-align:left;">
+						                    <a href="/rc_pro/board/detail?category_id=3&region_id=${region_id}&post_id=${NewsPost.post_id}">
+						                        <img src="/rc_pro/upload/${NewsPost.post_file}" id="img" style="width:15%;">
+						                        <span style="display: inline-block; vertical-align: top; margin-left: 10px; width: calc(100% - 120px); width:75%;">
+						                            <span style="font-size: 16px; font-weight: bold;">
+						                                <c:out value="${NewsPost.post_title}" />
+						                            </span><br><br>
+						                            <c:out value="${NewsPost.post_content}" />
+						                        </span>
+						                        <span style="float:right; text-align: right; width: 10%;">
+						                            <fmt:formatDate pattern="MM/dd hh:mm" value="${NewsPost.post_date}"/>
+						                        </span>
+						                    </a>
+						                </td>
+						            </tr>
+						            <c:set var="count" value="${count + 1}" />
+						        </c:if>
+						    </c:if>
+						</c:forEach>
  					</tbody>
 				</table>
 	  	</div>
@@ -360,7 +372,16 @@
 		xhr.setRequestHeader(myCsrfHeaderName, myCsrfToken) ;
 			
 	});
-
+	
+	var userauthority = '<c:out value="${param.userauthority}"/>';
+	if(userauthority == ("userauthority")){
+		alert("정지된 계정입니다.");
+		$.ajax({
+			type : "post",
+			url : "/rc_pro/logout",
+		});
+		window.location.href="/rc_pro/";
+	}
 	$("#mypagebtn").on("click",function(){
 		var user_id= document.getElementById("user_id").value;
 		window.location.href="/rc_pro/myinfo?user_id="+user_id +"&sortmenu=post_date";

@@ -72,14 +72,6 @@
 				
 		});
 	
-		var result = '<c:out value="${param.result}"/>';
-		if(result == ("fail")){
-			alert("정지된 계정입니다.");
-			$.ajax({
-				type : "post",
-				url : "/rc_pro/logout",
-			});		
-		}
 		
 		$("#signupbtn").on("click",function(){
 			window.location.href="/rc_pro/signin";
