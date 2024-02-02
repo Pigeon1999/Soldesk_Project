@@ -116,7 +116,7 @@
 				    <form id="logoutForm" role="form" action="${contextPath}/logout" method="post" style="padding-right: 10px;">
 				        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 				        <fieldset>
-				            <button onclick="document.getElementById('logoutForm').submit(); return false;" class="btn-getstarted scrollto">Logout</button>
+				            <button onclick="document.getElementById('logoutForm').submit(); return false;" class="btn-getstarted scrollto" style="margin-right:3px;">Logout</button>
 				        </fieldset>
 				    </form>
 				    <input type="hidden" id="user_id" value='<sec:authentication property="principal.username"/>'/>
@@ -125,7 +125,7 @@
 			</sec:authorize>
 			
 			<sec:authorize access="isAnonymous()">
-		      	<a class="btn-getstarted scrollto" href="/rc_pro/login">Login</a>
+		      	<a class="btn-getstarted scrollto" href="/rc_pro/login" style="margin-right:3px;">Login</a>
 		      	<a class="btn-getstarted scrollto" href="/rc_pro/signin">Sign In</a>
 		    </sec:authorize>
 		  </div>
@@ -365,23 +365,13 @@
 	}
 </style>
 <script>
-
-	var myCsrfHeaderName = "${_csrf.headerName}" ;
-	var myCsrfToken = "${_csrf.token}" ;
-	$(document).ajaxSend(function(e, xhr){
-		xhr.setRequestHeader(myCsrfHeaderName, myCsrfToken) ;
-			
-	});
 	
-	var userauthority = '<c:out value="${param.userauthority}"/>';
-	if(userauthority == ("userauthority")){
+	var userauthority = '<c:out value="${param.userauthority}"/>';	
+	if(userauthority == ("suspended")){
 		alert("정지된 계정입니다.");
-		$.ajax({
-			type : "post",
-			url : "/rc_pro/logout",
-		});
-		window.location.href="/rc_pro/";
+		document.getElementById('logoutForm').submit();
 	}
+	
 	$("#mypagebtn").on("click",function(){
 		var user_id= document.getElementById("user_id").value;
 		window.location.href="/rc_pro/myinfo?user_id="+user_id +"&sortmenu=post_date";
