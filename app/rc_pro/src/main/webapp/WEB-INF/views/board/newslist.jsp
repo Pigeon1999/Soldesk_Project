@@ -92,7 +92,7 @@
 			                    </ul>
 			                  </div>
 			
-			                  <div class="content">
+			                  <div class="content" id="newscontent">
 			                    <p>
 			                      <c:out value="${board.post_content }"/>
 			                    </p>
@@ -235,7 +235,6 @@
 
     
   </main><!-- End #main -->
-  
 
 <%-- Modal --%>
 <div class="modal fade" id="yourModal" tabindex="-1" role="dialog" aria-labelledby="yourModalLabel" aria-hidden="true">
@@ -252,7 +251,15 @@
         </div><%-- /.modal-content --%>
    </div><%-- /.modal-dialog --%>
 </div><%-- /.modal --%>
-
+<style>
+#newscontent{
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;
+}
+</style>
 <script>
 var frmSendValue = $("#frmSendValue") ;
 var result = '<c:out value="${result}" />' ;
