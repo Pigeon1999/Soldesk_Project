@@ -263,14 +263,9 @@
 		
 		function checkpw(user_passwd){
 			var myresult;
-			var exppassword = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{9,16}$/;
 			var user_id = "${userinfo.user_id }";
 			
 //			alert("user_id : " + user_id);
-			if(!exppassword.test(user_passwd)){
-				alert("비밀번호를 확인해주세요.");
-				return false;
-			}
 			
 			$.ajax({
 				url : "/rc_pro/pwcheck",

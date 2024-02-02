@@ -273,4 +273,7 @@ ORDER BY post_view DESC;
 ALTER TABLE rc_pro.post_info
 MODIFY (post_view DEFAULT 1);
 
+ALTER TABLE rc_pro.post_info
+MODIFY (post_content VARCHAR2(4000));
+
 COMMIT;

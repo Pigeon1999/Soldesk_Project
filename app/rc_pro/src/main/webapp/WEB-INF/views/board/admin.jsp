@@ -91,7 +91,7 @@
 			    <form id="logoutForm" role="form" action="${contextPath}/main" method="post" style="padding-right: 10px;">
 			    	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" >
 			    	<fieldset>
-			        	<button onclick="document.getElementById('logoutForm').submit(); return false;" class="btn-getstarted scrollto">Logout</button>
+			        	<button onclick="document.getElementById('logoutForm').submit(); return false;" class="btn-getstarted scrollto" style="margin-right:3px;">Logout</button>
 			        </fieldset>
 			    </form>
 			    <input type="hidden" id="user_id" value='<sec:authentication property="principal.username"/>'/>
@@ -102,7 +102,7 @@
 		</sec:authorize>
 			
 		<sec:authorize access="isAnonymous()">
-	      	<a class="btn-getstarted scrollto" href="/rc_pro/login">Login</a>
+	      	<a class="btn-getstarted scrollto" href="/rc_pro/login" style="margin-right:3px;">Login</a>
 	      	<a class="btn-getstarted scrollto" href="/rc_pro/signin">Sign In</a>
 	    </sec:authorize>
 		</div><!-- 로그인 로그아웃 버튼 구역 끝 -->

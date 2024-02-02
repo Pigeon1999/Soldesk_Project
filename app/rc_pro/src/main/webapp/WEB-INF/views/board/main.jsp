@@ -43,7 +43,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 
-<body>
+<body id="main">
 
   <header>
 	  <div id="header" class="header fixed-top" data-scrollto-offset="0">
