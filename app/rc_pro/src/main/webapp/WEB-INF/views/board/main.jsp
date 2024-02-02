@@ -242,14 +242,16 @@
 						    <c:if test="${NewsPost.region_id == region_id}">
 						        <c:if test="${count < 5}">
 						            <tr>
-						                <td style="text-align:left;">
+						                <td style="text-align:left;border-bottom: 1px solid #73685D;">
 						                    <a href="/rc_pro/board/detail?category_id=3&region_id=${region_id}&post_id=${NewsPost.post_id}">
 						                        <img src="/rc_pro/upload/${NewsPost.post_file}" id="img" style="width:15%;">
 						                        <span style="display: inline-block; vertical-align: top; margin-left: 10px; width: calc(100% - 120px); width:75%;">
 						                            <span style="font-size: 16px; font-weight: bold;">
 						                                <c:out value="${NewsPost.post_title}" />
 						                            </span><br><br>
-						                            <c:out value="${NewsPost.post_content}" />
+						                            <div id="newscontent">
+						                            	<c:out value="${NewsPost.post_content}"/>
+						                            </div>
 						                        </span>
 						                        <span style="float:right; text-align: right; width: 10%;">
 						                            <fmt:formatDate pattern="MM/dd hh:mm" value="${NewsPost.post_date}"/>
@@ -362,6 +364,14 @@
 		    border-bottom: 1px solid #e5e5e5;
 		}
 		
+	}
+	
+	#newscontent{
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 4;
+	-webkit-box-orient: vertical;
 	}
 </style>
 <script>
